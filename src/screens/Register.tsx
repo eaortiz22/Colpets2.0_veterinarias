@@ -17,9 +17,9 @@ import TextSmall from "../components/TextSmall";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { spacing } from "../styles/theme";
 import { useNavigation } from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../navigation/AppNavigator";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -28,9 +28,57 @@ type RegisterScreenNavigationProp = StackNavigationProp<
 
 const Register = () => {
   const { theme } = useTheme();
+  const navigation = useNavigation<RegisterScreenNavigationProp>();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isSecure, setIsSecure] = useState(true);
   const [isSecureConfirm, setIsSecureConfirm] = useState(true);
-  const navigation = useNavigation<RegisterScreenNavigationProp>();
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { email: "", password: "", confirmPassword: "" };
+
+    if (!email) {
+      newErrors.email = "El correo es obligatorio";
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "El correo no es válido";
+      valid = false;
+    }
+
+    if (!password) {
+      newErrors.password = "La contraseña es obligatoria";
+      valid = false;
+    } else if (password.length < 6) {
+      newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+      valid = false;
+    }
+
+    if (!confirmPassword) {
+      newErrors.confirmPassword = "Debes confirmar tu contraseña";
+      valid = false;
+    } else if (password !== confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleRegister = () => {
+    if (validateForm()) {
+      console.log("Registro exitoso con:", { email, password });
+    }
+  };
 
   return (
     <SafeAreaProvider style={[{ backgroundColor: theme.colors.background }]}>
@@ -62,6 +110,9 @@ const Register = () => {
                   textContentType="emailAddress"
                   keyboardType="email-address"
                   leftIcon={<MaterialIcons name="email" />}
+                  value={email}
+                  onChangeText={setEmail}
+                  errorMessage={errors.email}
                 />
                 <Input
                   label="Contraseña"
@@ -76,6 +127,9 @@ const Register = () => {
                     />
                   }
                   onRightIconPress={() => setIsSecure(!isSecure)}
+                  value={password}
+                  onChangeText={setPassword}
+                  errorMessage={errors.password}
                 />
                 <Input
                   label="Confirmar Contraseña"
@@ -90,28 +144,31 @@ const Register = () => {
                     />
                   }
                   onRightIconPress={() => setIsSecureConfirm(!isSecureConfirm)}
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                  errorMessage={errors.confirmPassword}
                 />
               </View>
               <Button
                 title="Registrarse"
-                onPress={() => console.log("Registro exitoso")}
+                onPress={handleRegister}
                 type="primary"
               />
             </View>
           </TouchableWithoutFeedback>
         </KeyboardAwareScrollView>
-              <TextSmall style={{ alignSelf: "center" }}>
-                ¿Ya tienes cuenta?{" "}
-                <Text
-                  onPress={() => navigation.goBack()}
-                  style={{
-                    color: theme.colors.link,
-                    textDecorationLine: "underline",
-                  }}
-                >
-                  Inicia sesión aquí
-                </Text>
-              </TextSmall>
+        <TextSmall style={{ alignSelf: "center" }}>
+          ¿Ya tienes cuenta?{" "}
+          <Text
+            onPress={() => navigation.goBack()}
+            style={{
+              color: theme.colors.link,
+              textDecorationLine: "underline",
+            }}
+          >
+            Inicia sesión aquí
+          </Text>
+        </TextSmall>
       </SafeAreaView>
     </SafeAreaProvider>
   );

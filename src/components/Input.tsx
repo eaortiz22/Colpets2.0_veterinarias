@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useTheme } from "../context/ThemeContext";
 import { spacing, fontSizes } from "../styles/theme";
-import { MaterialIcons } from "@expo/vector-icons"; // Asegúrate de importar los íconos correctamente
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -30,11 +29,11 @@ const Input: React.FC<InputProps> = ({
   ...props
 }) => {
   const { theme } = useTheme();
-  const [isSecure, setIsSecure] = useState(initialSecureTextEntry); // Mantén el estado del secureTextEntry
+  const [isSecure, setIsSecure] = useState(initialSecureTextEntry);
 
   const handleRightIconPress = () => {
-    setIsSecure(!isSecure); // Cambia el estado de secureTextEntry
-    if (onRightIconPress) onRightIconPress(); // Llama la función si se pasó
+    setIsSecure(!isSecure);
+    if (onRightIconPress) onRightIconPress();
   };
 
   return (
@@ -61,7 +60,7 @@ const Input: React.FC<InputProps> = ({
             { color: theme.colors.placeholder, fontSize: fontSizes.small },
             style,
           ]}
-          secureTextEntry={isSecure} // Usa el estado isSecure para controlar esto
+          secureTextEntry={isSecure}
           placeholderTextColor={theme.colors.placeholder}
           {...props}
         />
@@ -77,7 +76,11 @@ const Input: React.FC<InputProps> = ({
           </TouchableOpacity>
         )}
       </View>
-      {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
+      {errorMessage && (
+        <Text style={[styles.error, { color: theme.colors.error }]}>
+          {errorMessage}
+        </Text>
+      )}
     </View>
   );
 };
@@ -110,7 +113,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.small,
   },
   error: {
-    color: "red",
     fontSize: fontSizes.small,
     marginTop: spacing.small,
   },

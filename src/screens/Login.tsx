@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  Platform,
-} from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useTheme } from "../context/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
@@ -29,7 +22,33 @@ type LoginScreenNavigationProp = StackNavigationProp<
 const Login: React.FC = () => {
   const { theme } = useTheme();
   const [isSecure, setIsSecure] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const navigation = useNavigation<LoginScreenNavigationProp>();
+
+  const handleLogin = () => {
+    let valid = true;
+
+    if (!email) {
+      setEmailError("El correo electrónico es obligatorio.");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (!password) {
+      setPasswordError("La contraseña es obligatoria.");
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    if (valid) {
+      console.log("Datos validados. Iniciar sesión...");
+    }
+  };
 
   return (
     <SafeAreaProvider style={[{ backgroundColor: theme.colors.background }]}>
@@ -51,14 +70,19 @@ const Login: React.FC = () => {
                 <Input
                   label="Correo electrónico"
                   placeholder="Ingrese su correo"
+                  value={email}
+                  onChangeText={setEmail}
                   autoComplete="email"
                   textContentType="emailAddress"
                   keyboardType="email-address"
                   leftIcon={<MaterialIcons name="email" />}
+                  errorMessage={emailError}
                 />
                 <Input
                   label="Contraseña"
                   placeholder="Ingrese su contraseña"
+                  value={password}
+                  onChangeText={setPassword}
                   autoComplete="password"
                   textContentType="password"
                   secureTextEntry={isSecure}
@@ -69,25 +93,11 @@ const Login: React.FC = () => {
                     />
                   }
                   onRightIconPress={() => setIsSecure(!isSecure)}
+                  errorMessage={passwordError}
                 />
               </View>
-              <TextSmall style={{ alignSelf: "flex-start" }}>
-                ¿Olvidaste tu contraseña?{" "}
-                <Text
-                  style={{
-                    color: theme.colors.link,
-                    textDecorationLine: "underline",
-                  }}
-                >
-                  Recupérala aquí
-                </Text>
-              </TextSmall>
 
-              <Button
-                title="Ingresar"
-                onPress={() => console.log("si")}
-                type="primary"
-              />
+              <Button title="Ingresar" onPress={handleLogin} type="primary" />
             </View>
           </KeyboardAwareScrollView>
 

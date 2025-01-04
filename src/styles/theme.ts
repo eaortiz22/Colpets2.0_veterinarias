@@ -7,6 +7,7 @@ export const lightTheme = {
     link: "#1E90FF",
     inputBg: "transparent",
     placeholder: "#000000",
+    error: "#D32F2F",
   },
 };
 
@@ -19,6 +20,7 @@ export const darkTheme = {
     link: "#4A90E2",
     inputBg: "transparent",
     placeholder: "#ffffff",
+    error: "#FF6B6B",
   },
 };
 
