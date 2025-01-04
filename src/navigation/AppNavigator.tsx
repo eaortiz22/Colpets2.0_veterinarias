@@ -4,9 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useTheme } from "../context/ThemeContext";
 import Register from "../screens/Register";
 import Login from "../screens/Login";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet } from "react-native";
-import { spacing } from "../styles/theme";
+import { StatusBar } from "expo-status-bar";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -16,6 +14,8 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
+  const { isDarkTheme } = useTheme();
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
@@ -23,17 +23,18 @@ const AppNavigator: React.FC = () => {
           name="Login"
           component={Login}
           options={{
-            headerShown: false, // Esto ocultará el encabezado de la pantalla Login
+            headerShown: false,
           }}
         />
         <Stack.Screen
           name="Register"
           component={Register}
           options={{
-            headerShown: false, // Esto ocultará el encabezado de la pantalla Register
+            headerShown: false,
           }}
         />
       </Stack.Navigator>
+      <StatusBar style={isDarkTheme ? "light" : "dark"} />
     </NavigationContainer>
   );
 };

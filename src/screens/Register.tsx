@@ -117,8 +117,9 @@ const Register = () => {
                 <Input
                   label="Contraseña"
                   placeholder="Ingrese su contraseña"
+                  value={password}
                   autoComplete="password"
-                  textContentType="password"
+                  textContentType="oneTimeCode"
                   secureTextEntry={isSecure}
                   leftIcon={<MaterialIcons name="lock" />}
                   rightIcon={
@@ -127,15 +128,14 @@ const Register = () => {
                     />
                   }
                   onRightIconPress={() => setIsSecure(!isSecure)}
-                  value={password}
                   onChangeText={setPassword}
                   errorMessage={errors.password}
                 />
                 <Input
                   label="Confirmar Contraseña"
                   placeholder="Confirme su contraseña"
-                  autoComplete="password"
-                  textContentType="password"
+                  autoComplete="off"
+                  textContentType="oneTimeCode"
                   secureTextEntry={isSecureConfirm}
                   leftIcon={<MaterialIcons name="lock" />}
                   rightIcon={

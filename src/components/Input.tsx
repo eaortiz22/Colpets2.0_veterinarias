@@ -24,15 +24,20 @@ const Input: React.FC<InputProps> = ({
   leftIcon,
   rightIcon,
   onRightIconPress,
-  secureTextEntry: initialSecureTextEntry = false,
   style,
   ...props
 }) => {
   const { theme } = useTheme();
-  const [isSecure, setIsSecure] = useState(initialSecureTextEntry);
+  const [text, setText] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const handleRightIconPress = () => {
-    setIsSecure(!isSecure);
+  const handleTextChange = (value: string) => {
+    setText(value);
+    if (props.onChangeText) props.onChangeText(value);
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
     if (onRightIconPress) onRightIconPress();
   };
 
@@ -60,13 +65,15 @@ const Input: React.FC<InputProps> = ({
             { color: theme.colors.placeholder, fontSize: fontSizes.small },
             style,
           ]}
-          secureTextEntry={isSecure}
+          value={isPasswordVisible ? text : "●".repeat(text.length)}
+          onChangeText={handleTextChange}
           placeholderTextColor={theme.colors.placeholder}
+          editable
           {...props}
         />
         {rightIcon && (
           <TouchableOpacity
-            onPress={handleRightIconPress}
+            onPress={togglePasswordVisibility}
             style={styles.iconWrapper}
           >
             {React.cloneElement(rightIcon as React.ReactElement, {
@@ -111,6 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     paddingHorizontal: spacing.small,
+    backgroundColor: "transparent",
   },
   error: {
     fontSize: fontSizes.small,

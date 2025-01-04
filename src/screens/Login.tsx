@@ -82,7 +82,6 @@ const Login: React.FC = () => {
                   label="Contraseña"
                   placeholder="Ingrese su contraseña"
                   value={password}
-                  onChangeText={setPassword}
                   autoComplete="password"
                   textContentType="password"
                   secureTextEntry={isSecure}
@@ -93,6 +92,7 @@ const Login: React.FC = () => {
                     />
                   }
                   onRightIconPress={() => setIsSecure(!isSecure)}
+                  onChangeText={setPassword}
                   errorMessage={passwordError}
                 />
               </View>
