@@ -19,7 +19,11 @@ type LoginScreenNavigationProp = StackNavigationProp<
   "Login"
 >;
 
-const Login: React.FC = () => {
+interface LoginProps {
+  setIsLoggedIn: (value: boolean) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
   const { theme } = useTheme();
   const [isSecure, setIsSecure] = useState(true);
   const [email, setEmail] = useState("");
@@ -47,6 +51,7 @@ const Login: React.FC = () => {
 
     if (valid) {
       console.log("Datos validados. Iniciar sesión...");
+      setIsLoggedIn(true);
     }
   };
 
@@ -95,8 +100,19 @@ const Login: React.FC = () => {
                   onChangeText={setPassword}
                   errorMessage={passwordError}
                 />
+                <TextSmall>
+                  ¿Olvidaste tu contraseña?{" "}
+                  <Text
+                    onPress={() => navigation.navigate("ResetPassword")}
+                    style={{
+                      color: theme.colors.link,
+                      textDecorationLine: "underline",
+                    }}
+                  >
+                    Recupérala aquí
+                  </Text>
+                </TextSmall>
               </View>
-
               <Button title="Ingresar" onPress={handleLogin} type="primary" />
             </View>
           </KeyboardAwareScrollView>
@@ -119,7 +135,7 @@ const Login: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   formContainer: {
     width: "100%",
     gap: 20,

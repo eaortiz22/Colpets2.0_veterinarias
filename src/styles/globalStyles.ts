@@ -1,7 +1,10 @@
 import { StyleSheet } from "react-native";
 import { fontSizes } from "./theme";
 
-export const getGlobalStyles = (theme: { colors: { [key: string]: string } }) =>
+export const getGlobalStyles = (
+  theme: { colors: { [key: string]: string } },
+  isDarkTheme?: boolean
+) =>
   StyleSheet.create({
     button: {
       paddingVertical: 16,
@@ -15,12 +18,20 @@ export const getGlobalStyles = (theme: { colors: { [key: string]: string } }) =>
       backgroundColor: theme.colors.primary,
     },
     buttonSecondary: {
-      backgroundColor: theme.colors.secondary,
+      backgroundColor: "transparent",
+      borderColor: isDarkTheme ? "#ac9cb7" : theme.colors.primary,
+      borderWidth: 2,
+      paddingVertical: 14,
     },
-    buttonText: {
+    buttonTextPrimary: {
       fontSize: 16,
       fontWeight: "bold",
-      color: theme.colors.background,
+      color: "white",
+    },
+    buttonTextSecondary: {
+      color: isDarkTheme ? "#ac9cb7" : theme.colors.primary,
+      fontSize: 16,
+      fontWeight: "bold",
     },
     filterContainer: {
       flexDirection: "row",

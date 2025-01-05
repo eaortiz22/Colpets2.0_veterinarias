@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   error: {
-    fontSize: fontSizes.small,
+    fontSize: 12,
     marginTop: spacing.small,
   },
 });

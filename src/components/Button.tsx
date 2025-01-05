@@ -16,20 +16,25 @@ const Button: React.FC<ButtonProps> = ({
   type = "primary",
   style,
 }) => {
-  const { theme } = useTheme();
-  const globalStyles = getGlobalStyles(theme);
+  const { theme, isDarkTheme } = useTheme();
+  const globalStyles = getGlobalStyles(theme, isDarkTheme);
 
   const buttonStyle =
     type === "primary"
       ? globalStyles.buttonPrimary
       : globalStyles.buttonSecondary;
 
+  const textStyle =
+    type === "primary"
+      ? globalStyles.buttonTextPrimary
+      : globalStyles.buttonTextSecondary;
+
   return (
     <TouchableOpacity
       style={[globalStyles.button, buttonStyle, style]}
       onPress={onPress}
     >
-      <Text style={globalStyles.buttonText}>{title}</Text>
+      <Text style={[textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 };
