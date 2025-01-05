@@ -34,7 +34,7 @@ const AppNavigator: React.FC = () => {
           }}
         />
       </Stack.Navigator>
-      <StatusBar style={isDarkTheme ? "light" : "dark"} />
+      <StatusBar style={isDarkTheme ? "light" : "dark"} animated={true} />
     </NavigationContainer>
   );
 };
