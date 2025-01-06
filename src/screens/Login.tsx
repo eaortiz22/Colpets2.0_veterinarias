@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Platform } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useTheme } from "../context/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../navigation/AppNavigator";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAvoidingView } from "react-native";
 import TextTitle from "../components/TextTitle";
 import TextMedium from "../components/TextMedium";
 import Input from "../components/Input";
@@ -56,13 +57,12 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <SafeAreaProvider style={[{ backgroundColor: theme.colors.background }]}>
-      <SafeAreaView style={[styles.container]}>
-        <View style={{ flex: 1 }}>
-          <KeyboardAwareScrollView
-            style={{ flex: 1, width: "100%" }}
-            contentContainerStyle={{ flexGrow: 1 }}
-          >
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={{ flex: 1, justifyContent: "space-between", gap: 20 }}>
             <View style={styles.formContainer}>
               <Image
                 source={require("../../assets/background/backgroundLogin.png")}
@@ -94,9 +94,9 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
                   rightIcon={
                     <MaterialIcons
                       name={isSecure ? "visibility" : "visibility-off"}
+                      onPress={() => setIsSecure(!isSecure)}
                     />
                   }
-                  onRightIconPress={() => setIsSecure(!isSecure)}
                   onChangeText={setPassword}
                   errorMessage={passwordError}
                 />
@@ -115,40 +115,40 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
               </View>
               <Button title="Ingresar" onPress={handleLogin} type="primary" />
             </View>
-          </KeyboardAwareScrollView>
 
-          <TextSmall style={{ alignSelf: "center" }}>
-            ¿No tienes una cuenta?{" "}
-            <Text
-              onPress={() => navigation.navigate("Register")}
-              style={{
-                color: theme.colors.link,
-                textDecorationLine: "underline",
-              }}
-            >
-              Crea una aquí
-            </Text>
-          </TextSmall>
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+            <TextSmall style={{ alignSelf: "center" }}>
+              ¿No tienes una cuenta?{" "}
+              <Text
+                onPress={() => navigation.navigate("Register")}
+                style={{
+                  color: theme.colors.link,
+                  textDecorationLine: "underline",
+                }}
+              >
+                Crea una aquí
+              </Text>
+            </TextSmall>
+          </View>
+        </KeyboardAwareScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 0,
+    padding: spacing.medium,
+  },
   formContainer: {
     width: "100%",
     gap: 20,
   },
   image: {
     width: "100%",
-    height: "100%",
-    maxHeight: 250,
+    height: 250,
     borderRadius: 30,
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: spacing.medium,
   },
 });
 

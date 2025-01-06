@@ -62,7 +62,11 @@ const Input: React.FC<InputProps> = ({
         <TextInput
           style={[
             styles.input,
-            { color: theme.colors.placeholder, fontSize: fontSizes.small },
+            {
+              color: theme.colors.placeholder,
+              fontSize: fontSizes.small,
+              fontWeight: "normal",
+            },
             style,
           ]}
           value={isPasswordVisible ? text : "●".repeat(text.length)}
@@ -100,6 +104,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: fontSizes.small,
     marginBottom: spacing.small,
+    fontWeight: "400",
   },
   inputWrapper: {
     flexDirection: "row",

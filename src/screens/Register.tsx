@@ -4,8 +4,7 @@ import {
   Text,
   StyleSheet,
   Image,
-  TouchableWithoutFeedback,
-  Keyboard,
+  KeyboardAvoidingView,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useTheme } from "../context/ThemeContext";
@@ -14,19 +13,19 @@ import TextMedium from "../components/TextMedium";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import TextSmall from "../components/TextSmall";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { spacing } from "../styles/theme";
 import { useNavigation } from "@react-navigation/native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../navigation/AppNavigator";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Register"
 >;
 
-const Register = () => {
+const Register: React.FC = () => {
   const { theme } = useTheme();
   const navigation = useNavigation<RegisterScreenNavigationProp>();
 
@@ -81,17 +80,12 @@ const Register = () => {
   };
 
   return (
-    <SafeAreaProvider style={[{ backgroundColor: theme.colors.background }]}>
-      <SafeAreaView style={[styles.container]}>
-        <KeyboardAwareScrollView
-          style={{ flex: 1, width: "100%" }}
-          contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: "space-between",
-          }}
-          keyboardShouldPersistTaps="handled"
-        >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={{ flex: 1, justifyContent: "space-between", gap: 20 }}>
             <View style={styles.formContainer}>
               <Image
                 source={require("../../assets/background/backgroundRegister.png")}
@@ -125,9 +119,9 @@ const Register = () => {
                   rightIcon={
                     <MaterialIcons
                       name={isSecure ? "visibility" : "visibility-off"}
+                      onPress={() => setIsSecure(!isSecure)}
                     />
                   }
-                  onRightIconPress={() => setIsSecure(!isSecure)}
                   onChangeText={setPassword}
                   errorMessage={errors.password}
                 />
@@ -141,9 +135,9 @@ const Register = () => {
                   rightIcon={
                     <MaterialIcons
                       name={isSecureConfirm ? "visibility" : "visibility-off"}
+                      onPress={() => setIsSecureConfirm(!isSecureConfirm)}
                     />
                   }
-                  onRightIconPress={() => setIsSecureConfirm(!isSecureConfirm)}
                   value={confirmPassword}
                   onChangeText={setConfirmPassword}
                   errorMessage={errors.confirmPassword}
@@ -155,29 +149,30 @@ const Register = () => {
                 type="primary"
               />
             </View>
-          </TouchableWithoutFeedback>
+            <TextSmall style={{ alignSelf: "center" }}>
+              ¿Ya tienes cuenta?{" "}
+              <Text
+                onPress={() => navigation.goBack()}
+                style={{
+                  color: theme.colors.link,
+                  textDecorationLine: "underline",
+                }}
+              >
+                Inicia sesión aquí
+              </Text>
+            </TextSmall>
+          </View>
         </KeyboardAwareScrollView>
-        <TextSmall style={{ alignSelf: "center" }}>
-          ¿Ya tienes cuenta?{" "}
-          <Text
-            onPress={() => navigation.goBack()}
-            style={{
-              color: theme.colors.link,
-              textDecorationLine: "underline",
-            }}
-          >
-            Inicia sesión aquí
-          </Text>
-        </TextSmall>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: spacing.medium,
+    paddingTop: 0,
+    padding: spacing.medium,
   },
   formContainer: {
     width: "100%",
@@ -185,8 +180,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: "100%",
-    maxHeight: 250,
+    height: 250,
     borderRadius: 30,
   },
 });

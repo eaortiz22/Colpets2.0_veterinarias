@@ -67,5 +67,6 @@ export const getGlobalStyles = (
     textSmall: {
       color: theme.colors.text,
       fontSize: fontSizes.small,
+      fontWeight: "400"
     },
   });

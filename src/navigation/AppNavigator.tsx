@@ -6,8 +6,10 @@ import Register from "../screens/Register";
 import Login from "../screens/Login";
 import HomeTabsNavigator from "./HomeTabsNavigator";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import ResetPassword from "../screens/ResetPassword";
+import { StyleSheet } from "react-native";
+import { spacing } from "../styles/theme";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -19,41 +21,47 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
-  const { isDarkTheme } = useTheme();
+  const { isDarkTheme, theme } = useTheme();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <NavigationContainer>
-      <SafeAreaProvider>
-        <Stack.Navigator>
-          {isLoggedIn ? (
+      <Stack.Navigator>
+        {isLoggedIn ? (
+          <Stack.Screen
+            name="HomeTabs"
+            component={HomeTabsNavigator}
+            options={{ headerShown: false }}
+          />
+        ) : (
+          <>
+            <Stack.Screen name="Login" options={{ headerShown: false }}>
+              {() => <Login setIsLoggedIn={setIsLoggedIn} />}
+            </Stack.Screen>
             <Stack.Screen
-              name="HomeTabs"
-              component={HomeTabsNavigator}
+              name="Register"
+              component={Register}
               options={{ headerShown: false }}
             />
-          ) : (
-            <>
-              <Stack.Screen name="Login" options={{ headerShown: false }}>
-                {() => <Login setIsLoggedIn={setIsLoggedIn} />}
-              </Stack.Screen>
-              <Stack.Screen
-                name="Register"
-                component={Register}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="ResetPassword"
-                component={ResetPassword}
-                options={{ headerShown: false }}
-              />
-            </>
-          )}
-        </Stack.Navigator>
-      </SafeAreaProvider>
+            <Stack.Screen
+              name="ResetPassword"
+              component={ResetPassword}
+              options={{ headerShown: false }}
+            />
+          </>
+        )}
+      </Stack.Navigator>
       <StatusBar style={isDarkTheme ? "light" : "dark"} animated={true} />
     </NavigationContainer>
   );
 };
+
+export const styles = StyleSheet.create({
+  container: {
+    padding: spacing.medium,
+    paddingTop: 0,
+    flex: 1,
+  },
+});
 
 export default AppNavigator;

@@ -126,7 +126,7 @@ const TabButton: React.FC<TabButtonProps> = ({
               borderColor: focused
                 ? isDarkTheme
                   ? theme.colors.primary
-                  : "#010101"
+                  : "#292d32"
                 : "transparent",
               backgroundColor: isDarkTheme
                 ? theme.colors.primary
