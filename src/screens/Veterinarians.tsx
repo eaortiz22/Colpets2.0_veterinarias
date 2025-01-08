@@ -4,7 +4,7 @@ import { styles } from "./Login";
 import { useTheme } from "../context/ThemeContext";
 import { Text } from "react-native";
 
-export default function Notifications() {
+export default function Veterinarians() {
   const { theme } = useTheme();
 
   return (

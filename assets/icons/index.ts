@@ -1,0 +1,9 @@
+export { default as HomeIcon } from "./home.svg";
+export { default as ShoppingBagIcon } from "./shoppingBag.svg";
+export { default as UsersIcon } from "./users.svg";
+export { default as HospitalIcon } from "./hospital.svg";
+export { default as UserIcon } from "./user.svg";
+export { default as BellIcon } from "./bell.svg";
+export { default as SearchIcon } from "./search.svg";
+export { default as ShoppingCartIcon } from "./shoppingCart.svg";
+export { default as AngleIcon } from "./angle.svg";

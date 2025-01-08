@@ -1,68 +1,73 @@
 import React from "react";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../context/ThemeContext";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TextMedium from "../components/TextMedium";
 import TextSmall from "../components/TextSmall";
 import { spacing } from "../styles/theme";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { BellIcon } from "../../assets/icons";
 
 export default function Home() {
-  const { theme } = useTheme();
+  const { theme, isDarkTheme } = useTheme();
 
   return (
-    <SafeAreaProvider style={[{ backgroundColor: theme.colors.background }]}>
-      <SafeAreaView style={[styles.container]}>
-        <View style={{ flex: 1 }}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
           <View
             style={{
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: "flex",
               flexDirection: "row",
+              gap: 16,
+              alignItems: "center",
             }}
           >
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: 16,
-                alignItems: "center",
-              }}
-            >
-              <View style={styles.image}>
-                <Image
-                  source={require("../../assets/images/imageProfile.jpg")}
-                  resizeMode="cover"
-                  style={styles.image}
-                />
-              </View>
-              <View style={{ gap: 10 }}>
-                <TextMedium>Gato Perez</TextMedium>
-                <TextSmall>Gato Siamés</TextSmall>
-              </View>
-            </View>
-
-            <TouchableOpacity
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                borderWidth: 1,
-                borderRadius: 50,
-                height: 60,
-                width: 60,
-                borderColor: theme.colors.text,
-              }}
-            >
-              <MaterialCommunityIcons
-                name="bell-outline"
-                size={24}
-                color={theme.colors.text}
+            <View style={styles.image}>
+              <Image
+                source={require("../../assets/images/imageProfile.jpg")}
+                resizeMode="cover"
+                style={styles.image}
               />
-            </TouchableOpacity>
+            </View>
+            <View style={{ gap: 10 }}>
+              <TextMedium>Gato Perez</TextMedium>
+              <TextSmall
+                style={{
+                  color: isDarkTheme
+                    ? theme.colors.text
+                    : theme.colors.secondary,
+                }}
+              >
+                Gato Siamés
+              </TextSmall>
+            </View>
           </View>
+
+          <TouchableOpacity
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              borderWidth: 1,
+              borderRadius: 50,
+              height: 60,
+              width: 60,
+              borderColor: theme.colors.text,
+            }}
+          >
+            <BellIcon size={24} fill={theme.colors.text} />
+            {/* <HomeIcon  /> */}
+          </TouchableOpacity>
         </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      </View>
+    </SafeAreaView>
   );
 }
 export const styles = StyleSheet.create({
@@ -80,6 +85,6 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: spacing.medium,
+    padding: spacing.medium,
   },
 });
