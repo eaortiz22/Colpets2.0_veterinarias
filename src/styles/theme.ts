@@ -1,9 +1,10 @@
 export const lightTheme = {
   colors: {
     background: '#ffffff',
-    text: '#696a79',
+    text: '#6b6879',
     primary: '#FF76C5',
     secondary: '#060620',
+    tertiary: '#FF5CBB',
     link: '#1E90FF',
     inputBg: 'transparent',
     placeholder: '#060620',
@@ -18,6 +19,7 @@ export const darkTheme = {
     text: '#ffffff',
     primary: '#FF76C5',
     secondary: '#ffffff',
+    tertiary: '#FF5CBB',
     link: '#4A90E2',
     inputBg: 'transparent',
     placeholder: '#ffffff',

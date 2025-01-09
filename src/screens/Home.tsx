@@ -37,7 +37,7 @@ export default function Home() {
                 style={styles.image}
               />
             </View>
-            <View style={{ gap: 10 }}>
+            <View style={{ gap: 7 }}>
               <TextMedium>Gato Perez</TextMedium>
               <TextSmall
                 style={{

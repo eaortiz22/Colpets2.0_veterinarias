@@ -1,10 +1,10 @@
-import React from "react";
-import { Text, TextStyle } from "react-native";
-import { getGlobalStyles } from "../styles/globalStyles";
-import { useTheme } from "../context/ThemeContext";
+import React from 'react';
+import { Text, TextStyle } from 'react-native';
+import { getGlobalStyles } from '../styles/globalStyles';
+import { useTheme } from '../context/ThemeContext';
 
 interface TextMediumProps {
-  children: string;
+  children: any;
   style?: TextStyle;
 }
 

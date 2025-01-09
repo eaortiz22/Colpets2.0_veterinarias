@@ -13,6 +13,11 @@ export const getGlobalStyles = (theme: { colors: { [key: string]: string } }, is
     },
     buttonPrimary: {
       backgroundColor: theme.colors.primary,
+      shadowColor: theme.colors.primary,
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.3,
+      shadowRadius: 13,
+      elevation: 3,
     },
     buttonSecondary: {
       backgroundColor: 'transparent',

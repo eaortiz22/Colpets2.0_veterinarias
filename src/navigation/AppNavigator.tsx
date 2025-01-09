@@ -6,7 +6,6 @@ import Register from '../screens/Register';
 import Login from '../screens/Login';
 import HomeTabsNavigator from './HomeTabsNavigator';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import ResetPassword from '../screens/ResetPassword';
 import { StyleSheet } from 'react-native';
 import { spacing } from '../styles/theme';
@@ -17,7 +16,7 @@ export type RootStackParamList = {
   Register: undefined;
   ResetPassword: undefined;
   HomeTabs: undefined;
-  ProductDetail: { productId: string };
+  ProductDetail: any;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

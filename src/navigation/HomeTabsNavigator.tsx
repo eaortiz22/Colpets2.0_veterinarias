@@ -101,9 +101,9 @@ const TabButton: React.FC<TabButtonProps> = ({ item, onPress, accessibilityState
             focused && {
               shadowColor: theme.colors.primary,
               shadowOffset: { width: 0, height: 0 },
-              shadowOpacity: 0.2,
+              shadowOpacity: 0.4,
               shadowRadius: 13,
-              elevation: 3, 
+              elevation: 50, 
             },
             {
               borderColor: focused ? theme.colors.primary : 'transparent',

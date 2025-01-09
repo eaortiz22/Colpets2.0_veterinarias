@@ -15,8 +15,8 @@ const ProductCard = ({ products }: any) => {
   const navigation = useNavigation<ProductDetailScreenNavigationProp>();
   const { theme } = useTheme();
 
-  const handlePress = (productId: string) => {
-    navigation.navigate('ProductDetail', { productId });
+  const handlePress = (product: string) => {
+    navigation.navigate('ProductDetail', { product });
   };
 
   return (
@@ -28,7 +28,7 @@ const ProductCard = ({ products }: any) => {
             styles.cards,
             { backgroundColor: theme.colors.cardBackground, marginRight: index !== products.length - 1 ? 16 : 0, width: 200 },
           ]}
-          onPress={() => handlePress(product.id)}
+          onPress={() => handlePress(product)}
         >
           <Image source={product.image} resizeMode="cover" style={{ width: '100%', height: 150, borderRadius: 16 }} />
           <View
@@ -44,7 +44,7 @@ const ProductCard = ({ products }: any) => {
               <TextSmall numberOfLines={1} ellipsizeMode="tail" style={{ color: theme.colors.text }}>
                 {product.name}
               </TextSmall>
-              <Text style={{ color: theme.colors.secondary, fontWeight: '700', fontSize: 20 }}>{product.price}</Text>
+              <Text style={{ color: theme.colors.secondary, fontWeight: '700', fontSize: 20 }}>${product.price.toLocaleString()}</Text>
             </View>
             <TouchableOpacity
               style={{

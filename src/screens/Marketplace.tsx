@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet, FlatList, ScrollView, Dimensions, Text } from 'react-native';
+import React from 'react';
+import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
-import Button from '../components/Button';
 import TextTitle from '../components/TextTitle';
-import { SearchIcon, ShoppingCartIcon, AngleIcon, PlusIcon } from '../../assets/icons';
-import { fontSizes, spacing } from '../styles/theme';
-import TextMedium from '../components/TextMedium';
+import { AngleIcon } from '../../assets/icons';
+import { spacing } from '../styles/theme';
 import TextSmall from '../components/TextSmall';
 import HeaderComponent from '../components/marketplace/HeaderComponent';
 import BannerCarousel from '../components/marketplace/BannerCarousel';
@@ -45,11 +43,9 @@ const categories = [
 const products = Array(5).fill({
   id: '1',
   name: 'Purina para perroperroperro',
-  price: '$30,000',
+  price: 30000,
   image: require('../../assets/images/product.png'),
 });
-
-const screenWidth = Dimensions.get('window').width;
 
 export default function Marketplace() {
   const { theme } = useTheme();
