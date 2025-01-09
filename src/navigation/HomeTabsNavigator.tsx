@@ -1,56 +1,44 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React, { useEffect, useRef } from "react";
-import {
-  GestureResponderEvent,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import * as Animatable from "react-native-animatable";
-import Home from "../screens/Home"; // Asegúrate de importar las pantallas correctas
-import Veterinarians from "../screens/Veterinarians";
-import Community from "../screens/Community";
-import Marketplace from "../screens/Marketplace";
-import Profile from "../screens/Profile";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useTheme } from "../context/ThemeContext";
-import {
-  HomeIcon,
-  ShoppingBagIcon,
-  UsersIcon,
-  HospitalIcon,
-  UserIcon,
-} from "../../assets/icons";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useEffect, useRef } from 'react';
+import { GestureResponderEvent, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import Home from '../screens/Home'; // Asegúrate de importar las pantallas correctas
+import Veterinarians from '../screens/Veterinarians';
+import Community from '../screens/Community';
+import Marketplace from '../screens/Marketplace';
+import Profile from '../screens/Profile';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useTheme } from '../context/ThemeContext';
+import { HomeIcon, ShoppingBagIcon, UsersIcon, HospitalIcon, UserIcon } from '../../assets/icons';
 
 const TabArr = [
   {
-    route: "Veterinarias",
-    label: "Veterinarias",
+    route: 'Veterinarias',
+    label: 'Veterinarias',
     IconComponent: HospitalIcon,
     component: Veterinarians,
   },
   {
-    route: "Comunidad",
-    label: "Comunidad",
+    route: 'Comunidad',
+    label: 'Comunidad',
     IconComponent: UsersIcon,
     component: Community,
   },
   {
-    route: "Home",
-    label: "",
+    route: 'Home',
+    label: '',
     IconComponent: HomeIcon,
     component: Home,
   },
   {
-    route: "Tienda",
-    label: "Tienda",
+    route: 'Tienda',
+    label: 'Tienda',
     IconComponent: ShoppingBagIcon,
     component: Marketplace,
   },
   {
-    route: "Perfil",
-    label: "Perfil",
+    route: 'Perfil',
+    label: 'Perfil',
     IconComponent: UserIcon,
     component: Profile,
   },
@@ -83,21 +71,11 @@ interface TabButtonProps {
   accessibilityState: { selected?: boolean }; // Hacemos que sea opcional
 }
 
-const TabButton: React.FC<TabButtonProps> = ({
-  item,
-  onPress,
-  accessibilityState,
-}) => {
+const TabButton: React.FC<TabButtonProps> = ({ item, onPress, accessibilityState }) => {
   const focused = accessibilityState.selected;
-  const viewRef = useRef<
-    Animatable.View & { animate: (animation: any) => void }
-  >(null);
-  const circleRef = useRef<
-    Animatable.View & { animate: (animation: any) => void }
-  >(null);
-  const textRef = useRef<
-    Animatable.Text & { transitionTo: (style: object) => void }
-  >(null);
+  const viewRef = useRef<Animatable.View & { animate: (animation: any) => void }>(null);
+  const circleRef = useRef<Animatable.View & { animate: (animation: any) => void }>(null);
+  const textRef = useRef<Animatable.Text & { transitionTo: (style: object) => void }>(null);
   const { theme, isDarkTheme } = useTheme();
 
   useEffect(() => {
@@ -120,15 +98,17 @@ const TabButton: React.FC<TabButtonProps> = ({
         <View
           style={[
             styles.btn,
+            focused && {
+              shadowColor: theme.colors.primary,
+              shadowOffset: { width: 0, height: 0 },
+              shadowOpacity: 0.2,
+              shadowRadius: 13,
+              elevation: 3, 
+            },
             {
-              borderColor: focused
-                ? isDarkTheme
-                  ? theme.colors.primary
-                  : "#292d32"
-                : "transparent",
-              backgroundColor: isDarkTheme
-                ? theme.colors.primary
-                : theme.colors.background,
+              borderColor: focused ? theme.colors.primary : 'transparent',
+              backgroundColor: focused ? theme.colors.primary : 'transparent',
+              shadowColor: theme.colors.primary,
             },
           ]}
         >
@@ -137,31 +117,13 @@ const TabButton: React.FC<TabButtonProps> = ({
             style={[
               styles.circle,
               {
-                backgroundColor: theme.colors.text,
+                backgroundColor: 'white',
               },
             ]}
           />
-          <Icon
-            width={24}
-            height={24}
-            fill={
-              focused
-                ? isDarkTheme
-                  ? theme.colors.primary
-                  : theme.colors.background
-                : isDarkTheme
-                ? "#a8a2af"
-                : "#b8b8b8"
-            }
-          />
+          <Icon width={24} height={24} fill={focused ? theme.colors.primary : isDarkTheme ? theme.colors.text : '#b8b8b8'} />
         </View>
-        <Animatable.Text
-          ref={textRef}
-          style={[
-            styles.text,
-            { color: isDarkTheme ? "#ebedf2" : theme.colors.text },
-          ]}
-        >
+        <Animatable.Text ref={textRef} style={[styles.text, { color: isDarkTheme ? '#ebedf2' : theme.colors.text }]}>
           {item.label}
         </Animatable.Text>
       </Animatable.View>
@@ -181,25 +143,23 @@ export default function AnimTab1() {
           tabBarStyle: [
             styles.tabBar,
             {
-              backgroundColor: isDarkTheme
-                ? theme.colors.primary
-                : theme.colors.background,
+              backgroundColor: isDarkTheme ? theme.colors.primary : theme.colors.background,
               ...(isDarkTheme
                 ? {
-                    shadowColor: "#FFFFFF", // Sombra blanca para dark mode
-                    shadowOffset: { width: 0, height: 4 },
+                    shadowColor: '#FFFFFF', // Sombra blanca para dark mode
+                    shadowOffset: { width: 0, height: 0 },
                     shadowOpacity: 0.1, // Sutil opacidad para evitar que se vea demasiado intensa
-                    shadowRadius: 6,
+                    shadowRadius: 13,
                     elevation: 3, // Para Android
                   }
                 : {
-                    shadowColor: "#1b1816", // Sombra morada para light mode
-                    shadowOffset: { width: 0, height: 4 },
+                    shadowColor: '#1b1816', // Sombra morada para light mode
+                    shadowOffset: { width: 0, height: 0 },
                     shadowOpacity: 0.1,
-                    shadowRadius: 6,
+                    shadowRadius: 13,
                     elevation: 3, // Para Android
                   }),
-              bottom: Platform.OS === "ios" ? 10 : 0,
+              bottom: Platform.OS === 'ios' ? 10 : 0,
             },
           ],
         }}
@@ -217,9 +177,7 @@ export default function AnimTab1() {
                     {...props}
                     item={item}
                     onPress={props.onPress || (() => {})}
-                    accessibilityState={
-                      props.accessibilityState || { selected: false }
-                    }
+                    accessibilityState={props.accessibilityState || { selected: false }}
                   />
                 ),
               }}
@@ -233,13 +191,13 @@ export default function AnimTab1() {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 70,
   },
   tabBar: {
     height: 70,
-    position: "absolute",
+    position: 'absolute',
     margin: 16,
     borderRadius: 32,
   },
@@ -248,19 +206,19 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 4,
-    justifyContent: "center", // Centra el contenido en el eje vertical
-    alignItems: "center", // Centra el contenido en el eje horizontal
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   circle: {
     ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 25,
   },
   text: {
     fontSize: 8,
-    textAlign: "center",
-    fontWeight: "500",
+    textAlign: 'center',
+    fontWeight: '500',
     bottom: -5,
   },
 });

@@ -1,26 +1,28 @@
 export const lightTheme = {
   colors: {
-    background: "#ffffff",
-    text: "#292d32",
-    primary: "#421f83",
-    secondary: "#b8b8b8",
-    link: "#1E90FF",
-    inputBg: "transparent",
-    placeholder: "#000000",
-    error: "#D32F2F",
+    background: '#ffffff',
+    text: '#696a79',
+    primary: '#FF76C5',
+    secondary: '#060620',
+    link: '#1E90FF',
+    inputBg: 'transparent',
+    placeholder: '#060620',
+    error: '#D32F2F',
+    cardBackground: '#f4f4f4',
   },
 };
 
 export const darkTheme = {
   colors: {
-    background: "#1b1816",
-    text: "#ffffff",
-    primary: "#421f83",
-    secondary: "#ffffff",
-    link: "#4A90E2",
-    inputBg: "transparent",
-    placeholder: "#ffffff",
-    error: "#FF6B6B",
+    background: '#1c1a1e',
+    text: '#ffffff',
+    primary: '#FF76C5',
+    secondary: '#ffffff',
+    link: '#4A90E2',
+    inputBg: 'transparent',
+    placeholder: '#ffffff',
+    error: '#FF6B6B',
+    cardBackground: '#262524',
   },
 };
 

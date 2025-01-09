@@ -44,7 +44,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <View style={styles.container}>
       {label && (
-        <Text style={[styles.label, { color: theme.colors.text }]}>
+        <Text style={[styles.label, { color: theme.colors.secondary }]}>
           {label}
         </Text>
       )}

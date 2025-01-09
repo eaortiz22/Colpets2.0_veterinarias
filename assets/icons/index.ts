@@ -7,3 +7,4 @@ export { default as BellIcon } from "./bell.svg";
 export { default as SearchIcon } from "./search.svg";
 export { default as ShoppingCartIcon } from "./shoppingCart.svg";
 export { default as AngleIcon } from "./angle.svg";
+export { default as PlusIcon } from "./plus.svg";

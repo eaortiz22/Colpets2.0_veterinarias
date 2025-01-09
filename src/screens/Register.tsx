@@ -154,8 +154,9 @@ const Register: React.FC = () => {
               <Text
                 onPress={() => navigation.goBack()}
                 style={{
-                  color: theme.colors.link,
+                  color: theme.colors.secondary,
                   textDecorationLine: "underline",
+                  fontWeight: '700',
                 }}
               >
                 Inicia sesión aquí
