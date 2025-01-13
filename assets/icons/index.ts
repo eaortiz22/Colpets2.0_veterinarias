@@ -9,3 +9,7 @@ export { default as ShoppingCartIcon } from './shoppingCart.svg';
 export { default as AngleIcon } from './angle.svg';
 export { default as PlusIcon } from './plus.svg';
 export { default as MinusIcon } from './minus.svg';
+export { default as EditIcon } from './edit.svg';
+export { default as HeartIcon } from './heart.svg';
+export { default as StarIcon } from './star.svg';
+export { default as CreditCardIcon } from './creditCard.svg';

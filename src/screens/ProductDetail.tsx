@@ -105,14 +105,14 @@ export default function ProductDetail({ route }: any) {
                 style={{ padding: spacing.small, backgroundColor: theme.colors.cardBackground, borderRadius: 50 }}
                 onPress={handleDecrement}
               >
-                <MinusIcon fill={theme.colors.secondary} width={16} height={16} />
+                <MinusIcon fill={theme.colors.secondary} width={18} height={18} />
               </TouchableOpacity>
               <TextMedium>{quantity}</TextMedium>
               <TouchableOpacity
                 style={{ padding: spacing.small, backgroundColor: theme.colors.cardBackground, borderRadius: 50 }}
                 onPress={handleIncrement}
               >
-                <PlusIcon fill={theme.colors.secondary} width={16} height={16} />
+                <PlusIcon fill={theme.colors.secondary} width={18} height={18} />
               </TouchableOpacity>
             </View>
             <View>

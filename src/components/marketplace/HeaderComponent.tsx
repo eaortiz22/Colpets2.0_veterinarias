@@ -13,10 +13,10 @@ const HeaderComponent = () => {
       <TextTitle>Marketplace</TextTitle>
       <View style={styles.iconContainer}>
         <TouchableOpacity style={{ padding: spacing.small, backgroundColor: theme.colors.cardBackground, borderRadius: 50 }}>
-          <SearchIcon size={24} fill={theme.colors.secondary} />
+          <SearchIcon fill={theme.colors.secondary} />
         </TouchableOpacity>
         <TouchableOpacity style={{ padding: spacing.small, backgroundColor: theme.colors.cardBackground, borderRadius: 50 }}>
-          <ShoppingCartIcon size={24} fill={theme.colors.secondary} />
+          <ShoppingCartIcon fill={theme.colors.secondary} />
         </TouchableOpacity>
       </View>
     </View>
