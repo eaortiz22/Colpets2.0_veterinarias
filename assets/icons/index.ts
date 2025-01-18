@@ -13,3 +13,8 @@ export { default as EditIcon } from './edit.svg';
 export { default as HeartIcon } from './heart.svg';
 export { default as StarIcon } from './star.svg';
 export { default as CreditCardIcon } from './creditCard.svg';
+export { default as CogIcon } from './cog.svg';
+export { default as ClockIcon } from './clock.svg';
+export { default as BalanceIcon } from './balance.svg';
+export { default as QuestionCircleIcon } from './questionCircle.svg';
+export { default as SignInIcon } from './signin.svg';
