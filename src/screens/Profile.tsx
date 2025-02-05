@@ -20,6 +20,9 @@ import {
 import { Image } from "react-native";
 import { spacing } from "../styles/theme";
 import Button from "../components/Button";
+import ProfileCard from "../components/profile/ProfileCard";
+import ProfileItem from "../components/profile/ProfileItem";
+import LineHorizontal from "../components/LineHorizontal";
 
 export default function Profile() {
   const { toggleTheme, theme } = useTheme();
@@ -30,167 +33,105 @@ export default function Profile() {
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <TextTitle>Perfil</TextTitle>
-        <View
-          style={{
-            backgroundColor: theme.colors.cardBackground,
-            borderRadius: 8,
-          }}
-        >
-          <View style={styles.containerCard}>
-            <View style={styles.row}>
-              <View style={styles.imageWrapper}>
-                <Image
-                  source={require("../../assets/images/imageProfile.jpg")}
-                  resizeMode="cover"
-                  style={styles.image}
-                />
-              </View>
-              <View style={styles.textWrapper}>
-                <TextMedium style={{ fontWeight: "700" }}>
-                  Nombre dueño
-                </TextMedium>
-                <TextSmall>correo@gmail.com</TextSmall>
-              </View>
-            </View>
-            <TouchableOpacity
-              style={[
-                styles.editButton,
-                { backgroundColor: theme.colors.primary },
-              ]}
-            >
-              <EditIcon fill="white" width={18} height={18} />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{ height: 1, backgroundColor: theme.colors.background }}
-          ></View>
-          <TouchableOpacity style={styles.containerCard}>
-            <View style={{ flexDirection: "row", gap: 8 }}>
-              <HeartIcon fill={theme.colors.text} width={24} height={24} />
-              <TextMedium>Mis mascotas</TextMedium>
-            </View>
-            <View>
-              <AngleIcon fill={theme.colors.text} width={24} height={24} />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            backgroundColor: theme.colors.cardBackground,
-            borderRadius: 8,
-          }}
-        >
-          <View style={{ padding: spacing.medium, gap: 16 }}>
-            <TouchableOpacity style={styles.item}>
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                <CogIcon fill={theme.colors.text} width={24} height={24} />
-                <TextMedium>Configuraciones</TextMedium>
-              </View>
-              <View>
-                <AngleIcon fill={theme.colors.text} width={24} height={24} />
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View
-          style={{
-            backgroundColor: theme.colors.cardBackground,
-            borderRadius: 8,
-          }}
-        >
-          <View style={{ padding: spacing.medium, gap: 16 }}>
-            <TouchableOpacity style={styles.item}>
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                <StarIcon fill={theme.colors.text} width={24} height={24} />
-                <TextMedium>Planes y Membresías</TextMedium>
-              </View>
-              <View>
-                <AngleIcon fill={theme.colors.text} width={24} height={24} />
-              </View>
-            </TouchableOpacity>
-            <View
-              style={{ height: 1, backgroundColor: theme.colors.background }}
-            ></View>
-            <TouchableOpacity style={styles.item}>
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                <CreditCardIcon
-                  fill={theme.colors.text}
-                  width={24}
-                  height={24}
-                />
-                <TextMedium>Pagos y Métodos de Pago</TextMedium>
-              </View>
-              <View>
-                <AngleIcon fill={theme.colors.text} width={24} height={24} />
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View
-          style={{
-            backgroundColor: theme.colors.cardBackground,
-            borderRadius: 8,
-          }}
-        >
-          <View style={{ padding: spacing.medium, gap: 16 }}>
-            <TouchableOpacity style={styles.item}>
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                <ClockIcon fill={theme.colors.text} width={24} height={24} />
-                <TextMedium>Historial de Actividades</TextMedium>
-              </View>
-              <View>
-                <AngleIcon fill={theme.colors.text} width={24} height={24} />
-              </View>
-            </TouchableOpacity>
-            <View
-              style={{ height: 1, backgroundColor: theme.colors.background }}
-            ></View>
-            <TouchableOpacity style={styles.item}>
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                <BalanceIcon fill={theme.colors.text} width={24} height={24} />
-                <TextMedium>Términos Legales y Políticas</TextMedium>
-              </View>
-              <View>
-                <AngleIcon fill={theme.colors.text} width={24} height={24} />
-              </View>
-            </TouchableOpacity>
-            <View
-              style={{ height: 1, backgroundColor: theme.colors.background }}
-            ></View>
-            <TouchableOpacity style={styles.item}>
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                <QuestionCircleIcon
-                  fill={theme.colors.text}
-                  width={24}
-                  height={24}
-                />
-                <TextMedium>Ayuda y Soporte</TextMedium>
-              </View>
-              <View>
-                <AngleIcon fill={theme.colors.text} width={24} height={24} />
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
 
-        <View
-          style={{
-            backgroundColor: theme.colors.cardBackground,
-            borderRadius: 8,
-          }}
+        {/* Tarjeta de Perfil */}
+        <ProfileCard
+          style={{ justifyContent: "space-between", flexDirection: "row" }}
         >
-          <TouchableOpacity style={styles.item}>
-            <View style={{ flexDirection: "row", gap: 8 }}>
+          <View style={styles.row}>
+            <View style={styles.imageWrapper}>
+              <Image
+                source={require("../../assets/images/imageProfile.jpg")}
+                resizeMode="cover"
+                style={styles.image}
+              />
+            </View>
+            <View style={styles.textWrapper}>
+              <TextMedium style={{ fontWeight: "700" }}>
+                Nombre dueño
+              </TextMedium>
+              <TextSmall>correo@gmail.com</TextSmall>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={[
+              styles.editButton,
+              { backgroundColor: theme.colors.primary },
+            ]}
+          >
+            <EditIcon fill="white" width={18} height={18} />
+          </TouchableOpacity>
+        </ProfileCard>
+
+        {/* Sección: Mis Mascotas */}
+        <ProfileCard>
+          <ProfileItem
+            icon={<HeartIcon fill={theme.colors.text} width={24} height={24} />}
+            title="Mis mascotas"
+          />
+        </ProfileCard>
+
+        {/* Sección: Configuraciones */}
+        <ProfileCard>
+          <ProfileItem
+            icon={<CogIcon fill={theme.colors.text} width={24} height={24} />}
+            title="Configuraciones"
+          />
+        </ProfileCard>
+
+        {/* Sección: Planes y Membresías */}
+        <ProfileCard>
+          <ProfileItem
+            icon={<StarIcon fill={theme.colors.text} width={24} height={24} />}
+            title="Planes y Membresías"
+          />
+          <LineHorizontal />
+          <ProfileItem
+            icon={
+              <CreditCardIcon fill={theme.colors.text} width={24} height={24} />
+            }
+            title="Pagos y Métodos de Pago"
+          />
+        </ProfileCard>
+
+        {/* Sección: Historial y Ayuda */}
+        <ProfileCard>
+          <ProfileItem
+            icon={<ClockIcon fill={theme.colors.text} width={24} height={24} />}
+            title="Historial de Actividades"
+          />
+          <LineHorizontal />
+          <ProfileItem
+            icon={
+              <BalanceIcon fill={theme.colors.text} width={24} height={24} />
+            }
+            title="Términos Legales y Políticas"
+          />
+          <LineHorizontal />
+          <ProfileItem
+            icon={
+              <QuestionCircleIcon
+                fill={theme.colors.text}
+                width={24}
+                height={24}
+              />
+            }
+            title="Ayuda y Soporte"
+          />
+        </ProfileCard>
+
+        {/* Botón de cerrar sesión */}
+        <ProfileCard>
+          <ProfileItem
+            icon={
               <SignInIcon fill={theme.colors.text} width={24} height={24} />
-              <TextMedium>Cerrar sesión</TextMedium>
-            </View>
-            <View>
-              <AngleIcon fill={theme.colors.text} width={24} height={24} />
-            </View>
-          </TouchableOpacity>
-        </View>
+            }
+            title="Cerrar sesión"
+          />
+        </ProfileCard>
 
-        <Button title="Cambiar tema" onPress={toggleTheme} type="primary" />
+        {/* Botón de cambio de tema */}
+        {/* <Button title="Cambiar tema" onPress={toggleTheme} type="primary" /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -246,7 +187,7 @@ export const styles = StyleSheet.create({
   editButton: {
     padding: spacing.small,
     borderRadius: 50,
+    alignSelf: "center",
     justifyContent: "center",
-    alignItems: "center",
   },
 });
