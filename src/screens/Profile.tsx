@@ -23,9 +23,18 @@ import Button from "../components/Button";
 import ProfileCard from "../components/profile/ProfileCard";
 import ProfileItem from "../components/profile/ProfileItem";
 import LineHorizontal from "../components/LineHorizontal";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ProfileStackParamList } from "../navigation/ProfileStack";
+
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ProfileStackParamList,
+  "ProfileMain"
+>;
 
 export default function Profile() {
-  const { toggleTheme, theme } = useTheme();
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const { theme } = useTheme();
 
   return (
     <SafeAreaView
@@ -58,6 +67,7 @@ export default function Profile() {
               styles.editButton,
               { backgroundColor: theme.colors.primary },
             ]}
+            onPress={() => navigation.navigate("EditProfile")}
           >
             <EditIcon fill="white" width={18} height={18} />
           </TouchableOpacity>
@@ -68,6 +78,7 @@ export default function Profile() {
           <ProfileItem
             icon={<HeartIcon fill={theme.colors.text} width={24} height={24} />}
             title="Mis mascotas"
+            onPress={() => navigation.navigate("Pets")}
           />
         </ProfileCard>
 
@@ -76,6 +87,7 @@ export default function Profile() {
           <ProfileItem
             icon={<CogIcon fill={theme.colors.text} width={24} height={24} />}
             title="Configuraciones"
+            onPress={() => navigation.navigate("Settings")}
           />
         </ProfileCard>
 
@@ -84,6 +96,7 @@ export default function Profile() {
           <ProfileItem
             icon={<StarIcon fill={theme.colors.text} width={24} height={24} />}
             title="Planes y Membresías"
+            onPress={() => navigation.navigate("Memberships")}
           />
           <LineHorizontal />
           <ProfileItem
@@ -91,6 +104,7 @@ export default function Profile() {
               <CreditCardIcon fill={theme.colors.text} width={24} height={24} />
             }
             title="Pagos y Métodos de Pago"
+            onPress={() => navigation.navigate("Payments")}
           />
         </ProfileCard>
 
@@ -99,6 +113,7 @@ export default function Profile() {
           <ProfileItem
             icon={<ClockIcon fill={theme.colors.text} width={24} height={24} />}
             title="Historial de Actividades"
+            onPress={() => navigation.navigate("History")}
           />
           <LineHorizontal />
           <ProfileItem
@@ -106,6 +121,7 @@ export default function Profile() {
               <BalanceIcon fill={theme.colors.text} width={24} height={24} />
             }
             title="Términos Legales y Políticas"
+            onPress={() => navigation.navigate("Legal")}
           />
           <LineHorizontal />
           <ProfileItem
@@ -117,6 +133,7 @@ export default function Profile() {
               />
             }
             title="Ayuda y Soporte"
+            onPress={() => navigation.navigate("Help")}
           />
         </ProfileCard>
 

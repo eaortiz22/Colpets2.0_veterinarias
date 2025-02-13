@@ -6,10 +6,10 @@ import Home from '../screens/Home'; // Asegúrate de importar las pantallas corr
 import Veterinarians from '../screens/Veterinarians';
 import Community from '../screens/Community';
 import Marketplace from '../screens/Marketplace';
-import Profile from '../screens/Profile';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { HomeIcon, ShoppingBagIcon, UsersIcon, HospitalIcon, UserIcon } from '../../assets/icons';
+import ProfileStack from './ProfileStack';
 
 const TabArr = [
   {
@@ -40,7 +40,7 @@ const TabArr = [
     route: 'Perfil',
     label: 'Perfil',
     IconComponent: UserIcon,
-    component: Profile,
+    component: ProfileStack,
   },
 ];
 
