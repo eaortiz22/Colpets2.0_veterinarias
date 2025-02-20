@@ -9,6 +9,7 @@ import PaymentsScreen from "../screens/profile/PaymentsScreen";
 import HistoryScreen from "../screens/profile/HistoryScreen";
 import LegalScreen from "../screens/profile/LegalScreen";
 import HelpScreen from "../screens/profile/HelpScreen";
+import PetsNavigator from "./PetsNavigator/PetsNavigator";
 
 export type ProfileStackParamList = {
   ProfileMain: undefined;
@@ -29,7 +30,7 @@ export default function ProfileStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ProfileMain" component={Profile} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-      <Stack.Screen name="Pets" component={PetsScreen} />
+      <Stack.Screen name="Pets" component={PetsNavigator} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="Memberships" component={MembershipsScreen} />
       <Stack.Screen name="Payments" component={PaymentsScreen} />

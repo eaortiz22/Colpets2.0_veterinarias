@@ -26,6 +26,7 @@ import LineHorizontal from "../components/LineHorizontal";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ProfileStackParamList } from "../navigation/ProfileStack";
+import IconButton from "../components/IconButton";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   ProfileStackParamList,
@@ -62,15 +63,11 @@ export default function Profile() {
               <TextSmall>correo@gmail.com</TextSmall>
             </View>
           </View>
-          <TouchableOpacity
-            style={[
-              styles.editButton,
-              { backgroundColor: theme.colors.primary },
-            ]}
+
+          <IconButton
             onPress={() => navigation.navigate("EditProfile")}
-          >
-            <EditIcon fill="white" width={18} height={18} />
-          </TouchableOpacity>
+            icon={EditIcon}
+          />
         </ProfileCard>
 
         {/* Sección: Mis Mascotas */}
@@ -155,6 +152,14 @@ export default function Profile() {
 }
 
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: spacing.medium,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    gap: 20,
+  },
   formContainer: {
     width: "100%",
     gap: 20,
@@ -166,14 +171,6 @@ export const styles = StyleSheet.create({
     maxHeight: 60,
     borderRadius: 50,
     overflow: "hidden",
-  },
-  container: {
-    flex: 1,
-    padding: spacing.medium,
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    gap: 20,
   },
   containerCard: {
     padding: spacing.medium,
