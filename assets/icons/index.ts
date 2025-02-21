@@ -20,3 +20,4 @@ export { default as QuestionCircleIcon } from "./questionCircle.svg";
 export { default as SignInIcon } from "./signin.svg";
 export { default as ArrowLeftIcon } from "./arrowLeft.svg";
 export { default as PetFootprintIcon } from "./petFootprint.svg";
+export { default as MapMarkerIcon } from "./mapMarker.svg";

@@ -150,7 +150,7 @@ export default function PetsScreen() {
           >
             <PetFootprintIcon fill={theme.colors.text} width={70} height={70} />
             <PlusIcon
-              fill={"white"}
+              fill={theme.colors.background}
               style={{
                 position: "absolute",
               }}

@@ -5,86 +5,48 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TextMedium from "../components/TextMedium";
 import TextSmall from "../components/TextSmall";
 import { spacing } from "../styles/theme";
-import { BellIcon } from "../../assets/icons";
+import { BellIcon, MapMarkerIcon, SearchIcon } from "../../assets/icons";
+import SafeContainer from "../components/SafeContainer ";
+import IconButton from "../components/IconButton";
+import CircularIconButton from "../components/CircularIconButton";
 
 export default function Home() {
   const { theme, isDarkTheme } = useTheme();
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
-    >
-      <View style={{ flex: 1 }}>
+    <SafeContainer>
+      <View style={{ padding: spacing.medium }}>
         <View
           style={{
-            justifyContent: "space-between",
-            alignItems: "center",
             flexDirection: "row",
+            justifyContent: "space-between",
+            gap: 4,
+            alignItems: "center",
           }}
         >
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: 16,
-              alignItems: "center",
-            }}
-          >
-            <View style={styles.image}>
-              <Image
-                source={require("../../assets/images/imageProfile.jpg")}
-                resizeMode="cover"
-                style={styles.image}
-              />
+          <TouchableOpacity style={{ flexDirection: "row", gap: 8 }}>
+            <CircularIconButton
+              icon={<MapMarkerIcon fill="#555" />}
+              onPress={() => console.log("Ubi presionado")}
+            />
+            <View>
+              <TextMedium>Bogotá, Edificio cataly</TextMedium>
+              <TextSmall>Colombia</TextSmall>
             </View>
-            <View style={{ gap: 7 }}>
-              <TextMedium>Gato Perez</TextMedium>
-              <TextSmall
-                style={{
-                  color: isDarkTheme
-                    ? theme.colors.text
-                    : theme.colors.secondary,
-                }}
-              >
-                Gato Siamés
-              </TextSmall>
-            </View>
-          </View>
-
-          <TouchableOpacity
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              borderWidth: 1,
-              borderRadius: 50,
-              height: 60,
-              width: 60,
-              borderColor: theme.colors.text,
-            }}
-          >
-            <BellIcon size={24} fill={theme.colors.text} />
-            {/* <HomeIcon  /> */}
           </TouchableOpacity>
+          <View style={{ flexDirection: "row", gap: 8 }}>
+            <CircularIconButton
+              icon={<SearchIcon fill="#555" />}
+              onPress={() => console.log("Buscar presionado")}
+            />
+            <CircularIconButton
+              icon={<BellIcon fill="#555" />}
+              onPress={() => console.log("Notification presionado")}
+            />
+          </View>
         </View>
       </View>
-    </SafeAreaView>
+    </SafeContainer>
   );
 }
-export const styles = StyleSheet.create({
-  formContainer: {
-    width: "100%",
-    gap: 20,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    maxWidth: 60,
-    maxHeight: 60,
-    borderRadius: 50,
-    overflow: "hidden",
-  },
-  container: {
-    flex: 1,
-    padding: spacing.medium,
-  },
-});
+export const styles = StyleSheet.create({});

@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { useTheme } from '../../context/ThemeContext';
-import TextTitle from '../TextTitle';
-import { SearchIcon, ShoppingCartIcon } from '../../../assets/icons';
-import { spacing } from '../../styles/theme';
+import React from "react";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { useTheme } from "../../context/ThemeContext";
+import TextTitle from "../TextTitle";
+import { SearchIcon, ShoppingCartIcon } from "../../../assets/icons";
+import { spacing } from "../../styles/theme";
+import CircularIconButton from "../CircularIconButton";
 
 const HeaderComponent = () => {
   const { theme } = useTheme();
@@ -12,12 +13,14 @@ const HeaderComponent = () => {
     <View style={styles.header}>
       <TextTitle>Marketplace</TextTitle>
       <View style={styles.iconContainer}>
-        <TouchableOpacity style={{ padding: spacing.small, backgroundColor: theme.colors.cardBackground, borderRadius: 50 }}>
-          <SearchIcon fill={theme.colors.secondary} />
-        </TouchableOpacity>
-        <TouchableOpacity style={{ padding: spacing.small, backgroundColor: theme.colors.cardBackground, borderRadius: 50 }}>
-          <ShoppingCartIcon fill={theme.colors.secondary} />
-        </TouchableOpacity>
+        <CircularIconButton
+          icon={<SearchIcon fill="#555" />}
+          onPress={() => console.log("Buscar presionado")}
+        />
+        <CircularIconButton
+          icon={<ShoppingCartIcon fill="#555" />}
+          onPress={() => console.log("Shop presionado")}
+        />
       </View>
     </View>
   );
@@ -26,12 +29,12 @@ const HeaderComponent = () => {
 const styles = StyleSheet.create({
   header: {
     paddingHorizontal: spacing.medium,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   iconContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: spacing.medium,
   },
 });

@@ -27,6 +27,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ProfileStackParamList } from "../navigation/ProfileStack";
 import IconButton from "../components/IconButton";
+import SafeContainer from "../components/SafeContainer ";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   ProfileStackParamList,
@@ -38,116 +39,106 @@ export default function Profile() {
   const { theme } = useTheme();
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
-    >
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <TextTitle>Perfil</TextTitle>
+    <SafeContainer padding={spacing.medium}>
+      <TextTitle>Perfil</TextTitle>
 
-        {/* Tarjeta de Perfil */}
-        <ProfileCard
-          style={{ justifyContent: "space-between", flexDirection: "row" }}
-        >
-          <View style={styles.row}>
-            <View style={styles.imageWrapper}>
-              <Image
-                source={require("../../assets/images/imageProfile.jpg")}
-                resizeMode="cover"
-                style={styles.image}
-              />
-            </View>
-            <View style={styles.textWrapper}>
-              <TextMedium style={{ fontWeight: "700" }}>
-                Nombre dueño
-              </TextMedium>
-              <TextSmall>correo@gmail.com</TextSmall>
-            </View>
+      {/* Tarjeta de Perfil */}
+      <ProfileCard
+        style={{ justifyContent: "space-between", flexDirection: "row" }}
+      >
+        <View style={styles.row}>
+          <View style={styles.imageWrapper}>
+            <Image
+              source={require("../../assets/images/imageProfile.jpg")}
+              resizeMode="cover"
+              style={styles.image}
+            />
           </View>
+          <View style={styles.textWrapper}>
+            <TextMedium style={{ fontWeight: "700" }}>Nombre dueño</TextMedium>
+            <TextSmall>correo@gmail.com</TextSmall>
+          </View>
+        </View>
 
-          <IconButton
-            onPress={() => navigation.navigate("EditProfile")}
-            icon={EditIcon}
-          />
-        </ProfileCard>
+        <IconButton
+          onPress={() => navigation.navigate("EditProfile")}
+          icon={EditIcon}
+        />
+      </ProfileCard>
 
-        {/* Sección: Mis Mascotas */}
-        <ProfileCard>
-          <ProfileItem
-            icon={<HeartIcon fill={theme.colors.text} width={24} height={24} />}
-            title="Mis mascotas"
-            onPress={() => navigation.navigate("Pets")}
-          />
-        </ProfileCard>
+      {/* Sección: Mis Mascotas */}
+      <ProfileCard>
+        <ProfileItem
+          icon={<HeartIcon fill={theme.colors.text} width={24} height={24} />}
+          title="Mis mascotas"
+          onPress={() => navigation.navigate("Pets")}
+        />
+      </ProfileCard>
 
-        {/* Sección: Configuraciones */}
-        <ProfileCard>
-          <ProfileItem
-            icon={<CogIcon fill={theme.colors.text} width={24} height={24} />}
-            title="Configuraciones"
-            onPress={() => navigation.navigate("Settings")}
-          />
-        </ProfileCard>
+      {/* Sección: Configuraciones */}
+      <ProfileCard>
+        <ProfileItem
+          icon={<CogIcon fill={theme.colors.text} width={24} height={24} />}
+          title="Configuraciones"
+          onPress={() => navigation.navigate("Settings")}
+        />
+      </ProfileCard>
 
-        {/* Sección: Planes y Membresías */}
-        <ProfileCard>
-          <ProfileItem
-            icon={<StarIcon fill={theme.colors.text} width={24} height={24} />}
-            title="Planes y Membresías"
-            onPress={() => navigation.navigate("Memberships")}
-          />
-          <LineHorizontal />
-          <ProfileItem
-            icon={
-              <CreditCardIcon fill={theme.colors.text} width={24} height={24} />
-            }
-            title="Pagos y Métodos de Pago"
-            onPress={() => navigation.navigate("Payments")}
-          />
-        </ProfileCard>
+      {/* Sección: Planes y Membresías */}
+      <ProfileCard>
+        <ProfileItem
+          icon={<StarIcon fill={theme.colors.text} width={24} height={24} />}
+          title="Planes y Membresías"
+          onPress={() => navigation.navigate("Memberships")}
+        />
+        <LineHorizontal />
+        <ProfileItem
+          icon={
+            <CreditCardIcon fill={theme.colors.text} width={24} height={24} />
+          }
+          title="Pagos y Métodos de Pago"
+          onPress={() => navigation.navigate("Payments")}
+        />
+      </ProfileCard>
 
-        {/* Sección: Historial y Ayuda */}
-        <ProfileCard>
-          <ProfileItem
-            icon={<ClockIcon fill={theme.colors.text} width={24} height={24} />}
-            title="Historial de Actividades"
-            onPress={() => navigation.navigate("History")}
-          />
-          <LineHorizontal />
-          <ProfileItem
-            icon={
-              <BalanceIcon fill={theme.colors.text} width={24} height={24} />
-            }
-            title="Términos Legales y Políticas"
-            onPress={() => navigation.navigate("Legal")}
-          />
-          <LineHorizontal />
-          <ProfileItem
-            icon={
-              <QuestionCircleIcon
-                fill={theme.colors.text}
-                width={24}
-                height={24}
-              />
-            }
-            title="Ayuda y Soporte"
-            onPress={() => navigation.navigate("Help")}
-          />
-        </ProfileCard>
+      {/* Sección: Historial y Ayuda */}
+      <ProfileCard>
+        <ProfileItem
+          icon={<ClockIcon fill={theme.colors.text} width={24} height={24} />}
+          title="Historial de Actividades"
+          onPress={() => navigation.navigate("History")}
+        />
+        <LineHorizontal />
+        <ProfileItem
+          icon={<BalanceIcon fill={theme.colors.text} width={24} height={24} />}
+          title="Términos Legales y Políticas"
+          onPress={() => navigation.navigate("Legal")}
+        />
+        <LineHorizontal />
+        <ProfileItem
+          icon={
+            <QuestionCircleIcon
+              fill={theme.colors.text}
+              width={24}
+              height={24}
+            />
+          }
+          title="Ayuda y Soporte"
+          onPress={() => navigation.navigate("Help")}
+        />
+      </ProfileCard>
 
-        {/* Botón de cerrar sesión */}
-        <ProfileCard>
-          <ProfileItem
-            icon={
-              <SignInIcon fill={theme.colors.text} width={24} height={24} />
-            }
-            title="Cerrar sesión"
-          />
-        </ProfileCard>
+      {/* Botón de cerrar sesión */}
+      <ProfileCard>
+        <ProfileItem
+          icon={<SignInIcon fill={theme.colors.text} width={24} height={24} />}
+          title="Cerrar sesión"
+        />
+      </ProfileCard>
 
-        {/* Botón de cambio de tema */}
-        {/* <Button title="Cambiar tema" onPress={toggleTheme} type="primary" /> */}
-      </ScrollView>
-    </SafeAreaView>
+      {/* Botón de cambio de tema */}
+      {/* <Button title="Cambiar tema" onPress={toggleTheme} type="primary" /> */}
+    </SafeContainer>
   );
 }
 
