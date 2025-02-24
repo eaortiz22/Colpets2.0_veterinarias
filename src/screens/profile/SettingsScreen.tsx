@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import Button from "../../components/Button";
+import Button from "../../components/ui/Button";
 import { useTheme } from "../../context/ThemeContext";
 import SafeContainer from "../../components/SafeContainer ";
 

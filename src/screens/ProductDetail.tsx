@@ -7,7 +7,7 @@ import TextSmall from "../components/TextSmall";
 import { Text } from "react-native";
 import { MinusIcon, PlusIcon } from "../../assets/icons";
 import TextMedium from "../components/TextMedium";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 import ArrowBack from "../components/ArrowBack";
 
 export default function ProductDetail({ route }: any) {

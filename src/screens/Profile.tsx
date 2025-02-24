@@ -19,10 +19,10 @@ import {
 } from "../../assets/icons";
 import { Image } from "react-native";
 import { spacing } from "../styles/theme";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 import ProfileCard from "../components/profile/ProfileCard";
 import ProfileItem from "../components/profile/ProfileItem";
-import LineHorizontal from "../components/LineHorizontal";
+import LineHorizontal from "../components/ui/LineHorizontal";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ProfileStackParamList } from "../navigation/ProfileStack";

@@ -7,7 +7,7 @@ import { AngleIcon } from "../../assets/icons";
 import { spacing } from "../styles/theme";
 import TextSmall from "../components/TextSmall";
 import HeaderComponent from "../components/marketplace/HeaderComponent";
-import BannerCarousel from "../components/marketplace/BannerCarousel";
+import BannerCarousel from "../components/ui/BannerCarousel";
 import CategoryList from "../components/marketplace/CategoryList";
 import ProductCard from "../components/marketplace/ProductCard";
 import SafeContainer from "../components/SafeContainer ";
@@ -58,7 +58,7 @@ export default function Marketplace() {
 
       {/* Banner */}
       <View>
-        <BannerCarousel promotions={promotions} />
+        <BannerCarousel data={promotions} />
       </View>
 
       {/* Categories */}

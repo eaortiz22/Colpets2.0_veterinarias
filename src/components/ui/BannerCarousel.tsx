@@ -1,16 +1,33 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { FlatList, Image, Dimensions } from 'react-native';
-import { useTheme } from '../../context/ThemeContext';
-import { StyleSheet } from 'react-native';
+import React, { useRef, useState, useEffect } from "react";
+import {
+  FlatList,
+  Image,
+  Dimensions,
+  StyleSheet,
+  ViewStyle,
+} from "react-native";
+import { useTheme } from "../../context/ThemeContext";
 
-const screenWidth = Dimensions.get('window').width;
+const screenWidth = Dimensions.get("window").width;
 
 interface Promotion {
   id: string;
-  image: any; // Ajusta el tipo de 'image' según el tipo que uses en tu aplicación
+  image: any;
 }
 
-const BannerCarousel = ({ promotions }: { promotions: Promotion[] }) => {
+interface BannerCarouselProps {
+  data: Promotion[];
+  size?: number;
+  styles?: boolean;
+  containerStyle?: ViewStyle;
+}
+
+const BannerCarousel: React.FC<BannerCarouselProps> = ({
+  data,
+  size,
+  styles,
+  containerStyle,
+}) => {
   const { theme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList<Promotion> | null>(null);
@@ -19,7 +36,9 @@ const BannerCarousel = ({ promotions }: { promotions: Promotion[] }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isTouching) {
-        setCurrentIndex((prevIndex) => (prevIndex === promotions.length - 1 ? 0 : prevIndex + 1));
+        setCurrentIndex((prevIndex) =>
+          prevIndex === data.length - 1 ? 0 : prevIndex + 1
+        );
       }
     }, 3000);
 
@@ -52,7 +71,7 @@ const BannerCarousel = ({ promotions }: { promotions: Promotion[] }) => {
   return (
     <FlatList
       ref={flatListRef}
-      data={promotions}
+      data={data}
       keyExtractor={(item) => item.id}
       horizontal
       pagingEnabled
@@ -60,16 +79,31 @@ const BannerCarousel = ({ promotions }: { promotions: Promotion[] }) => {
       onMomentumScrollEnd={handleScrollEnd}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      renderItem={({ item }) => <Image source={item.image} resizeMode="cover" style={styles.image} />}
+      style={[
+        styles ? { borderRadius: 16, overflow: "hidden" } : {},
+        containerStyle,
+      ]}
+      renderItem={({ item }) => (
+        <Image
+          source={item.image}
+          resizeMode="cover"
+          style={[
+            defaultStyles.image,
+            {
+              width: size ? screenWidth - size : screenWidth,
+              borderRadius: styles ? 16 : 0,
+            },
+          ]}
+        />
+      )}
     />
   );
 };
 
-const styles = StyleSheet.create({
+const defaultStyles = StyleSheet.create({
   image: {
-    width: screenWidth,
     height: 180,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
 });
 

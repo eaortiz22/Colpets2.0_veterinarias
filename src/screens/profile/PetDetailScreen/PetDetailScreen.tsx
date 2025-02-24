@@ -8,7 +8,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import TextTitle from "../../../components/TextTitle";
 import IconButton from "../../../components/IconButton";
 import { EditIcon } from "../../../../assets/icons";
-import LineHorizontal from "../../../components/LineHorizontal";
+import LineHorizontal from "../../../components/ui/LineHorizontal";
 import TextMedium from "../../../components/TextMedium";
 
 type RouteParams = RouteProp<RootStackParamList, "PetDetailScreen">;

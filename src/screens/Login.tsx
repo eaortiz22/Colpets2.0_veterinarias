@@ -10,8 +10,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { KeyboardAvoidingView } from 'react-native';
 import TextTitle from '../components/TextTitle';
 import TextMedium from '../components/TextMedium';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import Input from '../components/ui/Input';
+import Button from '../components/ui/Button';
 import TextSmall from '../components/TextSmall';
 import { spacing } from '../styles/theme';
 

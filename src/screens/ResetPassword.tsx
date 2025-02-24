@@ -11,10 +11,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../context/ThemeContext";
-import Input from "../components/Input";
+import Input from "../components/ui/Input";
 import TextTitle from "../components/TextTitle";
 import TextMedium from "../components/TextMedium";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../navigation/AppNavigator";
 import { StackNavigationProp } from "@react-navigation/stack";

@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleProp, ViewStyle } from "react-native";
-import { useTheme } from "../context/ThemeContext";
-import { getGlobalStyles } from "../styles/globalStyles";
+import { useTheme } from "../../context/ThemeContext";
+import { getGlobalStyles } from "../../styles/globalStyles";
 
 interface ButtonProps {
   title: string;
