@@ -11,6 +11,7 @@ import BannerCarousel from "../components/ui/BannerCarousel";
 import CategoryList from "../components/marketplace/CategoryList";
 import ProductCard from "../components/marketplace/ProductCard";
 import SafeContainer from "../components/SafeContainer ";
+import ProductSection from "../components/ProductSection";
 
 const promotions = [
   { id: "1", image: require("../../assets/images/bannerMarketplace.jpg") },
@@ -43,9 +44,11 @@ const categories = [
 
 const products = Array(5).fill({
   id: "1",
-  name: "Purina para perroperroperro",
+  name: "Purina para perro",
   price: 30000,
   image: require("../../assets/images/product.png"),
+  rating: 4.8,
+  reviews: 2200,
 });
 
 export default function Marketplace() {
@@ -91,30 +94,11 @@ export default function Marketplace() {
         </View>
       </View>
       {/* Recommended */}
-      <View
-        style={{
-          paddingHorizontal: spacing.medium,
-          gap: 8,
-        }}
-      >
-        <View style={[styles.header, { paddingHorizontal: 0 }]}>
-          <TextTitle style={{ fontWeight: "700" }}>Recomendados</TextTitle>
-          <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
-          >
-            <TextSmall style={{ color: theme.colors.primary }}>
-              Ver todo
-            </TextSmall>
-            <AngleIcon
-              size={12}
-              fill={theme.colors.primary}
-              width={16}
-              height={16}
-            />
-          </TouchableOpacity>
-        </View>
-        <ProductCard products={products} />
-      </View>
+      <ProductSection
+        title="Recomendados"
+        products={products}
+        onViewAll={() => console.log("Ver todos")}
+      />
     </SafeContainer>
   );
 }

@@ -1,22 +1,38 @@
-import React from 'react';
-import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { useTheme } from '../../context/ThemeContext';
-import TextSmall from '../TextSmall';
-import { PlusIcon } from '../../../assets/icons';
-import { spacing } from '../../styles/theme';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import React from "react";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
+import { useTheme } from "../../context/ThemeContext";
+import TextSmall from "../TextSmall";
+import { PlusIcon, StarIcon } from "../../../assets/icons"; // Asegúrate de importar el StarIcon
+import { spacing } from "../../styles/theme";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigation/AppNavigator";
 
-type ProductDetailScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ProductDetail'>;
+type ProductDetailScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "ProductDetail"
+>;
+
+const formatReviews = (reviews?: number) => {
+  if (!reviews) return "0";
+  if (reviews >= 1_000_000) return `${(reviews / 1_000_000).toFixed(1)}m`;
+  if (reviews >= 1_000) return `${(reviews / 1_000).toFixed(1)}k`;
+  return reviews.toString();
+};
 
 const ProductCard = ({ products }: any) => {
   const navigation = useNavigation<ProductDetailScreenNavigationProp>();
   const { theme } = useTheme();
 
   const handlePress = (product: string) => {
-    navigation.navigate('ProductDetail', { product });
+    navigation.navigate("ProductDetail", { product });
   };
 
   return (
@@ -26,35 +42,44 @@ const ProductCard = ({ products }: any) => {
           key={index}
           style={[
             styles.cards,
-            { backgroundColor: theme.colors.cardBackground, marginRight: index !== products.length - 1 ? 16 : 0, width: 200 },
+            {
+              backgroundColor: theme.colors.cardBackground,
+              marginRight: index !== products.length - 1 ? 16 : 0,
+              width: 200,
+            },
           ]}
           onPress={() => handlePress(product)}
         >
-          <Image source={product.image} resizeMode="cover" style={{ width: '100%', height: 150, borderRadius: 16 }} />
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: spacing.small,
-              paddingHorizontal: spacing.small,
-            }}
-          >
-            <View style={{ flex: 1, justifyContent: 'space-between' }}>
-              <TextSmall numberOfLines={1} ellipsizeMode="tail" style={{ color: theme.colors.text }}>
+          <Image
+            source={product.image}
+            resizeMode="cover"
+            style={styles.image}
+          />
+          <View style={styles.cardDetails}>
+            <View style={{ flex: 1, justifyContent: "space-between" }}>
+              <TextSmall
+                numberOfLines={2}
+                ellipsizeMode="tail"
+                style={{ color: theme.colors.text }}
+              >
                 {product.name}
               </TextSmall>
-              <Text style={{ color: theme.colors.secondary, fontWeight: '700', fontSize: 20 }}>${product.price.toLocaleString()}</Text>
+              {/* Sección de calificación */}
+              <View style={styles.ratingContainer}>
+                <StarIcon fill={theme.colors.warning} width={16} height={16} />
+                <Text style={styles.ratingText}>
+                  {product.rating} ({formatReviews(product.reviews)})
+                </Text>
+              </View>
+              <Text style={[styles.priceText, { color: theme.colors.text }]}>
+                ${product.price.toLocaleString()}
+              </Text>
             </View>
             <TouchableOpacity
-              style={{
-                padding: spacing.small,
-                backgroundColor: theme.colors.primary,
-                borderRadius: 50,
-                alignSelf: 'flex-end',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              style={[
+                styles.plusButton,
+                { backgroundColor: theme.colors.primary },
+              ]}
             >
               <PlusIcon fill="white" width={16} height={16} />
             </TouchableOpacity>
@@ -72,18 +97,39 @@ const styles = StyleSheet.create({
     width: 200,
     marginRight: 16,
   },
+  image: {
+    width: "100%",
+    height: 150,
+    borderRadius: 16,
+  },
   cardDetails: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
     marginTop: spacing.small,
     paddingHorizontal: spacing.small,
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  ratingText: {
+    marginLeft: 4,
+    color: "#777",
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  priceText: {
+    color: "#000",
+    fontWeight: "700",
+    fontSize: 18,
+    marginTop: 4,
   },
   plusButton: {
     padding: spacing.small,
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

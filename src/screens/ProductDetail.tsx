@@ -5,7 +5,7 @@ import { useTheme } from "../context/ThemeContext";
 import TextTitle from "../components/TextTitle";
 import TextSmall from "../components/TextSmall";
 import { Text } from "react-native";
-import { MinusIcon, PlusIcon } from "../../assets/icons";
+import { MinusIcon, PlusIcon, StarIcon } from "../../assets/icons";
 import TextMedium from "../components/TextMedium";
 import Button from "../components/ui/Button";
 import ArrowBack from "../components/ArrowBack";
@@ -52,8 +52,23 @@ export default function ProductDetail({ route }: any) {
           },
         ]}
       >
-        <View style={{ gap: 20 }}>
+        <View style={{ gap: 8 }}>
           <TextTitle style={{ fontWeight: "500" }}>{product.name}</TextTitle>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+            <StarIcon fill={theme.colors.warning} width={24} height={24} />
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "700",
+                color: theme.colors.secondary,
+              }}
+            >
+              {product.rating}
+            </Text>
+            <TextSmall style={{ color: theme.colors.text }}>
+              ({product.reviews} reseñas)
+            </TextSmall>
+          </View>
           <View
             style={{
               flexDirection: "row",
