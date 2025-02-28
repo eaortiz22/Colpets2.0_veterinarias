@@ -12,6 +12,7 @@ import CategoryList from "../components/marketplace/CategoryList";
 import ProductCard from "../components/marketplace/ProductCard";
 import SafeContainer from "../components/SafeContainer ";
 import ProductSection from "../components/ProductSection";
+import HeaderBar from "../components/HeaderBar";
 
 const promotions = [
   { id: "1", image: require("../../assets/images/bannerMarketplace.jpg") },
@@ -55,9 +56,18 @@ export default function Marketplace() {
   const { theme } = useTheme();
 
   return (
-    <SafeContainer>
+    <SafeContainer style={{ marginBottom: 70 }}>
       {/* Header */}
-      <HeaderComponent />
+      <View>
+        <HeaderBar
+          location="Bogotá, Edificio Cataly"
+          country="Colombia"
+          onLocationPress={() => console.log("Ubicación seleccionada")}
+          onSearchPress={() => console.log("Buscar acción")}
+          onRightPress={() => console.log("Carrito abierto")}
+          containerStyle={{ paddingHorizontal: 16, paddingTop: 16 }}
+        />
+      </View>
 
       {/* Banner */}
       <View>

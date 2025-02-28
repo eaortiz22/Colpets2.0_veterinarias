@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     padding: spacing.medium,
     borderRadius: 32,
     width: 200,
-    marginRight: 16,
+    gap: 4,
   },
   image: {
     width: "100%",
@@ -106,15 +106,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-    marginTop: spacing.small,
-    paddingHorizontal: spacing.small,
   },
   ratingContainer: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 4,
   },
   ratingText: {
-    marginLeft: 4,
     color: "#777",
     fontSize: 14,
     fontWeight: "500",
@@ -123,7 +121,6 @@ const styles = StyleSheet.create({
     color: "#000",
     fontWeight: "700",
     fontSize: 18,
-    marginTop: 4,
   },
   plusButton: {
     padding: spacing.small,

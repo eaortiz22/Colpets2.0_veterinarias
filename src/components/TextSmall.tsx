@@ -1,11 +1,17 @@
 import React from "react";
-import { Text, StyleSheet, TextStyle, TextProps } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  TextProps,
+  StyleProp,
+  TextStyle,
+} from "react-native";
 import { useTheme } from "../context/ThemeContext";
 import { getGlobalStyles } from "../styles/globalStyles";
 
 interface TextSmallProps extends TextProps {
   children: React.ReactNode;
-  style?: TextStyle;
+  style?: StyleProp<TextStyle>; 
 }
 
 const TextSmall: React.FC<TextSmallProps> = ({ children, style, ...props }) => {

@@ -1,44 +1,81 @@
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, ViewStyle } from "react-native";
 import CircularIconButton from "./CircularIconButton";
 import TextMedium from "./TextMedium";
 import TextSmall from "./TextSmall";
-import { BellIcon, MapMarkerIcon, SearchIcon } from "../../assets/icons";
+import {
+  BellIcon,
+  MapMarkerIcon,
+  SearchIcon,
+  AngleIcon,
+} from "../../assets/icons";
+import { useTheme } from "../context/ThemeContext";
 
-const HeaderBar = ({
+interface HeaderBarProps {
+  location?: string;
+  country?: string;
+  onLocationPress?: () => void;
+  onSearchPress?: () => void;
+  onRightPress?: () => void;
+  rightIcon?: JSX.Element;
+  containerStyle?: ViewStyle;
+}
+
+const HeaderBar: React.FC<HeaderBarProps> = ({
   location = "Bogotá, Edificio Cataly",
   country = "Colombia",
-  onLocationPress = () => console.log("Ubi presionado"),
+  onLocationPress = () => console.log("Ubicación presionada"),
   onSearchPress = () => console.log("Buscar presionado"),
-  onNotificationPress = () => console.log("Notification presionado"),
+  onRightPress = () => console.log("Right presionado"),
+  rightIcon = <BellIcon fill="#555" />,
+  containerStyle = {},
 }) => {
+  const { theme } = useTheme();
+
   return (
     <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        gap: 4,
-        alignItems: "center",
-      }}
+      style={[
+        {
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 4,
+          flex: 1,
+        },
+        containerStyle,
+      ]}
     >
       <TouchableOpacity
-        style={{ flexDirection: "row", gap: 8 }}
+        style={{ flexDirection: "row", alignItems: "center", flex: 1, gap: 8 }}
         onPress={onLocationPress}
       >
         <CircularIconButton icon={<MapMarkerIcon fill="#555" />} />
-        <View>
-          <TextMedium>{location}</TextMedium>
-          <TextSmall>{country}</TextSmall>
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View style={{ flexShrink: 1 }}>
+            <TextMedium numberOfLines={1} ellipsizeMode="tail">
+              {location}
+            </TextMedium>
+            <TextSmall numberOfLines={1} ellipsizeMode="tail">
+              {country}
+            </TextSmall>
+          </View>
+
+          <View style={{ alignSelf: "center" }}>
+            <AngleIcon
+              fill={theme.colors.secondary}
+              height={24}
+              width={24}
+              style={{ transform: [{ rotate: "90deg" }] }}
+            />
+          </View>
         </View>
       </TouchableOpacity>
+
       <View style={{ flexDirection: "row", gap: 8 }}>
         <CircularIconButton
           icon={<SearchIcon fill="#555" />}
           onPress={onSearchPress}
         />
-        <CircularIconButton
-          icon={<BellIcon fill="#555" />}
-          onPress={onNotificationPress}
-        />
+        <CircularIconButton icon={rightIcon} onPress={onRightPress} />
       </View>
     </View>
   );

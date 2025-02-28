@@ -9,6 +9,7 @@ import BannerCarousel from "../components/ui/BannerCarousel";
 import HealthReminderCard from "../components/home/HealthReminderCard";
 import PetCareSection from "../components/home/PetCareSection";
 import ProductSection from "../components/ProductSection";
+import FeaturedVeterinaries from "../components/home/FeaturedVeterinaries";
 
 const dataBanners = [
   { id: "1", image: require("../../assets/images/bannerMarketplace.jpg") },
@@ -50,15 +51,42 @@ export default function Home() {
     reviews: 3500,
   });
 
+  const veterinaries = [
+    {
+      id: "1",
+      name: "Veterinaria Patitas",
+      image: require("../../assets/images/vet2.jpg"),
+      rating: 4.8,
+      reviews: 12400,
+      neighborhood: "Fatima",
+    },
+    {
+      id: "2",
+      name: "Huellas & Amor",
+      image: require("../../assets/images/vet.jpg"),
+      rating: 4.7,
+      reviews: 9800,
+      neighborhood: "Venecia",
+    },
+    {
+      id: "3",
+      name: "PetCare Express",
+      image: require("../../assets/images/vet2.jpg"),
+      rating: 4.9,
+      reviews: 7100,
+      neighborhood: "Tunal",
+    },
+  ];
+
   return (
-    <SafeContainer>
+    <SafeContainer style={{ marginBottom: 70 }}>
       <View style={{ padding: spacing.medium, gap: 16 }}>
         <HeaderBar
-          location="Medellín, Centro Empresarial"
+          location="Bogotá, Edificio Cataly"
           country="Colombia"
           onLocationPress={() => console.log("Ubicación seleccionada")}
           onSearchPress={() => console.log("Buscar acción")}
-          onNotificationPress={() => console.log("Notificaciones abiertas")}
+          onRightPress={() => console.log("Notificaciones abiertas")}
         />
         <View style={{ borderRadius: 16 }}>
           <BannerCarousel data={dataBanners} size={32} styles />
@@ -67,12 +95,18 @@ export default function Home() {
         <PetCareSection reminders={reminders} />
 
         <ProductSection
-          title="Productos recomendados"
+          title="Productos destacados"
           products={products}
           onViewAll={() => console.log("Ver todos")}
           paddingHorizontal={0}
         />
       </View>
+      <FeaturedVeterinaries
+        title="Veterinarias destacadas"
+        onViewAll={() => console.log("Ver todos")}
+        veterinaries={veterinaries}
+        paddingHorizontal={16}
+      />
     </SafeContainer>
   );
 }
