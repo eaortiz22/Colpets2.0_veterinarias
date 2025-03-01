@@ -83,8 +83,8 @@ export default function Veterinarians() {
       mapRef.current.animateToRegion({
         latitude: location.latitude,
         longitude: location.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
       });
     }
   }, [location]);
@@ -124,8 +124,8 @@ export default function Veterinarians() {
       mapRef.current.animateToRegion({
         latitude: location.latitude,
         longitude: location.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
       });
     }
   };
@@ -160,8 +160,8 @@ export default function Veterinarians() {
                     initialRegion={{
                       latitude: location.latitude,
                       longitude: location.longitude,
-                      latitudeDelta: 0.01,
-                      longitudeDelta: 0.01,
+                      latitudeDelta: 0.005,
+                      longitudeDelta: 0.005,
                     }}
                     onRegionChangeComplete={handleRegionChangeComplete}
                   >
@@ -181,7 +181,7 @@ export default function Veterinarians() {
                         title={vet.name}
                         pinColor="red"
                         onPress={() =>
-                          handleMarkerPress(vet.latitude, vet.longitude)  
+                          handleMarkerPress(vet.latitude, vet.longitude)
                         }
                       >
                         <Callout>
