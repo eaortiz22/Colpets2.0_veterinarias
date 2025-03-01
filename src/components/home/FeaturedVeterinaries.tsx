@@ -12,6 +12,7 @@ import { useTheme } from "../../context/ThemeContext";
 import TextSmall from "../TextSmall";
 import { AngleIcon, MapMarkerIcon, StarIcon } from "../../../assets/icons";
 import { spacing } from "../../styles/theme";
+import SectionHeader from "../SectionHeader";
 
 interface VeterinarySectionProps {
   title: string;
@@ -31,41 +32,13 @@ const VeterinarySection: React.FC<VeterinarySectionProps> = ({
   title,
   veterinaries,
   onViewAll,
-  paddingHorizontal = 16,
+  paddingHorizontal = 0,
 }) => {
   const { theme } = useTheme();
 
   return (
     <View style={{ paddingHorizontal, gap: 8 }}>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <TextTitle
-          style={{ fontWeight: "700", flex: 1 }}
-          numberOfLines={1}
-          ellipsizeMode="tail"
-        >
-          {title}
-        </TextTitle>
-        {onViewAll && (
-          <TouchableOpacity
-            onPress={onViewAll}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginLeft: 8,
-            }}
-          >
-            <TextSmall style={{ color: theme.colors.primary }}>
-              Ver todo
-            </TextSmall>
-            <AngleIcon
-              size={12}
-              fill={theme.colors.primary}
-              width={16}
-              height={16}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
+      <SectionHeader title="Veterinarias destacadas" onViewAll={onViewAll} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {veterinaries.map((veterinary, index) => (
           <TouchableOpacity

@@ -49,23 +49,28 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
         onPress={onLocationPress}
       >
         <CircularIconButton icon={<MapMarkerIcon fill="#555" />} />
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <View style={{ flexShrink: 1 }}>
-            <TextMedium numberOfLines={1} ellipsizeMode="tail">
-              {location}
-            </TextMedium>
+        <View style={{ flexShrink: 1, flexDirection: "row" }}>
+          <View style={{ flex: 1 }}>
+            <View style={{ flexDirection: "row", flexShrink: 1 }}>
+              <TextMedium
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{ flexShrink: 1 }}
+              >
+                {location}
+              </TextMedium>
+              <View style={{ alignSelf: "center" }}>
+                <AngleIcon
+                  fill={theme.colors.secondary}
+                  height={24}
+                  width={24}
+                  style={{ transform: [{ rotate: "90deg" }] }}
+                />
+              </View>
+            </View>
             <TextSmall numberOfLines={1} ellipsizeMode="tail">
               {country}
             </TextSmall>
-          </View>
-
-          <View style={{ alignSelf: "center" }}>
-            <AngleIcon
-              fill={theme.colors.secondary}
-              height={24}
-              width={24}
-              style={{ transform: [{ rotate: "90deg" }] }}
-            />
           </View>
         </View>
       </TouchableOpacity>

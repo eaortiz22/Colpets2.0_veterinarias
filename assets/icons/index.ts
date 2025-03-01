@@ -23,3 +23,4 @@ export { default as PetFootprintIcon } from "./petFootprint.svg";
 export { default as MapMarkerIcon } from "./mapMarker.svg";
 export { default as InfoCircleIcon } from "./infoCircle.svg";
 export { default as CalendarAltIcon } from "./calendarAlt.svg";
+export { default as LocationArrowtIcon } from "./locationArrow.svg";

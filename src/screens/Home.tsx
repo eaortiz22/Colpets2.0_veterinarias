@@ -10,6 +10,9 @@ import HealthReminderCard from "../components/home/HealthReminderCard";
 import PetCareSection from "../components/home/PetCareSection";
 import ProductSection from "../components/ProductSection";
 import FeaturedVeterinaries from "../components/home/FeaturedVeterinaries";
+import ViewAllButton from "../components/ui/ViewAllButton";
+import SectionHeader from "../components/SectionHeader";
+import ServicesSection from "../components/home/ServicesSection";
 
 const dataBanners = [
   { id: "1", image: require("../../assets/images/bannerMarketplace.jpg") },
@@ -94,19 +97,26 @@ export default function Home() {
 
         <PetCareSection reminders={reminders} />
 
+        <View style={{ gap: 16 }}>
+          <SectionHeader
+            title="Servicios"
+            onViewAll={() => console.log("ver todo")}
+          />
+          <ServicesSection />
+        </View>
+
         <ProductSection
           title="Productos destacados"
           products={products}
           onViewAll={() => console.log("Ver todos")}
           paddingHorizontal={0}
         />
+        <FeaturedVeterinaries
+          title="Veterinarias destacadas"
+          onViewAll={() => console.log("Ver todos")}
+          veterinaries={veterinaries}
+        />
       </View>
-      <FeaturedVeterinaries
-        title="Veterinarias destacadas"
-        onViewAll={() => console.log("Ver todos")}
-        veterinaries={veterinaries}
-        paddingHorizontal={16}
-      />
     </SafeContainer>
   );
 }

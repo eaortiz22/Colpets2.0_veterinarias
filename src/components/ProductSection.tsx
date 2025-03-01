@@ -5,6 +5,7 @@ import TextSmall from "./TextSmall";
 import { AngleIcon } from "../../assets/icons";
 import ProductCard from "./marketplace/ProductCard";
 import { useTheme } from "../context/ThemeContext";
+import SectionHeader from "./SectionHeader";
 
 interface ProductSectionProps {
   title: string;
@@ -23,43 +24,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
 
   return (
     <View style={{ paddingHorizontal, gap: 8 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        {/* Título con truncado si es muy largo */}
-        <TextTitle
-          style={{ fontWeight: "700", flex: 1 }}
-          numberOfLines={1}
-          ellipsizeMode="tail"
-        >
-          {title}
-        </TextTitle>
-
-        {onViewAll && (
-          <TouchableOpacity
-            onPress={onViewAll}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginLeft: 8,
-            }}
-          >
-            <TextSmall style={{ color: theme.colors.primary }}>
-              Ver todo
-            </TextSmall>
-            <AngleIcon
-              size={12}
-              fill={theme.colors.primary}
-              width={16}
-              height={16}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
-
+      <SectionHeader title="Productos destacados" onViewAll={onViewAll} />
       <ProductCard products={products} />
     </View>
   );
