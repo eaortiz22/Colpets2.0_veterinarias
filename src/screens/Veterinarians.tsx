@@ -168,17 +168,17 @@ export default function Veterinarians() {
                       longitudeDelta: 0.005,
                     }}
                     onRegionChangeComplete={handleRegionChangeComplete}
+                    showsUserLocation
                   >
-                    <Marker
-                      coordinate={location}
-                      title="Tu ubicación"
-                      style={{ transform: [{ rotate: `${heading}deg` }] }} // Rotar el marcador
-                    >
-                      <Image
-                        source={require("../../assets/iconsPng/locationArrow.png")}
-                        style={styles.arrowIcon}
-                      />
-                    </Marker>
+                    {location && (
+                      <Marker
+                        coordinate={location}
+                        anchor={{ x: 0.5, y: 0.5 }}
+                        style={{ transform: [{ rotate: `${heading}deg` }] }}
+                      >
+                        <View style={[styles.directionIndicator]} />
+                      </Marker>
+                    )}
 
                     {VETERINARIAS.map((vet) => (
                       <Marker
@@ -340,8 +340,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  arrowIcon: {
-    width: 24,
-    height: 24,
+  directionIndicator: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 10,
+    borderRightWidth: 10,
+    borderBottomWidth: 20,
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderBottomColor: "#a2d2ff",
+    position: "absolute",
+    top: -20, // Ajusta la posición
+    left: -10, // Ajusta la posición
   },
 });
