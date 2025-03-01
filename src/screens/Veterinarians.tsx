@@ -7,12 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import HeaderBar from "../components/HeaderBar";
 import SectionHeader from "../components/SectionHeader";
 import ServicesSection from "../components/home/ServicesSection";
-import {
-  LocationArrowtIcon,
-  MapMarkerIcon,
-  StarIcon,
-} from "../../assets/icons";
-import TextSmall from "../components/TextSmall";
+import { LocationArrowtIcon, StarIcon } from "../../assets/icons";
 import SafeContainer from "../components/SafeContainer ";
 
 const formatReviews = (reviews?: number) => {
@@ -169,6 +164,8 @@ export default function Veterinarians() {
                     }}
                     onRegionChangeComplete={handleRegionChangeComplete}
                     showsUserLocation
+                    rotateEnabled
+                    followsUserLocation
                   >
                     {location && (
                       <Marker
@@ -188,11 +185,15 @@ export default function Veterinarians() {
                           longitude: vet.longitude,
                         }}
                         title={vet.name}
-                        pinColor="red"
                         onPress={() =>
                           handleMarkerPress(vet.latitude, vet.longitude)
                         }
                       >
+                        <Image
+                          source={require("../../assets/iconsPng/mapMarkerVeterinary.png")}
+                          style={{ width: 32, height: 32 }}
+                          resizeMode="contain"
+                        />
                         <Callout>
                           <View style={styles.calloutContainer}>
                             <Image source={vet.image} style={styles.vetImage} />
@@ -288,7 +289,10 @@ const styles = StyleSheet.create({
   },
   calloutContainer: {
     alignItems: "center",
+    maxHeight: 150,
+    width: 125,
   },
+
   vetImage: {
     width: 100,
     height: 80,
