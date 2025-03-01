@@ -62,18 +62,22 @@ export default function Veterinarians() {
   } | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [message, setMessage] = useState("");
+  const [heading, setHeading] = useState(0);
 
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permiso de ubicación denegado");
-        return;
-      }
+      if (status !== "granted") return;
+
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
+      });
+
+      // Escuchar cambios en la dirección del dispositivo
+      Location.watchHeadingAsync((headingData) => {
+        setHeading(headingData.trueHeading); // trueHeading es la dirección real en grados
       });
     })();
   }, []);
@@ -168,8 +172,13 @@ export default function Veterinarians() {
                     <Marker
                       coordinate={location}
                       title="Tu ubicación"
-                      pinColor={theme.colors.primary}
-                    />
+                      style={{ transform: [{ rotate: `${heading}deg` }] }} // Rotar el marcador
+                    >
+                      <Image
+                        source={require("../../assets/iconsPng/locationArrow.png")}
+                        style={styles.arrowIcon}
+                      />
+                    </Marker>
 
                     {VETERINARIAS.map((vet) => (
                       <Marker
@@ -330,5 +339,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  arrowIcon: {
+    width: 24,
+    height: 24,
   },
 });
