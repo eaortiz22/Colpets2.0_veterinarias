@@ -165,7 +165,6 @@ export default function Veterinarians() {
                     onRegionChangeComplete={handleRegionChangeComplete}
                     showsUserLocation
                     rotateEnabled
-                    followsUserLocation
                   >
                     {location && (
                       <Marker
