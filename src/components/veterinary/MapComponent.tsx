@@ -12,6 +12,17 @@ const MapComponent = ({
   handleRegionChangeComplete,
   message,
 }: any) => {
+  const focusOnVeterinary = (vet: any) => {
+    if (mapRef.current) {
+      mapRef.current.animateToRegion({
+        latitude: vet.latitude,
+        longitude: vet.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      });
+    }
+  };
+
   if (!location)
     return (
       <View
@@ -35,9 +46,15 @@ const MapComponent = ({
         onRegionChangeComplete={handleRegionChangeComplete}
         showsUserLocation
         rotateEnabled
+        toolbarEnabled={false}
+        showsMyLocationButton={false}
       >
         {veterinarias.map((vet: any) => (
-          <VeterinaryMarker key={vet.id} vet={vet} onPress={() => {}} />
+          <VeterinaryMarker
+            key={vet.id}
+            vet={vet}
+            onPress={() => focusOnVeterinary(vet)}
+          />
         ))}
       </MapView>
       <MessageBanner message={message} />

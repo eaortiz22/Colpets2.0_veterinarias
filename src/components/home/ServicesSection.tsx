@@ -23,16 +23,16 @@ const services = [
     title: "Baño & Aseo",
     image: require("../../../assets/services/banio.jpg"),
   },
-//   {
-//     id: "5",
-//     title: "Caminatas",
-//     image: require("../../../assets/services/caminatas.jpg"),
-//   },
-//   {
-//     id: "6",
-//     title: "Entrenamientos",
-//     image: require("../../../assets/services/entrenamiento.jpg"),
-//   },
+  //   {
+  //     id: "5",
+  //     title: "Caminatas",
+  //     image: require("../../../assets/services/caminatas.jpg"),
+  //   },
+  //   {
+  //     id: "6",
+  //     title: "Entrenamientos",
+  //     image: require("../../../assets/services/entrenamiento.jpg"),
+  //   },
 ];
 
 const ServicesSection = () => {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   wideItem: {
-    width: "55%",
+    width: "54%",
   },
   narrowItem: {
     width: "42.9%",
@@ -90,12 +90,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 8,
     left: 8,
+    right: 8,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     padding: 6,
     borderRadius: 6,
+    maxWidth: 110,
   },
   text: {
     color: "#fff",
+    fontSize: 14,
   },
 });
 
