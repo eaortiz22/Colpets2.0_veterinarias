@@ -18,6 +18,7 @@ const VETS = [
     rating: 4.5,
     reviews: 12400,
     image: require("../../assets/images/vet.jpg"),
+    schedule: "Lunes a Viernes 10:00 - 18:00",
   },
   {
     id: 2,
@@ -27,6 +28,7 @@ const VETS = [
     rating: 4.2,
     reviews: 9200,
     image: require("../../assets/images/vet2.jpg"),
+    schedule: "Lunes a Sábado 09:00 - 19:00",
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ const VETS = [
     rating: 4.8,
     reviews: 5400,
     image: require("../../assets/images/vet.jpg"),
+    schedule: "Todos los días 08:00 - 20:00",
   },
 ];
 

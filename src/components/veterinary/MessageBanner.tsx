@@ -7,7 +7,7 @@ export default function MessageBanner({ message }: any) {
     <View
       style={{
         position: "absolute",
-        top: 10,
+        top: 5,
         alignSelf: "center",
         backgroundColor: "white",
         padding: 10,

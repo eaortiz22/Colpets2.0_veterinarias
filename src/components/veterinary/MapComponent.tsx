@@ -11,6 +11,11 @@ import MapView from "react-native-maps";
 import VeterinaryMarker from "./VeterinaryMarker";
 import CenterButton from "./CenterButton";
 import MessageBanner from "./MessageBanner";
+import { useTheme } from "../../context/ThemeContext";
+import { StarIcon, XIconIcon } from "../../../assets/icons";
+import TextSmall from "../TextSmall";
+import { spacing } from "../../styles/theme";
+import TextMedium from "../TextMedium";
 
 type Veterinary = {
   id: string;
@@ -20,6 +25,17 @@ type Veterinary = {
   reviews: number;
   latitude: number;
   longitude: number;
+  schedule: string;
+};
+//***************/
+//SACAR COMPONENTE
+//***************/
+
+const formatReviews = (reviews?: number) => {
+  if (!reviews) return "0";
+  if (reviews >= 1_000_000) return `${(reviews / 1_000_000).toFixed(1)}m`;
+  if (reviews >= 1_000) return `${(reviews / 1_000).toFixed(1)}k`;
+  return reviews.toString();
 };
 
 const MapComponent = ({
@@ -29,6 +45,8 @@ const MapComponent = ({
   handleRegionChangeComplete,
   message,
 }: any) => {
+  const { theme } = useTheme();
+
   const [selectedVet, setSelectedVet] = useState<Veterinary | null>(null);
 
   const focusOnVeterinary = (vet: any) => {
@@ -77,24 +95,56 @@ const MapComponent = ({
       </MapView>
 
       {selectedVet && (
-        <Animated.View style={styles.card}>
+        <Animated.View
+          style={[
+            styles.card,
+            { backgroundColor: theme.colors.cardBackground },
+          ]}
+        >
           <Image source={selectedVet.image} style={styles.cardImage} />
-          <Text numberOfLines={2} style={styles.cardTitle}>
+          <TextMedium
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={{ fontWeight: "700", color: theme.colors.secondary }}
+          >
             {selectedVet.name}
-          </Text>
-          <Text style={styles.cardRating}>
-            ⭐ {selectedVet.rating} ({selectedVet.reviews})
-          </Text>
+          </TextMedium>
+          <TextSmall style={{ color: theme.colors.secondary }}>
+            {selectedVet.schedule}
+          </TextSmall>
+
+          <View style={styles.ratingContainer}>
+            <StarIcon fill={theme.colors.warning} width={16} height={16} />
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{ color: theme.colors.secondary, fontWeight: "700" }}
+              >
+                {selectedVet.rating}
+              </Text>
+              <Text style={styles.ratingText}>
+                ({formatReviews(selectedVet.reviews)})
+              </Text>
+            </View>
+          </View>
           <TouchableOpacity
             style={styles.button}
             onPress={() => console.log("Ver detalles", selectedVet)}
           >
             <Text style={styles.buttonText}>Ver detalles</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setSelectedVet(null)}>
-            <Text style={styles.closeText}>Cerrar</Text>
-          </TouchableOpacity>
         </Animated.View>
+      )}
+
+      {selectedVet && (
+        <TouchableOpacity
+          style={[
+            styles.closeButton,
+            { backgroundColor: theme.colors.primary },
+          ]}
+          onPress={() => setSelectedVet(null)}
+        >
+          <XIconIcon width={16} height={16} fill={"#FFF"} />
+        </TouchableOpacity>
       )}
 
       <MessageBanner message={message} />
@@ -108,6 +158,7 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 16,
     overflow: "hidden",
+    position: "relative",
   },
   map: {
     width: "100%",
@@ -126,50 +177,58 @@ const styles = StyleSheet.create({
   },
   card: {
     position: "absolute",
-    bottom: 30,
-    left: 20,
-    right: 20,
-    backgroundColor: "#fff",
+    bottom: 45,
     padding: 16,
     borderRadius: 12,
-    alignItems: "center",
     elevation: 10,
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
+    maxHeight: "80%",
+    width: "90%",
+    zIndex: 2,
+    gap: 4,
+    alignSelf: "center",
   },
   cardImage: {
     width: 100,
     height: 80,
     borderRadius: 8,
+    marginTop: -35,
+    marginBottom: 10,
   },
   cardTitle: {
-    marginTop: 8,
     fontWeight: "bold",
     fontSize: 16,
-    textAlign: "center",
   },
-  cardRating: {
-    marginTop: 4,
+  ratingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 2,
+  },
+  ratingText: {
+    marginLeft: 4,
     color: "#777",
     fontSize: 14,
+    fontWeight: "500",
   },
   button: {
     backgroundColor: "#4C9EEB",
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 6,
-    marginTop: 10,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
   },
-  closeText: {
-    marginTop: 8,
-    color: "red",
-    fontSize: 14,
+  closeButton: {
+    position: "absolute",
+    bottom: 10,
+    alignSelf: "center",
+    padding: 8,
+    borderRadius: 99,
   },
 });
 

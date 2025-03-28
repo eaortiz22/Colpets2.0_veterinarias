@@ -1,15 +1,6 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, Platform } from "react-native";
-import { Marker, Callout } from "react-native-maps";
-import { useTheme } from "../../context/ThemeContext";
-import { StarIcon } from "../../../assets/icons";
-
-const formatReviews = (reviews?: number) => {
-  if (!reviews) return "0";
-  if (reviews >= 1_000_000) return `${(reviews / 1_000_000).toFixed(1)}m`;
-  if (reviews >= 1_000) return `${(reviews / 1_000).toFixed(1)}k`;
-  return reviews.toString();
-};
+import { Image } from "react-native";
+import { Marker } from "react-native-maps";
 
 const VeterinaryMarker = ({
   vet,
@@ -18,7 +9,6 @@ const VeterinaryMarker = ({
   vet: any;
   onPress: (vet: any) => void;
 }) => {
-  const { theme } = useTheme();
   return (
     <Marker
       coordinate={{ latitude: vet.latitude, longitude: vet.longitude }}
