@@ -9,7 +9,7 @@ import ServicesSection from "../components/home/ServicesSection";
 import SafeContainer from "../components/SafeContainer ";
 import MapComponent from "../components/veterinary/MapComponent";
 
-const VETERINARIAS = [
+const VETS = [
   {
     id: 1,
     name: "Veterinaria Piloto",
@@ -63,7 +63,7 @@ export default function Veterinarians() {
 
   const handleRegionChangeComplete = (region: Region) => {
     if (!location) return;
-    const visibleVeterinarias = VETERINARIAS.filter(
+    const visibleVeterinarias = VETS.filter(
       (vet) =>
         vet.latitude >= region.latitude - region.latitudeDelta / 2 &&
         vet.latitude <= region.latitude + region.latitudeDelta / 2 &&
@@ -97,7 +97,7 @@ export default function Veterinarians() {
             <MapComponent
               mapRef={mapRef}
               location={location}
-              veterinarias={VETERINARIAS}
+              vets={VETS}
               handleRegionChangeComplete={handleRegionChangeComplete}
               message={message}
             />
