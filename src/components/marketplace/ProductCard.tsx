@@ -14,18 +14,12 @@ import { spacing } from "../../styles/theme";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/AppNavigator";
+import { formatReviews } from "../../utils/formatUtils";
 
 type ProductDetailScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "ProductDetail"
 >;
-
-const formatReviews = (reviews?: number) => {
-  if (!reviews) return "0";
-  if (reviews >= 1_000_000) return `${(reviews / 1_000_000).toFixed(1)}m`;
-  if (reviews >= 1_000) return `${(reviews / 1_000).toFixed(1)}k`;
-  return reviews.toString();
-};
 
 const ProductCard = ({ products }: any) => {
   const navigation = useNavigation<ProductDetailScreenNavigationProp>();

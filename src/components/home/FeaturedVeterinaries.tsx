@@ -13,6 +13,7 @@ import TextSmall from "../TextSmall";
 import { AngleIcon, MapMarkerIcon, StarIcon } from "../../../assets/icons";
 import { spacing } from "../../styles/theme";
 import SectionHeader from "../SectionHeader";
+import { formatReviews } from "../../utils/formatUtils";
 
 interface VeterinarySectionProps {
   title: string;
@@ -20,13 +21,6 @@ interface VeterinarySectionProps {
   onViewAll?: () => void;
   paddingHorizontal?: number;
 }
-
-const formatReviews = (reviews?: number) => {
-  if (!reviews) return "0";
-  if (reviews >= 1_000_000) return `${(reviews / 1_000_000).toFixed(1)}m`;
-  if (reviews >= 1_000) return `${(reviews / 1_000).toFixed(1)}k`;
-  return reviews.toString();
-};
 
 const VeterinarySection: React.FC<VeterinarySectionProps> = ({
   title,

@@ -2,48 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { View, Text } from "react-native";
 import MapView, { Region } from "react-native-maps";
 import * as Location from "expo-location";
-import { useTheme } from "../context/ThemeContext";
 import HeaderBar from "../components/HeaderBar";
 import SectionHeader from "../components/SectionHeader";
 import ServicesSection from "../components/home/ServicesSection";
 import SafeContainer from "../components/SafeContainer ";
 import MapComponent from "../components/veterinary/MapComponent";
-
-const VETS = [
-  {
-    id: 1,
-    name: "Veterinaria Piloto",
-    latitude: 4.585876,
-    longitude: -74.137913,
-    rating: 4.5,
-    reviews: 12400,
-    image: require("../../assets/images/vet.jpg"),
-    schedule: "Lunes a Viernes 10:00 - 18:00",
-  },
-  {
-    id: 2,
-    name: "Sweet Animal",
-    latitude: 4.591795,
-    longitude: -74.140329,
-    rating: 4.2,
-    reviews: 9200,
-    image: require("../../assets/images/vet2.jpg"),
-    schedule: "Lunes a Sábado 09:00 - 19:00",
-  },
-  {
-    id: 3,
-    name: "Pet Health",
-    latitude: 4.705678,
-    longitude: -74.069123,
-    rating: 4.8,
-    reviews: 5400,
-    image: require("../../assets/images/vet.jpg"),
-    schedule: "Todos los días 08:00 - 20:00",
-  },
-];
+import { VETS } from "../data/veterinaries";
 
 export default function Veterinarians() {
-  const { theme } = useTheme();
   const mapRef = useRef<MapView | null>(null);
   const [location, setLocation] = useState<{
     latitude: number;

@@ -25,3 +25,5 @@ export { default as InfoCircleIcon } from "./infoCircle.svg";
 export { default as CalendarAltIcon } from "./calendarAlt.svg";
 export { default as LocationArrowtIcon } from "./locationArrow.svg";
 export { default as XIconIcon } from "./X.svg";
+export { default as ShareAltIcon } from "./shareAlt.svg";
+export { default as EllipsisVIcon } from "./ellipsisV.svg";

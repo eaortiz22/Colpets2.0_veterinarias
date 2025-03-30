@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useTheme } from '../context/ThemeContext';
-import Register from '../screens/Register';
-import Login from '../screens/Login';
-import HomeTabsNavigator from './HomeTabsNavigator';
-import { StatusBar } from 'expo-status-bar';
-import ResetPassword from '../screens/ResetPassword';
-import { StyleSheet } from 'react-native';
-import { spacing } from '../styles/theme';
-import ProductDetail from '../screens/ProductDetail';
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useTheme } from "../context/ThemeContext";
+import Register from "../screens/Register";
+import Login from "../screens/Login";
+import HomeTabsNavigator from "./HomeTabsNavigator";
+import { StatusBar } from "expo-status-bar";
+import ResetPassword from "../screens/ResetPassword";
+import { StyleSheet } from "react-native";
+import { spacing } from "../styles/theme";
+import ProductDetail from "../screens/ProductDetail";
+import VeterinaryDetails from "../screens/veterinarians/VeterinaryDetails";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -17,33 +18,55 @@ export type RootStackParamList = {
   ResetPassword: undefined;
   HomeTabs: undefined;
   ProductDetail: any;
+  VeterinaryDetails: any;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
   const { isDarkTheme, theme } = useTheme();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         {isLoggedIn ? (
           <>
-            <Stack.Screen name="HomeTabs" component={HomeTabsNavigator} options={{ headerShown: false }} />
-            <Stack.Screen name="ProductDetail" component={ProductDetail} options={{ headerShown: false }} />
+            <Stack.Screen
+              name="HomeTabs"
+              component={HomeTabsNavigator}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ProductDetail"
+              component={ProductDetail}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="VeterinaryDetails"
+              component={VeterinaryDetails}
+              options={{ headerShown: false }}
+            />
           </>
         ) : (
           <>
             <Stack.Screen name="Login" options={{ headerShown: false }}>
               {() => <Login setIsLoggedIn={setIsLoggedIn} />}
             </Stack.Screen>
-            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-            <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }} />
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ResetPassword"
+              component={ResetPassword}
+              options={{ headerShown: false }}
+            />
           </>
         )}
       </Stack.Navigator>
-      <StatusBar style={isDarkTheme ? 'light' : 'dark'} animated={true} />
+      <StatusBar style={isDarkTheme ? "light" : "dark"} animated={true} />
     </NavigationContainer>
   );
 };
