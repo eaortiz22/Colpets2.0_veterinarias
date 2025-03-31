@@ -12,6 +12,7 @@ import { spacing } from "../../styles/theme";
 import ArrowBack from "../../components/ArrowBack";
 import TextSmall from "../../components/TextSmall";
 import { formatReviews } from "../../utils/formatUtils";
+import RatingBadge from "../../components/common/RatingBadge";
 
 const { height } = Dimensions.get("window");
 
@@ -35,23 +36,11 @@ const VeterinaryDetails = ({ route }: any) => {
           style={[styles.circle, { backgroundColor: theme.colors.primary }]}
         ></View>
         {/* rating */}
-        <View
-          style={[
-            styles.ratingContainer,
-            { backgroundColor: theme.colors.background },
-          ]}
-        >
-          <StarIcon fill={theme.colors.warning} width={16} height={16} />
-          <Text
-            style={{
-              color: theme.colors.secondary,
-              fontWeight: "700",
-              fontSize: spacing.medium,
-            }}
-          >
-            {veterinary.rating}
-          </Text>
-        </View>
+        <RatingBadge
+          rating={veterinary.rating}
+          backgroundColor={theme.colors.background}
+          iconColor={theme.colors.warning}
+        />
         <Image
           source={veterinary.image}
           resizeMode="cover"
