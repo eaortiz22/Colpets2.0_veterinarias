@@ -14,8 +14,8 @@ export const getDistance = async (
 
     if (data.routes.length > 0) {
       return {
-        distance: data.routes[0].legs[0].distance.text,
-        duration: data.routes[0].legs[0].duration.text,
+        distance: data?.routes[0]?.legs[0]?.distance.text,
+        duration: data?.routes[0]?.legs[0]?.duration.text,
       };
     } else {
       console.error("No se encontró una ruta.");

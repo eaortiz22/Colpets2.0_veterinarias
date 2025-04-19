@@ -9,6 +9,7 @@ import {
   AngleIcon,
 } from "../../assets/icons";
 import { useTheme } from "../context/ThemeContext";
+import React from "react";
 
 interface HeaderBarProps {
   location?: string;
@@ -26,7 +27,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
   onLocationPress = () => console.log("Ubicación presionada"),
   onSearchPress = () => console.log("Buscar presionado"),
   onRightPress = () => console.log("Right presionado"),
-  rightIcon = <BellIcon fill="#555" />,
+  rightIcon = <BellIcon />,
   containerStyle = {},
 }) => {
   const { theme } = useTheme();
@@ -48,7 +49,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
         style={{ flexDirection: "row", alignItems: "center", flex: 1, gap: 8 }}
         onPress={onLocationPress}
       >
-        <CircularIconButton icon={<MapMarkerIcon fill="#555" />} />
+        <CircularIconButton icon={<MapMarkerIcon fill={theme.colors.text} />} />
         <View style={{ flexShrink: 1, flexDirection: "row" }}>
           <View style={{ flex: 1 }}>
             <View style={{ flexDirection: "row", flexShrink: 1 }}>
@@ -61,7 +62,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
               </TextMedium>
               <View style={{ alignSelf: "center" }}>
                 <AngleIcon
-                  fill={theme.colors.secondary}
+                  fill={theme.colors.text}
                   height={24}
                   width={24}
                   style={{ transform: [{ rotate: "90deg" }] }}
@@ -77,10 +78,18 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
 
       <View style={{ flexDirection: "row", gap: 8 }}>
         <CircularIconButton
-          icon={<SearchIcon fill="#555" />}
+          icon={<SearchIcon fill={theme.colors.text} />}
           onPress={onSearchPress}
         />
-        <CircularIconButton icon={rightIcon} onPress={onRightPress} />
+        <CircularIconButton
+          icon={
+            rightIcon &&
+            React.cloneElement(rightIcon, {
+              fill: theme.colors.text,
+            })
+          }
+          onPress={onRightPress}
+        />
       </View>
     </View>
   );

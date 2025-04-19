@@ -5,7 +5,7 @@ import { useTheme } from "../context/ThemeContext";
 
 interface TextTitleProps extends TextProps {
   children: string;
-  style?: TextStyle;
+  style?: TextStyle | TextStyle[] | (TextStyle | undefined)[];
 }
 
 const TextTitle: React.FC<TextTitleProps> = ({ children, style, ...props }) => {

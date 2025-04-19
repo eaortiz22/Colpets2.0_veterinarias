@@ -6,8 +6,9 @@ import { getGlobalStyles } from "../../styles/globalStyles";
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  type?: "primary" | "secondary";
+  type?: "primary" | "secondary" | "disabled";
   style?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({
   onPress,
   type = "primary",
   style,
+  disabled = false,
 }) => {
   const { theme, isDarkTheme } = useTheme();
   const globalStyles = getGlobalStyles(theme, isDarkTheme);
@@ -22,19 +24,27 @@ const Button: React.FC<ButtonProps> = ({
   const buttonStyle =
     type === "primary"
       ? globalStyles.buttonPrimary
-      : globalStyles.buttonSecondary;
+      : type === "secondary"
+      ? globalStyles.buttonSecondary
+      : globalStyles.buttonDisabled;
 
   const textStyle =
     type === "primary"
       ? globalStyles.buttonTextPrimary
-      : globalStyles.buttonTextSecondary;
+      : type === "secondary"
+      ? globalStyles.buttonTextSecondary
+      : globalStyles.buttonTextDisabled;
+
+  const finalButtonStyle = disabled ? globalStyles.buttonDisabled : buttonStyle;
+  const finalTextStyle = disabled ? globalStyles.buttonTextDisabled : textStyle;
 
   return (
     <TouchableOpacity
-      style={[globalStyles.button, buttonStyle, style]}
-      onPress={onPress}
+      style={[globalStyles.button, finalButtonStyle, style]}
+      onPress={disabled ? () => {} : onPress}
+      disabled={disabled}
     >
-      <Text style={[textStyle]}>{title}</Text>
+      <Text style={finalTextStyle}>{title}</Text>
     </TouchableOpacity>
   );
 };

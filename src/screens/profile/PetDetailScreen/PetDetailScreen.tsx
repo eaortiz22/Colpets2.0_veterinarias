@@ -24,7 +24,7 @@ export default function PetDetailScreen() {
         style={[styles.imageContainer, { backgroundColor: backgroundColor }]}
       >
         <Image source={pet.image} resizeMode="cover" style={styles.image} />
-        <ArrowBack style={{ top: 70 }} bgColor={iconColor} />
+        <ArrowBack style={{ top: 70 }} />
       </View>
 
       <View

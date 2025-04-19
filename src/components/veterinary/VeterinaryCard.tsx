@@ -79,12 +79,12 @@ const VeterinaryCard: React.FC<VeterinaryCardProps> = ({
           <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
             <MapMarkerIcon width={16} height={16} fill={theme.colors.text} />
             <Text style={{ color: theme.colors.text }}>
-              {distanceInfo.distance}
+              {distanceInfo?.distance}
             </Text>
             <Text style={{ color: theme.colors.text }}>|</Text>
             <ClockIcon width={16} height={16} fill={theme.colors.text} />
             <Text style={{ color: theme.colors.text }}>
-              {distanceInfo.duration}
+              {distanceInfo?.duration}
             </Text>
           </View>
         )}

@@ -3,24 +3,22 @@ import React from "react";
 import { spacing } from "../styles/theme";
 import { AngleIcon } from "../../assets/icons";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../context/ThemeContext";
 
 interface ArrowBackProps {
   style?: TextStyle;
-  bgColor?: string;
 }
 
-export default function ArrowBack({
-  style,
-  bgColor = "#fb8ecf",
-}: ArrowBackProps) {
+export default function ArrowBack({ style }: ArrowBackProps) {
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
   return (
     <View style={[{ position: "absolute", left: 16, top: 0 }, style]}>
       <TouchableOpacity
         style={{
           padding: spacing.small,
-          backgroundColor: bgColor,
+          backgroundColor: theme.colors.primary,
           borderRadius: 50,
           alignItems: "center",
           justifyContent: "center",

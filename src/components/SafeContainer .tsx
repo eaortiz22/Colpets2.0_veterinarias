@@ -8,12 +8,14 @@ interface SafeContainerProps {
   children: ReactNode;
   style?: ViewStyle;
   padding?: number; // Si se pasa, usa padding en vez de paddingVertical
+  isScrollEnabled?: boolean; // Nueva prop para controlar el scroll
 }
 
 export default function SafeContainer({
   children,
   style,
   padding,
+  isScrollEnabled = true, // Por defecto, el scroll está habilitado
 }: SafeContainerProps) {
   const { theme } = useTheme();
 
@@ -29,6 +31,8 @@ export default function SafeContainer({
             : { paddingVertical: spacing.medium }, // Si no, usa paddingVertical
         ]}
         style={style}
+        scrollEnabled={isScrollEnabled} // Controlamos si el scroll está habilitado
+        showsVerticalScrollIndicator={false}
       >
         {children}
       </ScrollView>

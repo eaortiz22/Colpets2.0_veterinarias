@@ -3,7 +3,7 @@ import { Veterinary } from "../types/veterinaryTypes";
 export const VETS: Veterinary[] = [
   {
     id: 1,
-    name: "Veterinaria PilotoVeterinaria PilotoVeterinaria PilotoVeterinaria PilotoVeterinaria Piloto",
+    name: "Veterinaria Piloto",
     latitude: 4.585876,
     longitude: -74.137913,
     rating: 4.5,
@@ -15,8 +15,86 @@ export const VETS: Veterinary[] = [
     address: "Calle 123 #45-67",
     neighborhood: "Fatima",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Consulta General", price: 99000 },
+      {
+        id: "2",
+        name: "Emergencias",
+        price: 45000,
+      },
+      {
+        id: "3",
+        name: "Cuidado dental",
+        price: 65000,
+      },
+      {
+        id: "4",
+        name: "Chequeo",
+        price: 35000,
+      },
+      {
+        id: "5",
+        name: "Vacunas",
+        price: 25000,
+      },
+    ],
     description:
       "Centro veterinario con más de 10 años de experiencia, especializado en atención para animales domésticos. Ofrecemos servicio de consulta general, vacunación, cirugías menores y urgencias veterinarias. Contamos con un equipo profesional altamente capacitado y tecnología avanzada para el cuidado de tu mascota.",
+    veterinarians: [
+      {
+        id: 1,
+        name: "Laura",
+        last_name: "Gómez",
+        specialty: "Medicina interna",
+        gender: "female",
+        rating: 4.9,
+        reviews: 220,
+        image: require("../../assets/images/veterinaria.png"),
+        description:
+          "Especialista en diagnóstico y tratamiento de enfermedades crónicas.",
+        certificates: [
+          "Certificado en medicina interna de animales",
+          "Curso en manejo de urgencias",
+        ],
+        education: [
+          "Universidad Nacional de Colombia",
+          "Postgrado en medicina interna veterinaria",
+        ],
+        availability: {
+          "2025-04-18": [
+            "9:00 AM",
+            "10:30 AM",
+            "11:45 AM",
+            "1:00 PM",
+            "4:30 PM",
+          ],
+          "2025-04-19": ["1:00 PM", "2:30 PM"],
+        },
+      },
+      {
+        id: 2,
+        name: "Andrés",
+        last_name: "Pérez",
+        gender: "male",
+        specialty: "Cirugía",
+        rating: 4.7,
+        reviews: 180,
+        image: require("../../assets/images/veterinario.png"),
+        description: "Cirujano con experiencia en procedimientos complejos.",
+        certificates: [
+          "Certificación AVEPA en cirugía general",
+          "Entrenamiento en laparoscopia veterinaria",
+        ],
+        education: [
+          "Universidad de La Salle",
+          "Especialización en cirugía veterinaria",
+        ],
+        availability: {
+          "2025-04-18": ["10:00 AM", "11:30 AM"],
+          "2025-04-19": ["2:00 PM", "3:30 PM"],
+        },
+      },
+    ],
   },
   {
     id: 2,
@@ -32,8 +110,84 @@ export const VETS: Veterinary[] = [
     address: "Carrera 12 #34-56",
     neighborhood: "Venecia",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Clínica veterinaria enfocada en el bienestar integral de las mascotas. Ofrecemos consultas médicas, tratamientos especializados, peluquería canina y felina, así como planes de salud personalizados. Nuestro objetivo es garantizar el bienestar y la felicidad de cada mascota que nos visita.",
+    veterinarians: [
+      {
+        id: 3,
+        name: "Mariana",
+        last_name: "Ruiz",
+        gender: "female",
+        specialty: "Dermatología",
+        rating: 4.8,
+        reviews: 150,
+        image: require("../../assets/images/veterinaria.png"),
+        description:
+          "Experta en enfermedades de la piel, alergias y cuidado dermatológico.",
+        certificates: [
+          "Diplomado en dermatología veterinaria",
+          "Curso avanzado en alergias animales",
+        ],
+        education: ["Universidad CES", "Maestría en dermatología veterinaria"],
+        availability: {
+          "2025-04-18": ["10:00 AM", "11:00 AM", "2:00 PM"],
+          "2025-04-19": ["12:00 PM", "1:00 PM", "3:00 PM"],
+        },
+      },
+      {
+        id: 4,
+        name: "Felipe",
+        last_name: "Castaño",
+        gender: "male",
+        specialty: "Odontología",
+        rating: 4.6,
+        reviews: 98,
+        // image: require("../../assets/images/veterinario.png"),
+        description:
+          "Especialista en salud dental de perros y gatos, con énfasis en cirugía oral.",
+        certificates: [
+          "Certificación en odontología animal",
+          "Taller internacional de cirugía dental",
+        ],
+        education: [
+          "Universidad de Antioquia",
+          "Diplomado en odontología veterinaria",
+        ],
+        availability: {
+          "2025-04-18": ["9:00 AM", "10:30 AM"],
+          "2025-04-19": ["1:00 PM", "2:30 PM"],
+        },
+      },
+      {
+        id: 5,
+        name: "Camila",
+        last_name: "Restrepo",
+        gender: "female",
+        specialty: "Oftalmología",
+        rating: 4.9,
+        reviews: 132,
+        // image: require("../../assets/images/veterinaria.png"),
+        description:
+          "Se enfoca en el diagnóstico y tratamiento de enfermedades oculares.",
+        certificates: [
+          "Curso en oftalmología veterinaria",
+          "Manejo quirúrgico de cataratas",
+        ],
+        education: [
+          "Universidad de Caldas",
+          "Especialización en oftalmología animal",
+        ],
+        availability: {
+          "2025-04-18": ["9:00 AM", "10:30 AM"],
+          "2025-04-19": ["1:00 PM", "2:30 PM"],
+        },
+      },
+    ],
   },
   {
     id: 3,
@@ -49,6 +203,11 @@ export const VETS: Veterinary[] = [
     address: "Avenida 68 #98-12",
     neighborhood: "Suba",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Clínica veterinaria equipada con la última tecnología en diagnóstico y tratamiento para mascotas. Contamos con laboratorio propio, radiología digital, ecografía y un equipo de profesionales con amplia experiencia en medicina veterinaria. Brindamos atención personalizada y de alta calidad.",
   },
@@ -66,6 +225,11 @@ export const VETS: Veterinary[] = [
     address: "Calle 45 #10-20",
     neighborhood: "Chapinero",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Centro veterinario con enfoque en medicina preventiva y tratamientos avanzados. Ofrecemos chequeos médicos, terapias alternativas, rehabilitación y nutrición especializada. Nuestro equipo trabaja con dedicación para brindar la mejor atención a cada mascota.",
   },
@@ -83,6 +247,11 @@ export const VETS: Veterinary[] = [
     address: "Carrera 7 #32-50",
     neighborhood: "La Candelaria",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Ofrecemos atención integral para perros, gatos y animales exóticos. Contamos con servicio de vacunación, control de plagas, laboratorio clínico y consultas médicas. Nos especializamos en la prevención y tratamiento de enfermedades en todo tipo de mascotas.",
   },
@@ -100,6 +269,11 @@ export const VETS: Veterinary[] = [
     address: "Calle 80 #25-30",
     neighborhood: "Engativá",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Hospital veterinario con servicio 24/7, quirófano equipado, hospitalización y especialistas en cirugía veterinaria. Atendemos urgencias y procedimientos complejos con el más alto estándar de calidad.",
   },
@@ -117,6 +291,11 @@ export const VETS: Veterinary[] = [
     address: "Carrera 15 #45-10",
     neighborhood: "Usaquén",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Centro veterinario especializado en consultas avanzadas y tratamientos alternativos como acupuntura y fisioterapia. Nos enfocamos en el bienestar integral de cada mascota, combinando medicina tradicional con terapias complementarias.",
   },
@@ -134,6 +313,11 @@ export const VETS: Veterinary[] = [
     address: "Calle 85 #20-14",
     neighborhood: "Normandía",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Nos especializamos en nutrición animal y planes de salud diseñados para cada etapa de la vida de tu mascota. Contamos con tienda de alimentos premium y suplementos especializados.",
   },
@@ -151,6 +335,11 @@ export const VETS: Veterinary[] = [
     address: "Carrera 50 #80-25",
     neighborhood: "Teusaquillo",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Clínica veterinaria con servicio a domicilio. Atendemos consultas médicas, vacunación y emergencias sin que tengas que salir de casa.",
   },
@@ -168,6 +357,11 @@ export const VETS: Veterinary[] = [
     address: "Avenida 1 de Mayo #30-15",
     neighborhood: "San Cristóbal",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Brindamos atención personalizada, incluyendo urgencias nocturnas y planes de salud asequibles para mascotas.",
   },
@@ -185,6 +379,11 @@ export const VETS: Veterinary[] = [
     address: "Carrera 100 #12-34",
     neighborhood: "Fontibón",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Hospital veterinario con quirófano y hospitalización 24 horas. Atendemos casos complejos con los mejores especialistas.",
   },
@@ -202,6 +401,11 @@ export const VETS: Veterinary[] = [
     address: "Carrera 22 #56-40",
     neighborhood: "Puente Aranda",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Especialistas en medicina preventiva y nutrición avanzada para perros y gatos. Contamos con programas de control de peso y chequeos personalizados.",
   },
@@ -219,6 +423,11 @@ export const VETS: Veterinary[] = [
     address: "Avenida Boyacá #90-30",
     neighborhood: "Kennedy",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Clínica veterinaria con laboratorio propio, cirugía avanzada y especialistas en dermatología y ortopedia para mascotas.",
   },
@@ -236,6 +445,11 @@ export const VETS: Veterinary[] = [
     address: "Calle 72 #18-25",
     neighborhood: "Barrios Unidos",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Ofrecemos medicina preventiva, vacunación y control de enfermedades con enfoque en el bienestar de las mascotas.",
   },
@@ -253,6 +467,11 @@ export const VETS: Veterinary[] = [
     address: "Carrera 50 #100-20",
     neighborhood: "Fontibón",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Centro veterinario con enfoque en rehabilitación y fisioterapia para mascotas con lesiones o problemas de movilidad.",
   },
@@ -270,6 +489,11 @@ export const VETS: Veterinary[] = [
     address: "Calle 80 #12-45",
     neighborhood: "Engativá",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Hospital veterinario de emergencias 24/7 con quirófano y especialistas en traumatología y cirugía de alta complejidad.",
   },
@@ -287,6 +511,11 @@ export const VETS: Veterinary[] = [
     address: "Carrera 15 #45-50",
     neighborhood: "Teusaquillo",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Centro veterinario con atención personalizada, consulta a domicilio y planes de vacunación completos.",
   },
@@ -304,6 +533,11 @@ export const VETS: Veterinary[] = [
     address: "Calle 90 #30-15",
     neighborhood: "Chapinero",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Clínica veterinaria con medicina natural y tratamientos homeopáticos para el bienestar de tu mascota.",
   },
@@ -321,6 +555,11 @@ export const VETS: Veterinary[] = [
     address: "Avenida Caracas #50-20",
     neighborhood: "Antonio Nariño",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Especialistas en medicina preventiva, diagnóstico temprano de enfermedades y programas de bienestar animal.",
   },
@@ -338,6 +577,11 @@ export const VETS: Veterinary[] = [
     address: "Carrera 100 #20-30",
     neighborhood: "Suba",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Hospital veterinario con quirófano de última tecnología, cuidados intensivos y especialistas en cardiología y oncología.",
   },
@@ -355,6 +599,11 @@ export const VETS: Veterinary[] = [
     address: "Calle 68 #25-50",
     neighborhood: "La Candelaria",
     city: "Bogotá",
+    services: [
+      { id: "1", name: "Cita médica" },
+      { id: "2", name: "Vacunación" },
+      { id: "3", name: "Chequeo general" },
+    ],
     description:
       "Centro veterinario con un equipo de especialistas en cirugía, ortopedia y dermatología para mascotas.",
   },
