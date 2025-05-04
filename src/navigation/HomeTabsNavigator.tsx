@@ -1,26 +1,14 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useEffect, useRef } from "react";
-import {
-  GestureResponderEvent,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { GestureResponderEvent, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
-import Home from "../screens/Home"; // Asegúrate de importar las pantallas correctas
+import Home from "../screens/Home";
 import Veterinarians from "../screens/Veterinarians";
 import Services from "../screens/Services";
 import Marketplace from "../screens/Marketplace";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/ThemeContext";
-import {
-  HomeIcon,
-  ShoppingBagIcon,
-  UsersIcon,
-  HospitalIcon,
-  UserIcon,
-} from "../../assets/icons";
+import { HomeIcon, ShoppingBagIcon, UsersIcon, HospitalIcon, UserIcon } from "../../assets/icons";
 import ProfileStack from "./ProfileStack";
 
 const TabArr = [
@@ -80,24 +68,14 @@ const circle2 = { 0: { scale: 1 }, 1: { scale: 0 } };
 interface TabButtonProps {
   item: (typeof TabArr)[0];
   onPress?: (event: GestureResponderEvent) => void;
-  accessibilityState: { selected?: boolean }; // Hacemos que sea opcional
+  accessibilityState: { selected?: boolean };
 }
 
-const TabButton: React.FC<TabButtonProps> = ({
-  item,
-  onPress,
-  accessibilityState,
-}) => {
+const TabButton: React.FC<TabButtonProps> = ({ item, onPress, accessibilityState }) => {
   const focused = accessibilityState.selected;
-  const viewRef = useRef<
-    Animatable.View & { animate: (animation: any) => void }
-  >(null);
-  const circleRef = useRef<
-    Animatable.View & { animate: (animation: any) => void }
-  >(null);
-  const textRef = useRef<
-    Animatable.Text & { transitionTo: (style: object) => void }
-  >(null);
+  const viewRef = useRef<Animatable.View & { animate: (animation: any) => void }>(null);
+  const circleRef = useRef<Animatable.View & { animate: (animation: any) => void }>(null);
+  const textRef = useRef<Animatable.Text & { transitionTo: (style: object) => void }>(null);
   const { theme, isDarkTheme } = useTheme();
 
   useEffect(() => {
@@ -112,7 +90,7 @@ const TabButton: React.FC<TabButtonProps> = ({
     }
   }, [focused]);
 
-  const Icon = item.IconComponent; // Desestructuramos el componente del ícono
+  const Icon = item.IconComponent;
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={1}>
@@ -146,22 +124,10 @@ const TabButton: React.FC<TabButtonProps> = ({
           <Icon
             width={24}
             height={24}
-            fill={
-              focused
-                ? theme.colors.primary
-                : isDarkTheme
-                ? theme.colors.text
-                : "#b8b8b8"
-            }
+            fill={focused ? theme.colors.primary : isDarkTheme ? theme.colors.text : "#b8b8b8"}
           />
         </View>
-        <Animatable.Text
-          ref={textRef}
-          style={[
-            styles.text,
-            { color: isDarkTheme ? "#ebedf2" : theme.colors.text },
-          ]}
-        >
+        <Animatable.Text ref={textRef} style={[styles.text, { color: isDarkTheme ? "#ebedf2" : theme.colors.text }]}>
           {item.label}
         </Animatable.Text>
       </Animatable.View>
@@ -181,23 +147,21 @@ export default function AnimTab1() {
           tabBarStyle: [
             styles.tabBar,
             {
-              backgroundColor: isDarkTheme
-                ? theme.colors.primary
-                : theme.colors.background,
+              backgroundColor: isDarkTheme ? theme.colors.primary : theme.colors.background,
               ...(isDarkTheme
                 ? {
-                    shadowColor: "#FFFFFF", // Sombra blanca para dark mode
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowOpacity: 0.1, // Sutil opacidad para evitar que se vea demasiado intensa
-                    shadowRadius: 13,
-                    elevation: 3, // Para Android
-                  }
-                : {
-                    shadowColor: "#1b1816", // Sombra morada para light mode
+                    shadowColor: "#FFFFFF",
                     shadowOffset: { width: 0, height: 0 },
                     shadowOpacity: 0.1,
                     shadowRadius: 13,
-                    elevation: 3, // Para Android
+                    elevation: 3, 
+                  }
+                : {
+                    shadowColor: "#1b1816",
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 13,
+                    elevation: 3,
                   }),
               bottom: Platform.OS === "ios" ? 10 : 0,
             },
@@ -217,9 +181,7 @@ export default function AnimTab1() {
                     {...props}
                     item={item}
                     onPress={props.onPress || (() => {})}
-                    accessibilityState={
-                      props.accessibilityState || { selected: false }
-                    }
+                    accessibilityState={props.accessibilityState || { selected: false }}
                   />
                 ),
               }}
