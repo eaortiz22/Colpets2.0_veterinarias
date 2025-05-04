@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import TextSmall from "../TextSmall";
+import { AngleIcon, ArrowLeftIcon } from "../../../assets/icons";
 
 const daysOfWeek = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
@@ -20,6 +21,9 @@ const CustomCalendar = ({
   availableHours,
   selectedHour,
   onHourSelect,
+  maxMonthAdvance,
+  allowPastNavigation,
+  limitToToday,
 }: CustomCalendarProps) => {
   const { theme } = useTheme();
   const today = new Date();
@@ -31,6 +35,17 @@ const CustomCalendar = ({
 
   const handleMonthChange = (increment: number) => {
     const newDate = new Date(currentYear, currentMonth + increment, 1);
+
+    if (maxMonthAdvance !== undefined) {
+      const maxAllowedDate = new Date(today.getFullYear(), today.getMonth() + maxMonthAdvance, 1);
+      if (newDate > maxAllowedDate) return;
+    }
+
+    if (allowPastNavigation === false) {
+      const earliestDate = new Date(today.getFullYear(), today.getMonth(), 1);
+      if (newDate < earliestDate) return;
+    }
+
     setCurrentMonth(newDate.getMonth());
     setCurrentYear(newDate.getFullYear());
   };
@@ -42,10 +57,16 @@ const CustomCalendar = ({
 
   const isPast = (day: number) => {
     const date = new Date(currentYear, currentMonth, day);
-    return (
-      date < new Date(today.getFullYear(), today.getMonth(), today.getDate())
-    );
+    return limitToToday ? date < new Date(today.getFullYear(), today.getMonth(), today.getDate()) : false;
   };
+
+  const canGoBack =
+    allowPastNavigation !== false ||
+    new Date(currentYear, currentMonth - 1, 1) >= new Date(today.getFullYear(), today.getMonth(), 1);
+
+  const canGoForward =
+    maxMonthAdvance === undefined ||
+    new Date(currentYear, currentMonth + 1, 1) <= new Date(today.getFullYear(), today.getMonth() + maxMonthAdvance, 1);
 
   return (
     <View style={{ gap: 12 }}>
@@ -57,19 +78,38 @@ const CustomCalendar = ({
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => handleMonthChange(-1)}>
-          {/* <ChevronLeft color={theme.colors.text} /> */}
+        <TouchableOpacity
+          onPress={() => handleMonthChange(-1)}
+          disabled={!canGoBack}
+          style={{ opacity: canGoBack ? 1 : 0.4 }}
+        >
+          <AngleIcon
+            fill={canGoBack ? theme.colors.text : theme.colors.buttonDisabledText}
+            width={24}
+            height={24}
+            style={{ transform: [{ rotate: "180deg" }] }}
+          />
         </TouchableOpacity>
         <Text
-          style={{ fontWeight: "bold", fontSize: 16, color: theme.colors.text }}
+          style={{
+            fontWeight: "bold",
+            fontSize: 16,
+            color: theme.colors.text,
+            textTransform: "capitalize",
+            flexGrow: 1,
+            textAlign: "center",
+          }}
         >
-          {new Date(currentYear, currentMonth).toLocaleString("es-ES", {
+          {new Date(currentYear, currentMonth).toLocaleString("es-CO", {
             month: "long",
-            year: "numeric",
           })}
         </Text>
-        <TouchableOpacity onPress={() => handleMonthChange(1)}>
-          {/* <ChevronRight color={theme.colors.text} /> */}
+        <TouchableOpacity
+          onPress={() => handleMonthChange(1)}
+          disabled={!canGoForward}
+          style={{ opacity: canGoForward ? 1 : 0.4 }}
+        >
+          <AngleIcon fill={canGoForward ? theme.colors.text : theme.colors.buttonDisabledText} width={24} height={24} />
         </TouchableOpacity>
       </View>
 
@@ -91,7 +131,6 @@ const CustomCalendar = ({
       </View>
 
       {/* Días del mes */}
-      {/* Días del mes en filas de 7 */}
       {(() => {
         const totalCells = startDay + daysInMonth;
         const rows = Math.ceil(totalCells / 7);
@@ -104,12 +143,7 @@ const CustomCalendar = ({
           for (let col = 0; col < 7; col++) {
             const cellIndex = row * 7 + col;
             if (cellIndex < startDay || dayCounter > daysInMonth) {
-              week.push(
-                <View
-                  key={`empty-${row}-${col}`}
-                  style={{ width: 32, height: 32, margin: 2 }}
-                />
-              );
+              week.push(<View key={`empty-${row}-${col}`} style={{ width: 32, height: 32, margin: 2 }} />);
             } else {
               const date = new Date(currentYear, currentMonth, dayCounter);
               const isSelected = isSameDay(date, selectedDate);
@@ -136,11 +170,7 @@ const CustomCalendar = ({
                 >
                   <Text
                     style={{
-                      color: isSelected
-                        ? theme.colors.background
-                        : past
-                        ? theme.colors.tertiary
-                        : theme.colors.text,
+                      color: isSelected ? theme.colors.background : past ? theme.colors.tertiary : theme.colors.text,
                     }}
                   >
                     {dayCounter}
@@ -153,10 +183,7 @@ const CustomCalendar = ({
           }
 
           calendarRows.push(
-            <View
-              key={`week-${row}`}
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
+            <View key={`week-${row}`} style={{ flexDirection: "row", justifyContent: "space-between" }}>
               {week}
             </View>
           );
@@ -180,18 +207,12 @@ const CustomCalendar = ({
                 paddingHorizontal: 12,
                 paddingVertical: 6,
                 borderRadius: 16,
-                backgroundColor:
-                  selectedHour === hour
-                    ? theme.colors.primary
-                    : theme.colors.text,
+                backgroundColor: selectedHour === hour ? theme.colors.primary : theme.colors.text,
               }}
             >
               <Text
                 style={{
-                  color:
-                    selectedHour === hour
-                      ? theme.colors.background
-                      : theme.colors.background,
+                  color: selectedHour === hour ? theme.colors.background : theme.colors.background,
                 }}
               >
                 {hour}

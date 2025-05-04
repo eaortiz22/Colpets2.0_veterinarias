@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import TextTitle from "../../components/TextTitle";
 import TextMedium from "../../components/TextMedium";
@@ -47,8 +47,13 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [isModalVisible, setModalVisible] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const vetName =
-    vetsWithDefault.find((v) => v.id === selectedVetId)?.name || "";
+  useEffect(() => {
+    if (!availableHours.includes(selectedHour || "")) {
+      setSelectedHour("");
+    }
+  }, [selectedVetId, availableHours]);
+
+  const vetName = vetsWithDefault.find((v) => v.id === selectedVetId)?.name || "";
   const servicesList = selectedType
     .map((id) => veterinary?.services?.find((s) => s.id === id)?.name)
     .filter(Boolean)
@@ -58,8 +63,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     month: "long",
   });
   const hour = selectedHour;
-
-  console.log(servicesList);
 
   const handleConfirm = () => {
     if (isConfirmed) {
@@ -71,30 +74,18 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     }
   };
 
-  const isFormValid =
-    !!selectedVetId &&
-    !!selectedDate &&
-    !!selectedHour &&
-    selectedType.length > 0;
+  const isFormValid = !!selectedVetId && !!selectedDate && !!selectedHour && selectedType.length > 0;
 
   return (
     <View style={{ gap: 12 }}>
       <TextTitle style={{ textAlign: "center" }}>Reservar Cita</TextTitle>
 
       <View style={{ gap: 12 }}>
-        <TextMedium style={{ fontWeight: "500" }}>
-          1. Selecciona un veterinario
-        </TextMedium>
-        <VetSelector
-          vets={vetsWithDefault}
-          selectedVetId={selectedVetId || ""}
-          onSelect={setSelectedVetId}
-        />
+        <TextMedium style={{ fontWeight: "500" }}>1. Selecciona un veterinario</TextMedium>
+        <VetSelector vets={vetsWithDefault} selectedVetId={selectedVetId || ""} onSelect={setSelectedVetId} />
 
         <View style={{ gap: 12 }}>
-          <TextMedium style={{ fontWeight: "500" }}>
-            2. Selecciona fecha y hora
-          </TextMedium>
+          <TextMedium style={{ fontWeight: "500" }}>2. Selecciona fecha y hora</TextMedium>
           <View
             style={{
               backgroundColor: theme.colors.cardBackground,
@@ -108,6 +99,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               availableHours={availableHours}
               selectedHour={selectedHour}
               onHourSelect={setSelectedHour}
+              maxMonthAdvance={1}
+              allowPastNavigation={false}
+              limitToToday={true}
             />
           </View>
         </View>
@@ -151,9 +145,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 ? require("../../../assets/iconsPng/check.png")
                 : require("../../../assets/iconsPng/confirm.png")
             }
-            title={
-              isConfirmed ? "¡Cita reservada con éxito!" : "Creando reserva..."
-            }
+            title={isConfirmed ? "¡Cita reservada con éxito!" : "Creando reserva..."}
             subtitle={
               isConfirmed
                 ? "Tu cita ha sido reservada. Te recomendamos llegar 20 minutos antes."
@@ -164,8 +156,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           >
             {!isConfirmed && (
               <TextSmall style={{ textAlign: "center" }}>
-                Su cita será asignada a {vetName} para {servicesList} el día{" "}
-                {day} a las {hour}
+                Su cita será asignada a {vetName} para {servicesList} el día {day} a las {hour}
               </TextSmall>
             )}
           </ConfirmationModal>

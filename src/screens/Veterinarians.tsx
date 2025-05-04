@@ -4,10 +4,10 @@ import MapView, { Region } from "react-native-maps";
 import * as Location from "expo-location";
 import HeaderBar from "../components/HeaderBar";
 import SectionHeader from "../components/SectionHeader";
-import ServicesSection from "../components/home/ServicesSection";
 import SafeContainer from "../components/SafeContainer ";
 import MapComponent from "../components/veterinary/MapComponent";
 import { VETS } from "../data/veterinaries";
+import TopVeterinaries from "./veterinarians/TopVeterinaries";
 
 export default function Veterinarians() {
   const mapRef = useRef<MapView | null>(null);
@@ -70,8 +70,8 @@ export default function Veterinarians() {
               handleRegionChangeComplete={handleRegionChangeComplete}
               message={message}
             />
-            <SectionHeader title="Servicios" />
-            <ServicesSection />
+            <SectionHeader title="Top 5 veterinarias BogotáTop 5 veterinarias BogotáTop 5 veterinarias Bogotá" />
+            <TopVeterinaries vets={VETS} city="Bogotá" location={location} />
           </>
         )}
       </View>

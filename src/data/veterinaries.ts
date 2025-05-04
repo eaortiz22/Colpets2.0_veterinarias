@@ -50,25 +50,12 @@ export const VETS: Veterinary[] = [
         rating: 4.9,
         reviews: 220,
         image: require("../../assets/images/veterinaria.png"),
-        description:
-          "Especialista en diagnóstico y tratamiento de enfermedades crónicas.",
-        certificates: [
-          "Certificado en medicina interna de animales",
-          "Curso en manejo de urgencias",
-        ],
-        education: [
-          "Universidad Nacional de Colombia",
-          "Postgrado en medicina interna veterinaria",
-        ],
+        description: "Especialista en diagnóstico y tratamiento de enfermedades crónicas.",
+        certificates: ["Certificado en medicina interna de animales", "Curso en manejo de urgencias"],
+        education: ["Universidad Nacional de Colombia", "Postgrado en medicina interna veterinaria"],
         availability: {
-          "2025-04-18": [
-            "9:00 AM",
-            "10:30 AM",
-            "11:45 AM",
-            "1:00 PM",
-            "4:30 PM",
-          ],
-          "2025-04-19": ["1:00 PM", "2:30 PM"],
+          "2025-05-04": ["9:00 AM", "10:30 AM", "11:45 AM", "1:00 PM", "4:30 PM"],
+          "2025-05-05": ["1:00 PM", "2:30 PM"],
         },
       },
       {
@@ -81,14 +68,8 @@ export const VETS: Veterinary[] = [
         reviews: 180,
         image: require("../../assets/images/veterinario.png"),
         description: "Cirujano con experiencia en procedimientos complejos.",
-        certificates: [
-          "Certificación AVEPA en cirugía general",
-          "Entrenamiento en laparoscopia veterinaria",
-        ],
-        education: [
-          "Universidad de La Salle",
-          "Especialización en cirugía veterinaria",
-        ],
+        certificates: ["Certificación AVEPA en cirugía general", "Entrenamiento en laparoscopia veterinaria"],
+        education: ["Universidad de La Salle", "Especialización en cirugía veterinaria"],
         availability: {
           "2025-04-18": ["10:00 AM", "11:30 AM"],
           "2025-04-19": ["2:00 PM", "3:30 PM"],
@@ -127,12 +108,8 @@ export const VETS: Veterinary[] = [
         rating: 4.8,
         reviews: 150,
         image: require("../../assets/images/veterinaria.png"),
-        description:
-          "Experta en enfermedades de la piel, alergias y cuidado dermatológico.",
-        certificates: [
-          "Diplomado en dermatología veterinaria",
-          "Curso avanzado en alergias animales",
-        ],
+        description: "Experta en enfermedades de la piel, alergias y cuidado dermatológico.",
+        certificates: ["Diplomado en dermatología veterinaria", "Curso avanzado en alergias animales"],
         education: ["Universidad CES", "Maestría en dermatología veterinaria"],
         availability: {
           "2025-04-18": ["10:00 AM", "11:00 AM", "2:00 PM"],
@@ -148,16 +125,9 @@ export const VETS: Veterinary[] = [
         rating: 4.6,
         reviews: 98,
         // image: require("../../assets/images/veterinario.png"),
-        description:
-          "Especialista en salud dental de perros y gatos, con énfasis en cirugía oral.",
-        certificates: [
-          "Certificación en odontología animal",
-          "Taller internacional de cirugía dental",
-        ],
-        education: [
-          "Universidad de Antioquia",
-          "Diplomado en odontología veterinaria",
-        ],
+        description: "Especialista en salud dental de perros y gatos, con énfasis en cirugía oral.",
+        certificates: ["Certificación en odontología animal", "Taller internacional de cirugía dental"],
+        education: ["Universidad de Antioquia", "Diplomado en odontología veterinaria"],
         availability: {
           "2025-04-18": ["9:00 AM", "10:30 AM"],
           "2025-04-19": ["1:00 PM", "2:30 PM"],
@@ -172,16 +142,9 @@ export const VETS: Veterinary[] = [
         rating: 4.9,
         reviews: 132,
         // image: require("../../assets/images/veterinaria.png"),
-        description:
-          "Se enfoca en el diagnóstico y tratamiento de enfermedades oculares.",
-        certificates: [
-          "Curso en oftalmología veterinaria",
-          "Manejo quirúrgico de cataratas",
-        ],
-        education: [
-          "Universidad de Caldas",
-          "Especialización en oftalmología animal",
-        ],
+        description: "Se enfoca en el diagnóstico y tratamiento de enfermedades oculares.",
+        certificates: ["Curso en oftalmología veterinaria", "Manejo quirúrgico de cataratas"],
+        education: ["Universidad de Caldas", "Especialización en oftalmología animal"],
         availability: {
           "2025-04-18": ["9:00 AM", "10:30 AM"],
           "2025-04-19": ["1:00 PM", "2:30 PM"],

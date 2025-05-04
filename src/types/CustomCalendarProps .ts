@@ -4,4 +4,7 @@ type CustomCalendarProps = {
   availableHours: string[];
   selectedHour: string | null;
   onHourSelect: (hour: string) => void;
+  maxMonthAdvance?: number;
+  allowPastNavigation?: boolean;
+  limitToToday?: boolean;
 };

@@ -10,7 +10,7 @@ import {
 import * as Animatable from "react-native-animatable";
 import Home from "../screens/Home"; // Asegúrate de importar las pantallas correctas
 import Veterinarians from "../screens/Veterinarians";
-import Community from "../screens/Community";
+import Services from "../screens/Services";
 import Marketplace from "../screens/Marketplace";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/ThemeContext";
@@ -31,10 +31,10 @@ const TabArr = [
     component: Veterinarians,
   },
   {
-    route: "Comunidad",
-    label: "Comunidad",
+    route: "Servicios",
+    label: "Servicios",
     IconComponent: UsersIcon,
-    component: Community,
+    component: Services,
   },
   {
     route: "Home",
