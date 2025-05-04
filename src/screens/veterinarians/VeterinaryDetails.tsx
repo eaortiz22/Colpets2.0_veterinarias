@@ -23,17 +23,12 @@ const VeterinaryDetails = ({ route }: any) => {
   const [selectedType, setSelectedType] = useState<string[]>([]);
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
 
-  const vetsWithDefault = [
-    { id: "any", name: "Cualquiera", image: null },
-    ...veterinary?.veterinarians,
-  ];
+  const vetsWithDefault = [{ id: "any", name: "Cualquiera", image: null }, ...veterinary?.veterinarians];
 
   const selectedVet =
     selectedVetId === "any"
       ? null
-      : veterinary.veterinarians.find(
-          (vet: any) => String(vet.id) === String(selectedVetId)
-        );
+      : veterinary.veterinarians.find((vet: any) => String(vet.id) === String(selectedVetId));
 
   const selectedDateStr = selectedDate.toISOString().split("T")[0];
 
@@ -82,17 +77,11 @@ const VeterinaryDetails = ({ route }: any) => {
       ? sortByHour(
           filterFutureHours(
             [
-              ...new Set(
-                veterinary.veterinarians.flatMap(
-                  (vet: any) => vet.availability?.[selectedDateStr] || []
-                )
-              ),
+              ...new Set(veterinary.veterinarians.flatMap((vet: any) => vet.availability?.[selectedDateStr] || [])),
             ].filter(Boolean) as string[]
           )
         )
-      : sortByHour(
-          filterFutureHours(selectedVet?.availability?.[selectedDateStr] || [])
-        );
+      : sortByHour(filterFutureHours(selectedVet?.availability?.[selectedDateStr] || []));
 
   return (
     <EntityDetailWrapper

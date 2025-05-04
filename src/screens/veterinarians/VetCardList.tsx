@@ -24,11 +24,9 @@ const VetCardList: React.FC<{ vet: Vet }> = ({ vet }) => {
   const handlePress = () => {
     navigation.navigate("VeterinaryDetails", {
       veterinary: vet,
-      distanceInfo: vet.distanceInfo || null,
+      distanceInfo: vet?.distanceInfo,
     });
   };
-
-  console.log(vet);
 
   return (
     <Pressable
@@ -47,16 +45,17 @@ const VetCardList: React.FC<{ vet: Vet }> = ({ vet }) => {
       {vet.image && <Image source={vet.image} style={{ width: 60, height: 60, borderRadius: 8, marginRight: 12 }} />}
       <View style={{ flex: 1 }}>
         <Text style={{ fontWeight: "600", fontSize: 16, color: theme.colors.text }}>{vet.name}</Text>
-        <Text style={{ color: theme.colors.text }}>{vet.city}</Text>
+        <Text style={{ color: theme.colors.text }}>
+          {vet.city}{" "}
+          {vet.distanceInfo && (
+            <Text style={{ color: theme.colors.text }}>
+              📍 {vet.distanceInfo.distance} · ⏱ {vet.distanceInfo.duration}
+            </Text>
+          )}
+        </Text>
         <Text style={{ color: theme.colors.text }}>
           ⭐ {vet.rating.toFixed(1)} · {vet.reviews} reseñas
         </Text>
-
-        {vet.distanceInfo && (
-          <Text style={{ color: theme.colors.text }}>
-            📍 {vet.distanceInfo.distance} · ⏱ {vet.distanceInfo.duration}
-          </Text>
-        )}
       </View>
     </Pressable>
   );

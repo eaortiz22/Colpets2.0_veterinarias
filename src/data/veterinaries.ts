@@ -349,6 +349,42 @@ export const VETS: Veterinary[] = [
     ],
     description:
       "Hospital veterinario con quirófano y hospitalización 24 horas. Atendemos casos complejos con los mejores especialistas.",
+    veterinarians: [
+      {
+        id: 1,
+        name: "Paola",
+        last_name: "Mendez",
+        specialty: "Medicina interna",
+        gender: "female",
+        rating: 4.9,
+        reviews: 220,
+        // image: require("../../assets/images/veterinaria.png"),
+        description: "Especialista en diagnóstico y tratamiento de enfermedades crónicas.",
+        certificates: ["Certificado en medicina interna de animales", "Curso en manejo de urgencias"],
+        education: ["Universidad Nacional de Colombia", "Postgrado en medicina interna veterinaria"],
+        availability: {
+          "2025-05-04": ["9:00 AM", "10:30 AM", "11:45 AM", "1:00 PM", "4:30 PM"],
+          "2025-05-05": ["1:00 PM", "2:30 PM"],
+        },
+      },
+      {
+        id: 2,
+        name: "Cristian",
+        last_name: "Ramirez",
+        gender: "male",
+        specialty: "Cirugía",
+        rating: 4.7,
+        reviews: 180,
+        // image: require("../../assets/images/veterinario.png"),
+        description: "Cirujano con experiencia en procedimientos complejos.",
+        certificates: ["Certificación AVEPA en cirugía general", "Entrenamiento en laparoscopia veterinaria"],
+        education: ["Universidad de La Salle", "Especialización en cirugía veterinaria"],
+        availability: {
+          "2025-04-18": ["10:00 AM", "11:30 AM"],
+          "2025-04-19": ["2:00 PM", "3:30 PM"],
+        },
+      },
+    ],
   },
   {
     id: 12,
