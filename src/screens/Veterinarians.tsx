@@ -70,7 +70,7 @@ export default function Veterinarians() {
               handleRegionChangeComplete={handleRegionChangeComplete}
               message={message}
             />
-            <SectionHeader title="Top 5 veterinarias BogotáTop 5 veterinarias BogotáTop 5 veterinarias Bogotá" />
+            <SectionHeader title="Top 5 veterinarias Bogotá" />
             <TopVeterinaries vets={VETS} city="Bogotá" location={location} />
           </>
         )}

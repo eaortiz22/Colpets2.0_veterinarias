@@ -68,11 +68,11 @@ const circle2 = { 0: { scale: 1 }, 1: { scale: 0 } };
 interface TabButtonProps {
   item: (typeof TabArr)[0];
   onPress?: (event: GestureResponderEvent) => void;
-  accessibilityState: { selected?: boolean };
+  accessibilityState: boolean;
 }
 
 const TabButton: React.FC<TabButtonProps> = ({ item, onPress, accessibilityState }) => {
-  const focused = accessibilityState.selected;
+  const focused = accessibilityState;
   const viewRef = useRef<Animatable.View & { animate: (animation: any) => void }>(null);
   const circleRef = useRef<Animatable.View & { animate: (animation: any) => void }>(null);
   const textRef = useRef<Animatable.Text & { transitionTo: (style: object) => void }>(null);
@@ -154,7 +154,7 @@ export default function AnimTab1() {
                     shadowOffset: { width: 0, height: 0 },
                     shadowOpacity: 0.1,
                     shadowRadius: 13,
-                    elevation: 3, 
+                    elevation: 3,
                   }
                 : {
                     shadowColor: "#1b1816",
@@ -178,10 +178,9 @@ export default function AnimTab1() {
                 tabBarShowLabel: false,
                 tabBarButton: (props) => (
                   <TabButton
-                    {...props}
                     item={item}
-                    onPress={props.onPress || (() => {})}
-                    accessibilityState={props.accessibilityState || { selected: false }}
+                    onPress={props.onPress}
+                    accessibilityState={(props as any)?.children?._owner?.pendingProps?.focused || false}
                   />
                 ),
               }}
