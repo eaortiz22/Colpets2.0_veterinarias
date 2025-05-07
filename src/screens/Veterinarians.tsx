@@ -4,7 +4,7 @@ import MapView, { Region } from "react-native-maps";
 import * as Location from "expo-location";
 import HeaderBar from "../components/HeaderBar";
 import SectionHeader from "../components/SectionHeader";
-import SafeContainer from "../components/SafeContainer ";
+import SafeContainer from "../components/SafeContainer";
 import MapComponent from "../components/veterinary/MapComponent";
 import { VETS } from "../data/veterinaries";
 import TopVeterinaries from "./veterinarians/TopVeterinaries";

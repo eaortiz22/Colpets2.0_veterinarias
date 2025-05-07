@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "../context/ThemeContext";
-import SafeContainer from "../components/SafeContainer ";
+import SafeContainer from "../components/SafeContainer";
 import ServicesSection from "../components/home/ServicesSection";
 import SectionHeader from "../components/SectionHeader";
 import { View } from "react-native";

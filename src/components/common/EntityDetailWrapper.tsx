@@ -11,7 +11,7 @@ import { spacing } from "../../styles/theme";
 import ArrowBack from "../ArrowBack";
 import Button from "../ui/Button";
 import { BottomSheetModal } from "../ui/BottomSheetModal";
-import SafeContainer from "../SafeContainer ";
+import SafeContainer from "../SafeContainer";
 import RatingBadge from "./RatingBadge";
 
 const { height } = Dimensions.get("window");

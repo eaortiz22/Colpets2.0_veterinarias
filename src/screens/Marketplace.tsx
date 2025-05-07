@@ -10,7 +10,7 @@ import HeaderComponent from "../components/marketplace/HeaderComponent";
 import BannerCarousel from "../components/ui/BannerCarousel";
 import CategoryList from "../components/marketplace/CategoryList";
 import ProductCard from "../components/marketplace/ProductCard";
-import SafeContainer from "../components/SafeContainer ";
+import SafeContainer from "../components/SafeContainer";
 import ProductSection from "../components/ProductSection";
 import HeaderBar from "../components/HeaderBar";
 

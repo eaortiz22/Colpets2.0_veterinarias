@@ -27,32 +27,35 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ProfileStackParamList } from "../navigation/ProfileStack";
 import IconButton from "../components/IconButton";
-import SafeContainer from "../components/SafeContainer ";
+import SafeContainer from "../components/SafeContainer";
+import * as SecureStore from "expo-secure-store";
+import { useAuth } from "../context/AuthContext";
 
-type ProfileScreenNavigationProp = StackNavigationProp<
-  ProfileStackParamList,
-  "ProfileMain"
->;
+type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, "ProfileMain">;
 
 export default function Profile() {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const { setIsAuthenticated } = useAuth();
   const { theme } = useTheme();
+
+  const handleLogout = async () => {
+    try {
+      await SecureStore.deleteItemAsync("token");
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error("Error al cerrar sesión", error);
+    }
+  };
 
   return (
     <SafeContainer padding={spacing.medium}>
       <TextTitle>Perfil</TextTitle>
 
       {/* Tarjeta de Perfil */}
-      <ProfileCard
-        style={{ justifyContent: "space-between", flexDirection: "row" }}
-      >
+      <ProfileCard style={{ justifyContent: "space-between", flexDirection: "row" }}>
         <View style={styles.row}>
           <View style={styles.imageWrapper}>
-            <Image
-              source={require("../../assets/images/imageProfile.jpg")}
-              resizeMode="cover"
-              style={styles.image}
-            />
+            <Image source={require("../../assets/images/imageProfile.jpg")} resizeMode="cover" style={styles.image} />
           </View>
           <View style={styles.textWrapper}>
             <TextMedium style={{ fontWeight: "700" }}>Nombre dueño</TextMedium>
@@ -60,10 +63,7 @@ export default function Profile() {
           </View>
         </View>
 
-        <IconButton
-          onPress={() => navigation.navigate("EditProfile")}
-          icon={EditIcon}
-        />
+        <IconButton onPress={() => navigation.navigate("EditProfile")} icon={EditIcon} />
       </ProfileCard>
 
       {/* Sección: Mis Mascotas */}
@@ -93,9 +93,7 @@ export default function Profile() {
         />
         <LineHorizontal />
         <ProfileItem
-          icon={
-            <CreditCardIcon fill={theme.colors.text} width={24} height={24} />
-          }
+          icon={<CreditCardIcon fill={theme.colors.text} width={24} height={24} />}
           title="Pagos y Métodos de Pago"
           onPress={() => navigation.navigate("Payments")}
         />
@@ -116,13 +114,7 @@ export default function Profile() {
         />
         <LineHorizontal />
         <ProfileItem
-          icon={
-            <QuestionCircleIcon
-              fill={theme.colors.text}
-              width={24}
-              height={24}
-            />
-          }
+          icon={<QuestionCircleIcon fill={theme.colors.text} width={24} height={24} />}
           title="Ayuda y Soporte"
           onPress={() => navigation.navigate("Help")}
         />
@@ -133,6 +125,7 @@ export default function Profile() {
         <ProfileItem
           icon={<SignInIcon fill={theme.colors.text} width={24} height={24} />}
           title="Cerrar sesión"
+          onPress={handleLogout}
         />
       </ProfileCard>
 

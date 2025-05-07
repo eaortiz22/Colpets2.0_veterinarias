@@ -18,9 +18,9 @@ import Button from "../components/ui/Button";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../navigation/AppNavigator";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { isValidEmail } from "../utils/validations";
 import { spacing } from "../styles/theme";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { isValidEmail } from "../utils/validators";
 
 type ResetPasswordScreenNavigationProp = StackNavigationProp<
   RootStackParamList,

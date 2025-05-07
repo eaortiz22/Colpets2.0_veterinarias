@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "../context/ThemeContext";
 import { StyleSheet, View } from "react-native";
 import { spacing } from "../styles/theme";
-import SafeContainer from "../components/SafeContainer ";
+import SafeContainer from "../components/SafeContainer";
 import TextTitle from "../components/TextTitle";
 import HeaderBar from "../components/HeaderBar";
 import BannerCarousel from "../components/ui/BannerCarousel";

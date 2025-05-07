@@ -11,6 +11,7 @@ import { StyleSheet } from "react-native";
 import { spacing } from "../styles/theme";
 import ProductDetail from "../screens/ProductDetail";
 import VeterinaryDetails from "../screens/veterinarians/VeterinaryDetails";
+import { useAuth } from "../context/AuthContext";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -25,44 +26,21 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
   const { isDarkTheme, theme } = useTheme();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
+  const { isAuthenticated } = useAuth(); 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isLoggedIn ? (
+        {isAuthenticated ? (
           <>
-            <Stack.Screen
-              name="HomeTabs"
-              component={HomeTabsNavigator}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ProductDetail"
-              component={ProductDetail}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="VeterinaryDetails"
-              component={VeterinaryDetails}
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name="HomeTabs" component={HomeTabsNavigator} options={{ headerShown: false }} />
+            <Stack.Screen name="ProductDetail" component={ProductDetail} options={{ headerShown: false }} />
+            <Stack.Screen name="VeterinaryDetails" component={VeterinaryDetails} options={{ headerShown: false }} />
           </>
         ) : (
           <>
-            <Stack.Screen name="Login" options={{ headerShown: false }}>
-              {() => <Login setIsLoggedIn={setIsLoggedIn} />}
-            </Stack.Screen>
-            <Stack.Screen
-              name="Register"
-              component={Register}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ResetPassword"
-              component={ResetPassword}
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
+            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+            <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }} />
           </>
         )}
       </Stack.Navigator>
