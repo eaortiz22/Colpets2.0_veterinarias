@@ -28,8 +28,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ProfileStackParamList } from "../navigation/ProfileStack";
 import IconButton from "../components/IconButton";
 import SafeContainer from "../components/SafeContainer";
-import * as SecureStore from "expo-secure-store";
 import { useAuth } from "../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, "ProfileMain">;
 
@@ -40,7 +40,7 @@ export default function Profile() {
 
   const handleLogout = async () => {
     try {
-      await SecureStore.deleteItemAsync("token");
+      await AsyncStorage.removeItem("token");
       setIsAuthenticated(false);
     } catch (error) {
       console.error("Error al cerrar sesión", error);

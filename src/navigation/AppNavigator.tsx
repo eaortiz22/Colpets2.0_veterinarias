@@ -26,7 +26,8 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
   const { isDarkTheme, theme } = useTheme();
-  const { isAuthenticated } = useAuth(); 
+  const { isAuthenticated } = useAuth();
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

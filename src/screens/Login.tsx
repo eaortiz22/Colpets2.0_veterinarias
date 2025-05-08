@@ -18,6 +18,7 @@ import { getTrimmedValue, isLengthValid, isNonEmpty, isValidEmail } from "../uti
 import { apiRequest } from "../utils/apiRequest";
 import { ActivityIndicator } from "react-native";
 import { useAuth } from "../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, "Login">;
 
@@ -58,13 +59,13 @@ const Login = () => {
     if (valid) {
       setIsLoading(true);
 
-      console.log("entrando...");
       const data = await apiRequest("/api/v1/token", "POST", undefined, { email: email, password: password });
 
       if (data?.code === 200) {
+        await AsyncStorage.setItem("token", data.response.token);
         setIsAuthenticated(true);
       } else {
-        console.error("Error al obtener los usuarios:", data?.response?.message);
+        console.error("Error al iniciar sesión:", data?.response?.message);
       }
 
       setIsLoading(false);
