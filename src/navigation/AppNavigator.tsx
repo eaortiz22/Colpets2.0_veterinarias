@@ -12,6 +12,7 @@ import { spacing } from "../styles/theme";
 import ProductDetail from "../screens/ProductDetail";
 import VeterinaryDetails from "../screens/veterinarians/VeterinaryDetails";
 import { useAuth } from "../context/AuthContext";
+import DoctorDetails from "../screens/doctors/DoctorDetails";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -20,6 +21,7 @@ export type RootStackParamList = {
   HomeTabs: undefined;
   ProductDetail: any;
   VeterinaryDetails: any;
+  DoctorDetails: any;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -36,6 +38,7 @@ const AppNavigator: React.FC = () => {
             <Stack.Screen name="HomeTabs" component={HomeTabsNavigator} options={{ headerShown: false }} />
             <Stack.Screen name="ProductDetail" component={ProductDetail} options={{ headerShown: false }} />
             <Stack.Screen name="VeterinaryDetails" component={VeterinaryDetails} options={{ headerShown: false }} />
+            <Stack.Screen name="DoctorDetails" component={DoctorDetails} options={{ headerShown: false }} />
           </>
         ) : (
           <>

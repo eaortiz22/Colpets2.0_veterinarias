@@ -169,6 +169,7 @@ const VeterinaryDetails = ({ route }: any) => {
             onLike={() => console.log("like")}
             image={vet.image}
             gender={vet.gender}
+            data={vet}
           />
         ))}
       </ScrollView>

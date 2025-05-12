@@ -6,6 +6,9 @@ import TextSmall from "./TextSmall";
 import IconButton from "./IconButton";
 import { HeartIcon, StarIcon } from "../../assets/icons";
 import { spacing } from "../styles/theme";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../navigation/AppNavigator";
 
 type VetCardProps = {
   name: string;
@@ -15,30 +18,25 @@ type VetCardProps = {
   onLike?: () => void;
   image?: any;
   gender: string;
+  data: any;
 };
 
-const VetCard: React.FC<VetCardProps> = ({
-  name,
-  last_name,
-  role,
-  rating,
-  onLike,
-  image,
-  gender,
-}) => {
+type VeterinarinsScreenNavigationProp = StackNavigationProp<RootStackParamList, "VeterinaryDetails">;
+
+const VetCard: React.FC<VetCardProps> = ({ name, last_name, role, rating, onLike, image, gender, data }) => {
   const { theme } = useTheme();
 
+  const navigation = useNavigation<VeterinarinsScreenNavigationProp>();
+
+  const handlePress = () => {
+    navigation.navigate("DoctorDetails", { doctor: data });
+  };
+
   return (
-    <TouchableOpacity
-      style={[styles.card, { backgroundColor: theme.colors.cardBackground }]}
-    >
+    <TouchableOpacity style={[styles.card, { backgroundColor: theme.colors.cardBackground }]} onPress={handlePress}>
       <View style={styles.header}>
         <View style={{ flexShrink: 1 }}>
-          <TextSmall
-            style={[styles.name, { color: theme.colors.text }]}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-          >
+          <TextSmall style={[styles.name, { color: theme.colors.text }]} numberOfLines={1} ellipsizeMode="tail">
             {name} {last_name}
           </TextSmall>
           <Text style={{ color: theme.colors.text }}>{role}</Text>
@@ -55,9 +53,7 @@ const VetCard: React.FC<VetCardProps> = ({
         <Image
           source={
             image ||
-            (gender === "male"
-              ? require("../../assets/images/vetManIA.png")
-              : require("../../assets/images/vetIA.png"))
+            (gender === "male" ? require("../../assets/images/vetManIA.png") : require("../../assets/images/vetIA.png"))
           }
           resizeMode="contain"
           style={styles.image}

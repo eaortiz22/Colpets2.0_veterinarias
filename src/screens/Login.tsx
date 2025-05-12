@@ -65,7 +65,7 @@ const Login = () => {
         await AsyncStorage.setItem("token", data.response.token);
         setIsAuthenticated(true);
       } else {
-        console.error("Error al iniciar sesión:", data?.response?.message);
+        console.error("Error al iniciar sesión:", data?.message);
       }
 
       setIsLoading(false);

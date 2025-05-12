@@ -35,7 +35,7 @@ type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList, "P
 
 export default function Profile() {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
-  const { setIsAuthenticated } = useAuth();
+  const { setIsAuthenticated, user } = useAuth();
   const { theme } = useTheme();
 
   const handleLogout = async () => {
@@ -58,8 +58,8 @@ export default function Profile() {
             <Image source={require("../../assets/images/imageProfile.jpg")} resizeMode="cover" style={styles.image} />
           </View>
           <View style={styles.textWrapper}>
-            <TextMedium style={{ fontWeight: "700" }}>Nombre dueño</TextMedium>
-            <TextSmall>correo@gmail.com</TextSmall>
+            <TextMedium style={{ fontWeight: "700", textTransform: "capitalize" }}>{user?.name}</TextMedium>
+            <TextSmall>{user?.email}</TextSmall>
           </View>
         </View>
 
