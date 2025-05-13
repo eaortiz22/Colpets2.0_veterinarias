@@ -35,11 +35,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       const data = await apiRequest("/api/v1/token/validate", "GET", token, undefined, { token });
 
-      console.log("Token verification response:", data);
-
       if (data?.code === 200 && data.response) {
         setIsAuthenticated(true);
-        setUser(data.response); // guarda los datos del usuario
+        setUser(data.response);
       } else {
         setIsAuthenticated(false);
         setUser(null);

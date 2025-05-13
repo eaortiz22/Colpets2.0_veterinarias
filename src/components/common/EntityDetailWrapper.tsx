@@ -19,7 +19,7 @@ const { height } = Dimensions.get("window");
 type EntityDetailWrapperProps = {
   image: any;
   children: React.ReactNode;
-  modalContent: React.ReactNode;
+  modalContent?: React.ReactNode;
   buttonLabel?: string;
   onButtonPress?: () => void;
   rating?: number;
@@ -71,7 +71,7 @@ const EntityDetailWrapper: React.FC<EntityDetailWrapperProps> = ({
               iconColor={theme.colors.warning}
             />
           )}
-          <Image source={image} resizeMode="cover" style={styles.image} />
+          <Image source={image} resizeMode="contain" style={styles.image} />
           <ArrowBack style={{ top: 70 }} />
         </View>
 

@@ -31,7 +31,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation<LoginScreenNavigationProp>();
-  const { setIsAuthenticated } = useAuth();
+  const { setIsAuthenticated, setUser } = useAuth();
 
   const handleLogin = useCallback(async () => {
     const trimmedEmail = getTrimmedValue(email);
@@ -63,6 +63,7 @@ const Login = () => {
 
       if (data?.code === 200) {
         await AsyncStorage.setItem("token", data.response.token);
+        setUser(data?.response?.user);
         setIsAuthenticated(true);
       } else {
         console.error("Error al iniciar sesión:", data?.message);

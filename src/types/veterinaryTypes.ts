@@ -1,3 +1,10 @@
+export interface EducationEntry {
+  title: string;
+  university: string;
+  startYear: number;
+  endYear: number;
+}
+
 export interface Veterinarian {
   id: number;
   name: string;
@@ -9,8 +16,10 @@ export interface Veterinarian {
   image?: any;
   description?: string;
   certificates?: string[];
-  education?: string[];
+  education?: EducationEntry[];
   availability: any;
+  patientsCount?: any;
+  yearsExperience?: any;
 }
 
 export interface Service {
