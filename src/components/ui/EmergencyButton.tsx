@@ -1,27 +1,39 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, TouchableOpacity, StyleSheet, Animated, Platform, Text } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  Dimensions,
+  UIManager,
+  findNodeHandle,
+  Text,
+} from "react-native";
 import { AmbulanceIcon, AngleIcon, XIcon } from "../../../assets/icons";
 import { useTheme } from "../../context/ThemeContext";
-import { Dimensions, findNodeHandle, UIManager } from "react-native";
+
+const BUTTON_SIZE = 60;
+const ICON_SIZE = 24;
+const MINIMIZED_TRANSLATE = 120;
 
 const EmergencyButton = () => {
   const { theme } = useTheme();
+  const screen = Dimensions.get("window");
+  const diameter = Math.sqrt(screen.width ** 2 + screen.height ** 2) * 0.95;
 
   const [minimized, setMinimized] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [buttonLayout, setButtonLayout] = useState({ x: 0, y: 0, width: 60 });
   const [fullScreen, setFullScreen] = useState(false);
+  const [buttonLayout, setButtonLayout] = useState({ x: 0, y: 0, width: BUTTON_SIZE });
 
-  const sizeAnim = useRef(new Animated.Value(60)).current; // inicial del botón
-
+  const sizeAnim = useRef(new Animated.Value(BUTTON_SIZE)).current;
   const positionAnim = useRef(new Animated.ValueXY({ x: 20, y: 130 })).current;
-  const slideAnim = useRef(new Animated.Value(0)).current; // 0: expandido, 1: minimizado
+  const slideAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(1)).current;
 
   const buttonRef = useRef(null);
-  const screenWidth = Dimensions.get("window").width;
-  const screenHeight = Dimensions.get("window").height;
 
+  // Animaciones al minimizar/restaurar
   useEffect(() => {
     Animated.parallel([
       Animated.timing(slideAnim, {
@@ -37,38 +49,15 @@ const EmergencyButton = () => {
     ]).start();
   }, [minimized]);
 
-  const handleClose = () => {
-    setMinimized(true);
-  };
-
-  const handleRestore = () => {
-    setMinimized(false);
-  };
-
-  const translateX = slideAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 120], // se va hacia la derecha
-  });
-
-  const diameter = Math.sqrt(screenWidth ** 2 + screenHeight ** 2) * 0.95;
-
-  // Quita radiusAnim y usa borderRadius interpolado
-  const radiusAnim = sizeAnim.interpolate({
-    inputRange: [60, diameter],
-    outputRange: [30, diameter / 2],
-  });
-
   const handleExpand = () => {
     if (!buttonRef.current) return;
 
     const nodeHandle = findNodeHandle(buttonRef.current);
     if (nodeHandle != null) {
-      UIManager.measureInWindow(nodeHandle, (x, y, width, height) => {
+      UIManager.measureInWindow(nodeHandle, (x, y, width) => {
         setButtonLayout({ x, y, width });
         positionAnim.setValue({ x, y });
-
         sizeAnim.setValue(width);
-
         setExpanded(true);
 
         Animated.parallel([
@@ -79,27 +68,22 @@ const EmergencyButton = () => {
           }),
           Animated.timing(positionAnim, {
             toValue: {
-              x: (screenWidth - diameter) / 2,
-              y: (screenHeight - diameter) / 2,
+              x: (screen.width - diameter) / 2,
+              y: (screen.height - diameter) / 2,
             },
             duration: 500,
             useNativeDriver: false,
           }),
-        ]).start(() => {
-          setFullScreen(true);
-        });
+        ]).start(() => setFullScreen(true));
       });
     }
   };
 
-  const closeButtonOffset = (screenWidth - diameter) / 2 + diameter - 40; // 40px del borde derecho
-
   const handleCloseExpanded = () => {
-    setFullScreen(false); // Oculta contenido inmediatamente
-
+    setFullScreen(false);
     Animated.parallel([
       Animated.timing(sizeAnim, {
-        toValue: 60,
+        toValue: BUTTON_SIZE,
         duration: 500,
         useNativeDriver: false,
       }),
@@ -111,14 +95,16 @@ const EmergencyButton = () => {
         duration: 500,
         useNativeDriver: false,
       }),
-    ]).start(() => {
-      setExpanded(false); // Elimina la vista del círculo una vez termina
-    });
+    ]).start(() => setExpanded(false));
   };
 
-  return (
-    <>
-      {/* Botón Emergencia */}
+  const renderMainButton = () => {
+    const translateX = slideAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, MINIMIZED_TRANSLATE],
+    });
+
+    return (
       <Animated.View
         style={[
           styles.container,
@@ -129,70 +115,75 @@ const EmergencyButton = () => {
           },
         ]}
       >
-        <TouchableOpacity style={styles.closeIcon} onPress={handleClose}>
-          <XIcon fill="#fff" width={16} height={16} />
+        <TouchableOpacity style={styles.closeIcon} onPress={() => setMinimized(true)}>
+          <XIcon fill="#fff" width={12} height={12} />
         </TouchableOpacity>
 
         <TouchableOpacity
           ref={buttonRef}
-          style={[styles.button, { backgroundColor: theme.colors.error }]}
+          style={[styles.button, { backgroundColor: theme.colors.error, shadowColor: theme.colors.error }]}
           onPress={handleExpand}
         >
-          <AmbulanceIcon fill="#fff" width={24} height={24} />
+          <AmbulanceIcon fill="#fff" width={ICON_SIZE} height={ICON_SIZE} />
         </TouchableOpacity>
       </Animated.View>
+    );
+  };
 
-      {/* Flecha para restaurar */}
-      {minimized && (
-        <Animated.View style={[styles.minimizedBubble, { backgroundColor: theme.colors.error }]}>
-          <TouchableOpacity onPress={handleRestore}>
-            <AngleIcon width={24} height={24} fill="#fff" />
-          </TouchableOpacity>
-        </Animated.View>
-      )}
-      {expanded && (
-        <Animated.View
-          style={[
-            {
-              position: "absolute",
-              width: sizeAnim,
-              height: sizeAnim,
-              borderRadius: fullScreen ? 0 : radiusAnim,
-              top: positionAnim.y,
-              left: positionAnim.x,
-              backgroundColor: theme.colors.error,
-              zIndex: 998,
-            },
-            {
-              justifyContent: "center",
-              alignItems: "center",
-            },
-          ]}
-        >
-          {/* Contenido solo si está en pantalla completa */}
-          {fullScreen && (
-            <>
-              {/* Botón de cerrar */}
-              <TouchableOpacity
-                style={{
-                  position: "absolute",
-                  top: 100,
-                  left: closeButtonOffset,
-                  backgroundColor: "black",
-                  borderRadius: 16,
-                  padding: 6,
-                  zIndex: 1000,
-                }}
-                onPress={handleCloseExpanded}
-              >
-                <XIcon fill="#fff" width={16} height={16} />
-              </TouchableOpacity>
+  const renderRestoreButton = () => (
+    <Animated.View style={[styles.minimizedBubble, { backgroundColor: theme.colors.error }]}>
+      <TouchableOpacity onPress={() => setMinimized(false)}>
+        <AngleIcon width={ICON_SIZE} height={ICON_SIZE} fill="#fff" />
+      </TouchableOpacity>
+    </Animated.View>
+  );
 
-              <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>Emergencia activada</Text>
-            </>
-          )}
-        </Animated.View>
-      )}
+  const renderExpandedView = () => {
+    const radiusAnim = sizeAnim.interpolate({
+      inputRange: [BUTTON_SIZE, diameter],
+      outputRange: [BUTTON_SIZE / 2, diameter / 2],
+    });
+
+    const closeButtonOffset = (screen.width - diameter) / 2 + diameter - 40;
+
+    return (
+      <Animated.View
+        style={[
+          {
+            position: "absolute",
+            width: sizeAnim,
+            height: sizeAnim,
+            borderRadius: fullScreen ? 0 : radiusAnim,
+            top: positionAnim.y,
+            left: positionAnim.x,
+            backgroundColor: theme.colors.error,
+            zIndex: 998,
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        ]}
+      >
+        {fullScreen && (
+          <>
+            <TouchableOpacity
+              style={[styles.expandedCloseButton, { left: closeButtonOffset }]}
+              onPress={handleCloseExpanded}
+            >
+              <XIcon fill="#fff" width={16} height={16} />
+            </TouchableOpacity>
+
+            <Text style={styles.expandedText}>Emergencia activada</Text>
+          </>
+        )}
+      </Animated.View>
+    );
+  };
+
+  return (
+    <>
+      {renderMainButton()}
+      {minimized && renderRestoreButton()}
+      {expanded && renderExpandedView()}
     </>
   );
 };
@@ -206,16 +197,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: BUTTON_SIZE,
+    height: BUTTON_SIZE,
+    borderRadius: BUTTON_SIZE / 2,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
-    elevation: 8,
+    elevation: 5,
   },
   closeIcon: {
     position: "absolute",
@@ -223,7 +213,7 @@ const styles = StyleSheet.create({
     right: -3,
     backgroundColor: "black",
     borderRadius: 10,
-    padding: 2,
+    padding: 4,
     zIndex: 101,
   },
   minimizedBubble: {
@@ -234,9 +224,22 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     zIndex: 100,
     width: 30,
-    height: 60,
+    height: BUTTON_SIZE,
     justifyContent: "center",
     alignItems: "center",
+  },
+  expandedCloseButton: {
+    position: "absolute",
+    top: 100,
+    backgroundColor: "black",
+    borderRadius: 16,
+    padding: 6,
+    zIndex: 1000,
+  },
+  expandedText: {
+    color: "#fff",
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });
 
