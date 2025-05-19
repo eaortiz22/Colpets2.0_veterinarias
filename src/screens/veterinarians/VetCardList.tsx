@@ -4,6 +4,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/AppNavigator";
+import { formatReviews } from "../../utils/formatUtils";
 
 interface Vet {
   id: number;
@@ -54,7 +55,7 @@ const VetCardList: React.FC<{ vet: Vet }> = ({ vet }) => {
           )}
         </Text>
         <Text style={{ color: theme.colors.text }}>
-          ⭐ {vet.rating.toFixed(1)} · {vet.reviews} reseñas
+          ⭐ {vet.rating.toFixed(1)} · ({formatReviews(vet.reviews)})
         </Text>
       </View>
     </Pressable>

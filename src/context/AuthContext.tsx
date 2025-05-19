@@ -8,7 +8,6 @@ interface User {
   email: string;
   role: string;
   status: string;
-  // agrega más campos si los necesitas
 }
 
 interface AuthContextProps {
@@ -16,6 +15,7 @@ interface AuthContextProps {
   setIsAuthenticated: (auth: boolean) => void;
   user: User | null;
   setUser: (user: User | null) => void;
+  isLoading: boolean; // <-- Añadido
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -23,25 +23,32 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true); // <-- Añadido
 
   useEffect(() => {
     const verifyToken = async () => {
-      const token = await AsyncStorage.getItem("token");
-      if (!token) {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        if (!token) {
+          setIsAuthenticated(false);
+          setUser(null);
+        } else {
+          const data = await apiRequest("/api/v1/token/validate", "GET", token, undefined, { token });
+
+          if (data?.code === 200 && data.response) {
+            setIsAuthenticated(true);
+            setUser(data.response);
+          } else {
+            setIsAuthenticated(false);
+            setUser(null);
+            await AsyncStorage.removeItem("token");
+          }
+        }
+      } catch (err) {
         setIsAuthenticated(false);
         setUser(null);
-        return;
-      }
-
-      const data = await apiRequest("/api/v1/token/validate", "GET", token, undefined, { token });
-
-      if (data?.code === 200 && data.response) {
-        setIsAuthenticated(true);
-        setUser(data.response);
-      } else {
-        setIsAuthenticated(false);
-        setUser(null);
-        await AsyncStorage.removeItem("token");
+      } finally {
+        setIsLoading(false); // <-- Finaliza la carga
       }
     };
 
@@ -49,7 +56,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        user,
+        setUser,
+        isLoading, // <-- Incluido en el contexto
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

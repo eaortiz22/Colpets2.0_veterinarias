@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import TextSmall from "../TextSmall";
 import { AngleIcon, ArrowLeftIcon } from "../../../assets/icons";
+import { CustomCalendarProps } from "../../types/CustomCalendarProps ";
 
 const daysOfWeek = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 

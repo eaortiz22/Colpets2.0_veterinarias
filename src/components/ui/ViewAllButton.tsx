@@ -6,14 +6,15 @@ import { useTheme } from "../../context/ThemeContext";
 
 interface ViewAllButtonProps {
   onPress: () => void;
+  text?: string;
 }
 
-const ViewAllButton: React.FC<ViewAllButtonProps> = ({ onPress }) => {
+const ViewAllButton: React.FC<ViewAllButtonProps> = ({ onPress, text = "Ver todo" }) => {
   const { theme } = useTheme();
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
-      <TextSmall style={{ color: theme.colors.primary }}>Ver todo</TextSmall>
+      <TextSmall style={{ color: theme.colors.primary }}>{text}</TextSmall>
       <AngleIcon size={12} fill={theme.colors.primary} width={16} height={16} />
     </TouchableOpacity>
   );

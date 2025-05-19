@@ -10,6 +10,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/ThemeContext";
 import { HomeIcon, ShoppingBagIcon, UsersIcon, HospitalIcon, UserIcon } from "../../assets/icons";
 import ProfileStack from "./ProfileStack";
+import { LocationProvider } from "../context/LocationContext";
+import EmergencyButton from "../components/ui/EmergencyButton";
 
 const TabArr = [
   {
@@ -139,56 +141,59 @@ export default function AnimTab1() {
   const { isDarkTheme, theme } = useTheme();
 
   return (
-    <SafeAreaProvider>
-      <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: [
-            styles.tabBar,
-            {
-              backgroundColor: isDarkTheme ? theme.colors.primary : theme.colors.background,
-              ...(isDarkTheme
-                ? {
-                    shadowColor: "#FFFFFF",
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 13,
-                    elevation: 3,
-                  }
-                : {
-                    shadowColor: "#1b1816",
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 13,
-                    elevation: 3,
-                  }),
-              bottom: Platform.OS === "ios" ? 10 : 0,
-            },
-          ],
-        }}
-      >
-        {TabArr.map((item, index) => {
-          return (
-            <Tab.Screen
-              key={index}
-              name={item.route}
-              component={item.component}
-              options={{
-                tabBarShowLabel: false,
-                tabBarButton: (props) => (
-                  <TabButton
-                    item={item}
-                    onPress={props.onPress}
-                    accessibilityState={(props as any)?.children?._owner?.pendingProps?.focused || false}
-                  />
-                ),
-              }}
-            />
-          );
-        })}
-      </Tab.Navigator>
-    </SafeAreaProvider>
+    <LocationProvider>
+      <SafeAreaProvider>
+        <Tab.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerShown: false,
+            tabBarStyle: [
+              styles.tabBar,
+              {
+                backgroundColor: isDarkTheme ? theme.colors.primary : theme.colors.background,
+                ...(isDarkTheme
+                  ? {
+                      shadowColor: "#FFFFFF",
+                      shadowOffset: { width: 0, height: 0 },
+                      shadowOpacity: 0.1,
+                      shadowRadius: 13,
+                      elevation: 3,
+                    }
+                  : {
+                      shadowColor: "#1b1816",
+                      shadowOffset: { width: 0, height: 0 },
+                      shadowOpacity: 0.1,
+                      shadowRadius: 13,
+                      elevation: 3,
+                    }),
+                bottom: Platform.OS === "ios" ? 10 : 0,
+              },
+            ],
+          }}
+        >
+          {TabArr.map((item, index) => {
+            return (
+              <Tab.Screen
+                key={index}
+                name={item.route}
+                component={item.component}
+                options={{
+                  tabBarShowLabel: false,
+                  tabBarButton: (props) => (
+                    <TabButton
+                      item={item}
+                      onPress={props.onPress}
+                      accessibilityState={(props as any)?.children?._owner?.pendingProps?.focused || false}
+                    />
+                  ),
+                }}
+              />
+            );
+          })}
+        </Tab.Navigator>
+        <EmergencyButton />
+      </SafeAreaProvider>
+    </LocationProvider>
   );
 }
 

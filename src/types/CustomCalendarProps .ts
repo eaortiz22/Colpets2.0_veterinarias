@@ -1,4 +1,4 @@
-type CustomCalendarProps = {
+export type CustomCalendarProps = {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
   availableHours: string[];

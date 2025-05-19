@@ -15,11 +15,12 @@ export interface Veterinarian {
   reviews: number;
   image?: any;
   description?: string;
-  certificates?: string[];
+  certificates?: EducationEntry[];
   education?: EducationEntry[];
   availability: any;
   patientsCount?: any;
   yearsExperience?: any;
+  verified?: boolean;
 }
 
 export interface Service {

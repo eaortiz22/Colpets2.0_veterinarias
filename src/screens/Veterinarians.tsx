@@ -1,34 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import MapView, { Region } from "react-native-maps";
-import * as Location from "expo-location";
 import HeaderBar from "../components/HeaderBar";
 import SectionHeader from "../components/SectionHeader";
 import SafeContainer from "../components/SafeContainer";
 import MapComponent from "../components/veterinary/MapComponent";
 import { VETS } from "../data/veterinaries";
 import TopVeterinaries from "./veterinarians/TopVeterinaries";
+import { useTheme } from "../context/ThemeContext";
+import { useLocation } from "../context/LocationContext";
 
 export default function Veterinarians() {
-  const mapRef = useRef<MapView | null>(null);
-  const [location, setLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  } | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [message, setMessage] = useState("");
+  const { theme } = useTheme();
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") return;
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      setLocation({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-      });
-    })();
-  }, []);
+  const mapRef = useRef<MapView | null>(null);
+  const { location, errorMsg, isLoading } = useLocation();
+  const [message, setMessage] = useState("");
 
   const handleRegionChangeComplete = (region: Region) => {
     if (!location) return;
@@ -50,19 +37,22 @@ export default function Veterinarians() {
     <SafeContainer style={{ marginBottom: 70 }}>
       <View style={{ padding: 16, gap: 16 }}>
         <HeaderBar location="Bogotá, Edificio Cataly" country="Colombia" />
-        {errorMsg ? (
-          <View
-            style={{
-              height: 300,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+        {isLoading ? (
+          <View style={{ height: "100%", justifyContent: "center", alignItems: "center", gap: 16 }}>
+            <ActivityIndicator size="large" color={theme.colors.primary} />
+            <Text style={{ color: theme.colors.text }}>Cargando mapa...</Text>
+          </View>
+        ) : errorMsg ? (
+          <View style={{ height: 300, justifyContent: "center", alignItems: "center" }}>
             <Text style={{ color: "red" }}>{errorMsg}</Text>
           </View>
         ) : (
           <>
-            <SectionHeader title="Veterinarias cercanas" />
+            <SectionHeader
+              title="Veterinarias cercanas"
+              text="Mapa completo"
+              onViewAll={() => console.log("mapa completo")}
+            />
             <MapComponent
               mapRef={mapRef}
               location={location}

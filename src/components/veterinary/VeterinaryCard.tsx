@@ -13,7 +13,7 @@ import {
   MapMarkerIcon,
   ShareAltIcon,
   StarIcon,
-  XIconIcon,
+  XIcon,
 } from "../../../assets/icons";
 import TextSmall from "../TextSmall";
 import TextMedium from "../TextMedium";
@@ -113,7 +113,7 @@ const VeterinaryCard: React.FC<VeterinaryCardProps> = ({
         style={[styles.closeButton, { backgroundColor: theme.colors.primary }]}
         onPress={onClose}
       >
-        <XIconIcon width={16} height={16} fill={"#FFF"} />
+        <XIcon width={16} height={16} fill={"#FFF"} />
       </TouchableOpacity>
     </>
   );

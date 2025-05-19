@@ -6,9 +6,15 @@ import { useTheme } from "../../context/ThemeContext";
 export const EducationTimeline = ({ education }: { education: Veterinarian["education"] }) => {
   const { theme } = useTheme();
 
+  const sortedEducation = [...(education || [])].sort((a, b) => {
+    const aYear = a.endYear || a.startYear;
+    const bYear = b.endYear || b.startYear;
+    return bYear - aYear;
+  });
+
   return (
     <View style={styles.container}>
-      {education?.map((item, index) => (
+      {sortedEducation.map((item, index) => (
         <View key={index} style={styles.entry}>
           <View style={styles.leftColumn}>
             <Text style={[styles.date, { color: theme.colors.text }]}>
@@ -27,7 +33,7 @@ export const EducationTimeline = ({ education }: { education: Veterinarian["educ
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: spacing.medium,
+    // paddingVertical: spacing.medium,
     gap: 24,
   },
   entry: {
@@ -54,6 +60,5 @@ const styles = StyleSheet.create({
   specialization: {
     fontSize: 12,
     color: "#666",
-    marginTop: 2,
   },
 });

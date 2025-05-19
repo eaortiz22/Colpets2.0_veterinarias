@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, TouchableOpacity, ScrollView, Image, Text, StyleSheet } from "react-native";
 import TextTitle from "../TextTitle";
 import { useTheme } from "../../context/ThemeContext";
 import TextSmall from "../TextSmall";
@@ -45,28 +38,20 @@ const VeterinarySection: React.FC<VeterinarySectionProps> = ({
               },
             ]}
           >
-            <Image
-              source={veterinary.image}
-              resizeMode="cover"
-              style={styles.image}
-            />
+            <Image source={veterinary.image} resizeMode="cover" style={styles.image} />
             <View>
               <TextSmall numberOfLines={2} ellipsizeMode="tail">
                 {veterinary.name}
               </TextSmall>
               <View style={styles.ratingContainer}>
                 <StarIcon fill={theme.colors.warning} width={16} height={16} />
-                <Text style={styles.ratingText}>
+                <Text style={[styles.ratingText, { color: theme.colors.text }]}>
                   {veterinary.rating} ({formatReviews(veterinary.reviews)})
                 </Text>
               </View>
 
               <View style={styles.locationContainer}>
-                <MapMarkerIcon
-                  fill={theme.colors.text}
-                  width={16}
-                  height={16}
-                />
+                <MapMarkerIcon fill={theme.colors.text} width={16} height={16} />
                 <TextSmall>{veterinary.neighborhood}</TextSmall>
               </View>
             </View>
