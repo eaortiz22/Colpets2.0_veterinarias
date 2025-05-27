@@ -82,21 +82,10 @@ export default function Marketplace() {
         }}
       >
         <View style={[styles.header, { paddingHorizontal: 0 }]}>
-          <TextTitle style={{ fontWeight: "700" }}>
-            Compra por categoria
-          </TextTitle>
-          <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
-          >
-            <TextSmall style={{ color: theme.colors.primary }}>
-              Ver todo
-            </TextSmall>
-            <AngleIcon
-              size={12}
-              fill={theme.colors.primary}
-              width={16}
-              height={16}
-            />
+          <TextTitle style={{ fontWeight: "700" }}>Compra por categoria</TextTitle>
+          <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }}>
+            <TextSmall style={{ color: theme.colors.primary }}>Ver todo</TextSmall>
+            <AngleIcon fill={theme.colors.primary} width={16} height={16} />
           </TouchableOpacity>
         </View>
         <View>
@@ -104,11 +93,7 @@ export default function Marketplace() {
         </View>
       </View>
       {/* Recommended */}
-      <ProductSection
-        title="Recomendados"
-        products={products}
-        onViewAll={() => console.log("Ver todos")}
-      />
+      <ProductSection title="Recomendados" products={products} onViewAll={() => console.log("Ver todos")} />
     </SafeContainer>
   );
 }

@@ -31,3 +31,4 @@ export { default as GraduationCapIcon } from "./graduationCap.svg";
 export { default as AwardAltIcon } from "./awardAlt.svg";
 export { default as VerifiedIcon } from "./verified.svg";
 export { default as AmbulanceIcon } from "./ambulance.svg";
+export { default as CarIcon } from "./car.svg";

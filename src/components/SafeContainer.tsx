@@ -9,6 +9,7 @@ interface SafeContainerProps {
   style?: ViewStyle;
   padding?: number; // Si se pasa, usa padding en vez de paddingVertical
   isScrollEnabled?: boolean; // Nueva prop para controlar el scroll
+  backgroundColor?: string;
 }
 
 export default function SafeContainer({
@@ -16,13 +17,12 @@ export default function SafeContainer({
   style,
   padding,
   isScrollEnabled = true, // Por defecto, el scroll está habilitado
+  backgroundColor,
 }: SafeContainerProps) {
   const { theme } = useTheme();
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
-    >
+    <SafeAreaView style={[styles.container, { backgroundColor: backgroundColor || theme.colors.background }]}>
       <ScrollView
         contentContainerStyle={[
           styles.scrollViewContent,

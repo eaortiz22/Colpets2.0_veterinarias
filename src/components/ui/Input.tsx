@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  TextInput,
-  StyleSheet,
-  TextInputProps,
-  View,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { TextInput, StyleSheet, TextInputProps, View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import { fontSizes, spacing } from "../../styles/theme";
 
@@ -16,6 +9,7 @@ interface InputProps extends TextInputProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   onRightIconPress?: () => void;
+  emergency?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,6 +19,7 @@ const Input: React.FC<InputProps> = ({
   rightIcon,
   onRightIconPress,
   style,
+  emergency,
   ...props
 }) => {
   const { theme } = useTheme();
@@ -44,53 +39,51 @@ const Input: React.FC<InputProps> = ({
   return (
     <View style={styles.container}>
       {label && (
-        <Text style={[styles.label, { color: theme.colors.secondary }]}>
+        <Text
+          style={[
+            styles.label,
+            { color: emergency ? "#fff" : theme.colors.secondary, fontWeight: emergency ? "700" : "400" },
+          ]}
+        >
           {label}
         </Text>
       )}
       <View
-        style={[styles.inputWrapper, { backgroundColor: theme.colors.inputBg }]}
+        style={[
+          styles.inputWrapper,
+          {
+            backgroundColor: emergency ? "transparent" : theme.colors.inputBg,
+            borderColor: emergency ? "#fff" : "#ccc",
+          },
+        ]}
       >
-        {leftIcon && (
-          <View style={styles.iconWrapper}>
-            {React.cloneElement(leftIcon as React.ReactElement, {
-              size: 16,
-              color: theme.colors.text,
-            })}
-          </View>
-        )}
+        {leftIcon && <View style={styles.iconWrapper}>{React.cloneElement(leftIcon as React.ReactElement)}</View>}
         <TextInput
           style={[
             styles.input,
             {
-              color: theme.colors.placeholder,
+              color: emergency ? "#fff" : theme.colors.placeholder,
               fontSize: fontSizes.small,
               fontWeight: "normal",
+              minHeight: props.multiline ? 100 : 48,
             },
             style,
           ]}
-          value={isPasswordVisible ? text : "●".repeat(text.length)}
+          value={text}
+          secureTextEntry={props.secureTextEntry}
           onChangeText={handleTextChange}
-          placeholderTextColor={theme.colors.placeholder}
+          placeholderTextColor={emergency ? "#fff" : theme.colors.placeholder}
           editable
           {...props}
         />
         {rightIcon && (
-          <TouchableOpacity
-            onPress={togglePasswordVisibility}
-            style={styles.iconWrapper}
-          >
-            {React.cloneElement(rightIcon as React.ReactElement, {
-              size: 16,
-              color: theme.colors.text,
-            })}
+          <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconWrapper}>
+            {React.cloneElement(rightIcon as React.ReactElement)}
           </TouchableOpacity>
         )}
       </View>
       {errorMessage && (
-        <Text style={[styles.error, { color: theme.colors.error }]}>
-          {errorMessage}
-        </Text>
+        <Text style={[styles.error, { color: emergency ? "#fff" : theme.colors.error }]}>{errorMessage}</Text>
       )}
     </View>
   );
@@ -99,18 +92,15 @@ const Input: React.FC<InputProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    marginBottom: spacing.medium,
   },
   label: {
     fontSize: fontSizes.small,
     marginBottom: spacing.small,
-    fontWeight: "400",
   },
   inputWrapper: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 12,
     paddingHorizontal: spacing.small,
   },

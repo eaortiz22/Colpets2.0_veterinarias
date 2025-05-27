@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import { AmbulanceIcon, AngleIcon, XIcon } from "../../../assets/icons";
 import { useTheme } from "../../context/ThemeContext";
+import EmergencyActionPanel from "../emergency/EmergencyActionPanel";
+import { spacing } from "../../styles/theme";
 
 const BUTTON_SIZE = 60;
 const ICON_SIZE = 24;
@@ -144,36 +146,39 @@ const EmergencyButton = () => {
       outputRange: [BUTTON_SIZE / 2, diameter / 2],
     });
 
-    const closeButtonOffset = (screen.width - diameter) / 2 + diameter - 40;
+    const animatedStyle = fullScreen
+      ? {
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: screen.width,
+          height: screen.height,
+          backgroundColor: theme.colors.error,
+          zIndex: 998,
+        }
+      : {
+          position: "absolute",
+          width: sizeAnim,
+          height: sizeAnim,
+          borderRadius: radiusAnim,
+          top: positionAnim.y,
+          left: positionAnim.x,
+          backgroundColor: theme.colors.error,
+          zIndex: 998,
+          justifyContent: "center",
+          alignItems: "center",
+        };
 
     return (
-      <Animated.View
-        style={[
-          {
-            position: "absolute",
-            width: sizeAnim,
-            height: sizeAnim,
-            borderRadius: fullScreen ? 0 : radiusAnim,
-            top: positionAnim.y,
-            left: positionAnim.x,
-            backgroundColor: theme.colors.error,
-            zIndex: 998,
-            justifyContent: "center",
-            alignItems: "center",
-          },
-        ]}
-      >
+      <Animated.View style={animatedStyle}>
         {fullScreen && (
-          <>
-            <TouchableOpacity
-              style={[styles.expandedCloseButton, { left: closeButtonOffset }]}
-              onPress={handleCloseExpanded}
-            >
-              <XIcon fill="#fff" width={16} height={16} />
-            </TouchableOpacity>
-
-            <Text style={styles.expandedText}>Emergencia activada</Text>
-          </>
+          <EmergencyActionPanel
+            pets={[]}
+            onClose={handleCloseExpanded}
+            onActivate={(mode, petId) => {
+              // acción cuando elige
+            }}
+          />
         )}
       </Animated.View>
     );
