@@ -32,3 +32,7 @@ export { default as AwardAltIcon } from "./awardAlt.svg";
 export { default as VerifiedIcon } from "./verified.svg";
 export { default as AmbulanceIcon } from "./ambulance.svg";
 export { default as CarIcon } from "./car.svg";
+export { default as MailIcon } from "./mail.svg";
+export { default as LockAltIcon } from "./lockAlt.svg";
+export { default as EyeIcon } from "./eye.svg";
+export { default as EyeOffIcon } from "./eyeOff.svg";

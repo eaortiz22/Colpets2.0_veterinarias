@@ -92,10 +92,10 @@ const Input: React.FC<InputProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    gap: 4,
   },
   label: {
     fontSize: fontSizes.small,
-    marginBottom: spacing.small,
   },
   inputWrapper: {
     flexDirection: "row",
@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
   },
   error: {
     fontSize: 12,
-    marginTop: spacing.small,
   },
 });
 

@@ -19,6 +19,7 @@ import { apiRequest } from "../utils/apiRequest";
 import { ActivityIndicator } from "react-native";
 import { useAuth } from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { EyeIcon, EyeOffIcon, LockAltIcon, MailIcon } from "../../assets/icons";
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, "Login">;
 
@@ -43,7 +44,7 @@ const Login = () => {
       setEmailError("El correo electrónico es obligatorio.");
       valid = false;
     } else if (!isValidEmail(trimmedEmail)) {
-      setEmailError("Ingrese un correo electrónico válido.");
+      setEmailError("Correo no válido. Ejemplo: nombre@correo.com");
       valid = false;
     } else {
       setEmailError("");
@@ -59,7 +60,7 @@ const Login = () => {
     if (valid) {
       setIsLoading(true);
 
-      const data = await apiRequest("/api/v1/token", "POST", undefined, { email: email, password: password });
+      const data = await apiRequest("/api/v1/token", "POST", undefined, { email, password });
 
       if (data?.code === 200) {
         await AsyncStorage.setItem("token", data.response.token);
@@ -72,6 +73,14 @@ const Login = () => {
       setIsLoading(false);
     }
   }, [email, password, setIsAuthenticated]);
+
+  const icon = password ? (
+    isSecure ? (
+      <EyeOffIcon width={16} height={16} fill={theme.colors.text} />
+    ) : (
+      <EyeIcon width={16} height={16} fill={theme.colors.text} />
+    )
+  ) : undefined;
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -86,7 +95,7 @@ const Login = () => {
               />
               <TextTitle>Hola de nuevo!</TextTitle>
               <TextMedium>¡Bienvenido, te hemos extrañado!</TextMedium>
-              <View>
+              <View style={{ gap: 8 }}>
                 <Input
                   label="Correo electrónico"
                   placeholder="Ingrese su correo"
@@ -95,7 +104,7 @@ const Login = () => {
                   autoComplete="email"
                   textContentType="emailAddress"
                   keyboardType="email-address"
-                  leftIcon={<MaterialIcons name="email" />}
+                  leftIcon={<MailIcon width={16} height={16} fill={theme.colors.text} />}
                   errorMessage={emailError}
                 />
                 <Input
@@ -105,13 +114,9 @@ const Login = () => {
                   autoComplete="password"
                   textContentType="password"
                   secureTextEntry={isSecure}
-                  leftIcon={<MaterialIcons name="lock" />}
-                  rightIcon={
-                    <MaterialIcons
-                      name={isSecure ? "visibility" : "visibility-off"}
-                      onPress={() => setIsSecure(!isSecure)}
-                    />
-                  }
+                  leftIcon={<LockAltIcon width={16} height={16} fill={theme.colors.text} />}
+                  rightIcon={icon}
+                  onRightIconPress={() => setIsSecure(!isSecure)}
                   onChangeText={setPassword}
                   errorMessage={passwordError}
                 />
