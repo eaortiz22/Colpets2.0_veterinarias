@@ -409,8 +409,8 @@ export const VETS: Veterinary[] = [
         // certificates: ["Certificación AVEPA en cirugía general", "Entrenamiento en laparoscopia veterinaria"],
         // education: ["Universidad de La Salle", "Especialización en cirugía veterinaria"],
         availability: {
-          "2025-04-18": ["10:00 AM", "11:30 AM"],
-          "2025-04-19": ["2:00 PM", "3:30 PM"],
+          "2025-07-18": ["10:00 AM", "11:30 AM"],
+          "2025-07-19": ["2:00 PM", "3:30 PM"],
         },
       },
     ],
