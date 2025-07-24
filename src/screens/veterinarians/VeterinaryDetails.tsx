@@ -120,7 +120,7 @@ const VeterinaryDetails = ({ route }: any) => {
         <MapMarkerIcon width={24} height={24} fill={theme.colors.primary} />
         <TextMedium style={{ color: theme.colors.text }}>
           {veterinary.neighborhood}, {veterinary.city}
-          {distanceInfo?.duration && `" • " ${distanceInfo?.duration}`}
+          {distanceInfo?.duration && ` • ${distanceInfo?.duration}`}
         </TextMedium>
       </View>
       <HorizontalStatsCard
