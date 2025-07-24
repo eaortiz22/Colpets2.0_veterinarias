@@ -24,43 +24,23 @@ interface TopVeterinariesProps {
 }
 
 const TopVeterinaries: React.FC<TopVeterinariesProps> = ({ vets, city, topCount = 5, location }) => {
-  const [vetsWithDistance, setVetsWithDistance] = useState<any[]>([]);
+  const [topVets, setTopVets] = useState<Vet[]>([]);
 
   useEffect(() => {
-    const calculateDistances = async () => {
-      if (location) {
-        const filteredVets = vets
-          .filter((vet) => vet.city.toLowerCase() === city.toLowerCase())
-          .sort((a, b) => {
-            if (b.rating === a.rating) {
-              return b.reviews - a.reviews;
-            }
-            return b.rating - a.rating;
-          })
-          .slice(0, topCount);
+    const filtered = vets
+      .filter((vet) => vet.city.toLowerCase() === city.toLowerCase())
+      .sort((a, b) => (b.rating === a.rating ? b.reviews - a.reviews : b.rating - a.rating))
+      .slice(0, topCount);
 
-        const updatedVets = await Promise.all(
-          filteredVets.map(async (vet) => {
-            const distanceInfo = await getDistance(location, vet);
-            return { ...vet, distanceInfo };
-          })
-        );
-
-        setVetsWithDistance(updatedVets);
-      }
-    };
-
-    calculateDistances();
-  }, [location, city, vets, topCount]);
+    setTopVets(filtered);
+  }, [city, vets, topCount]);
 
   return (
     <View style={{ gap: 8 }}>
-      {vetsWithDistance.length === 0 ? (
+      {topVets.length === 0 ? (
         <Text style={{ textAlign: "center", fontStyle: "italic" }}>No hay veterinarias destacadas en esta ciudad.</Text>
       ) : (
-        vetsWithDistance.map((vet) => (
-          <VetCardList key={vet.id} vet={vet} /> 
-        ))
+        topVets.map((vet) => <VetCardList key={vet.id} vet={vet} />)
       )}
     </View>
   );
