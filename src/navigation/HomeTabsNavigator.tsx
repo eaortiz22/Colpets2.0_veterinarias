@@ -8,7 +8,7 @@ import Services from "../screens/Services";
 import Marketplace from "../screens/Marketplace";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/ThemeContext";
-import { HomeIcon, ShoppingBagIcon, UsersIcon, HospitalIcon, UserIcon } from "../../assets/icons";
+import { HomeIcon, ShoppingBagIcon, UsersIcon, HospitalIcon, UserIcon, MenuIcon } from "../../assets/icons";
 import ProfileStack from "./ProfileStack";
 import { LocationProvider } from "../context/LocationContext";
 import EmergencyButton from "../components/ui/EmergencyButton";
@@ -39,9 +39,9 @@ const TabArr = [
     component: Marketplace,
   },
   {
-    route: "Perfil",
-    label: "Perfil",
-    IconComponent: UserIcon,
+    route: "Menú",
+    label: "Menú",
+    IconComponent: MenuIcon,
     component: ProfileStack,
   },
 ];
@@ -94,6 +94,13 @@ const TabButton: React.FC<TabButtonProps> = ({ item, onPress, accessibilityState
 
   const Icon = item.IconComponent;
 
+let iconColor = focused
+  ? theme.colors.primary // Seleccionado: turquesa
+  : isDarkTheme
+    ? theme.colors.text  // No seleccionado: blanco en oscuro
+    : theme.colors.secondary; // No seleccionado: gris en claro
+// ...existing code...
+
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={1}>
       <Animatable.View ref={viewRef} duration={1000} style={styles.container}>
@@ -126,7 +133,7 @@ const TabButton: React.FC<TabButtonProps> = ({ item, onPress, accessibilityState
           <Icon
             width={24}
             height={24}
-            fill={focused ? theme.colors.primary : isDarkTheme ? theme.colors.text : "#b8b8b8"}
+            fill={iconColor}
           />
         </View>
         <Animatable.Text ref={textRef} style={[styles.text, { color: isDarkTheme ? "#ebedf2" : theme.colors.text }]}>

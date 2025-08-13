@@ -36,3 +36,4 @@ export { default as MailIcon } from "./mail.svg";
 export { default as LockAltIcon } from "./lockAlt.svg";
 export { default as EyeIcon } from "./eye.svg";
 export { default as EyeOffIcon } from "./eyeOff.svg";
+export { default as MenuIcon } from "./menu.svg"; 
