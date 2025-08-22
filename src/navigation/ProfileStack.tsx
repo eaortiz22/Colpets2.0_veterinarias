@@ -27,16 +27,79 @@ const Stack = createStackNavigator<ProfileStackParamList>();
 
 export default function ProfileStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="ProfileMain" component={Profile} />
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-      <Stack.Screen name="Pets" component={PetsNavigator} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="Memberships" component={MembershipsScreen} />
-      <Stack.Screen name="Payments" component={PaymentsScreen} />
-      <Stack.Screen name="History" component={HistoryScreen} />
-      <Stack.Screen name="Legal" component={LegalScreen} />
-      <Stack.Screen name="Help" component={HelpScreen} />
+    <Stack.Navigator>
+      {/* ✅ Pantalla principal: aquí sí se muestra la barra */}
+      <Stack.Screen
+        name="ProfileMain"
+        component={Profile}
+        options={{ headerShown: false }}
+      />
+
+      {/* ✅ Subpantallas: ocultamos el tab bar */}
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{
+          headerShown: false,
+          presentation: "card",
+        }}
+      />
+      <Stack.Screen
+        name="Pets"
+        component={PetsNavigator}
+        options={{
+          headerShown: false,
+          presentation: "card",
+        }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          headerShown: false,
+          presentation: "card",
+        }}
+      />
+      <Stack.Screen
+        name="Memberships"
+        component={MembershipsScreen}
+        options={{
+          headerShown: false,
+          presentation: "card",
+        }}
+      />
+      <Stack.Screen
+        name="Payments"
+        component={PaymentsScreen}
+        options={{
+          headerShown: false,
+          presentation: "card",
+        }}
+      />
+      <Stack.Screen
+        name="History"
+        component={HistoryScreen}
+        options={{
+          headerShown: false,
+          presentation: "card",
+        }}
+      />
+      <Stack.Screen
+        name="Legal"
+        component={LegalScreen}
+        options={{
+          headerShown: false,
+          presentation: "card",
+        }}
+      />
+      <Stack.Screen
+        name="Help"
+        component={HelpScreen}
+        options={{
+          headerShown: false,
+          presentation: "card",
+        }}
+      />
     </Stack.Navigator>
   );
 }

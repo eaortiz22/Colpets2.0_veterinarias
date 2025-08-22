@@ -2,13 +2,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useEffect, useRef } from "react";
 import { GestureResponderEvent, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+
 import Home from "../screens/Home";
 import Veterinarians from "../screens/Veterinarians";
 import Services from "../screens/Services";
 import Marketplace from "../screens/Marketplace";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/ThemeContext";
-import { HomeIcon, ShoppingBagIcon, UsersIcon, HospitalIcon, UserIcon, MenuIcon } from "../../assets/icons";
+import { HomeIcon, ShoppingBagIcon, UsersIcon, HospitalIcon, UserIcon } from "../../assets/icons";
 import ProfileStack from "./ProfileStack";
 import { LocationProvider } from "../context/LocationContext";
 import EmergencyButton from "../components/ui/EmergencyButton";
@@ -39,9 +41,9 @@ const TabArr = [
     component: Marketplace,
   },
   {
-    route: "Menú",
-    label: "Menú",
-    IconComponent: MenuIcon,
+    route: "Perfil",
+    label: "Perfil",
+    IconComponent: UserIcon,
     component: ProfileStack,
   },
 ];
@@ -94,12 +96,11 @@ const TabButton: React.FC<TabButtonProps> = ({ item, onPress, accessibilityState
 
   const Icon = item.IconComponent;
 
-let iconColor = focused
-  ? theme.colors.primary // Seleccionado: turquesa
-  : isDarkTheme
-    ? theme.colors.text  // No seleccionado: blanco en oscuro
-    : theme.colors.secondary; // No seleccionado: gris en claro
-// ...existing code...
+  let iconColor = focused
+    ? theme.colors.primary
+    : isDarkTheme
+      ? theme.colors.text
+      : theme.colors.secondary;
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={1}>
@@ -130,11 +131,7 @@ let iconColor = focused
               },
             ]}
           />
-          <Icon
-            width={24}
-            height={24}
-            fill={iconColor}
-          />
+          <Icon width={24} height={24} fill={iconColor} />
         </View>
         <Animatable.Text ref={textRef} style={[styles.text, { color: isDarkTheme ? "#ebedf2" : theme.colors.text }]}>
           {item.label}
@@ -143,6 +140,15 @@ let iconColor = focused
     </TouchableOpacity>
   );
 };
+
+// 🔥 función para decidir cuándo ocultar el tab bar
+function getTabBarVisibility(route: any) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "ProfileMain";
+  if (routeName !== "ProfileMain") {
+    return { display: "none" }; // ocultar si no es la principal
+  }
+  return undefined;
+}
 
 export default function AnimTab1() {
   const { isDarkTheme, theme } = useTheme();
@@ -154,31 +160,52 @@ export default function AnimTab1() {
           initialRouteName="Home"
           screenOptions={{
             headerShown: false,
-            tabBarStyle: [
-              styles.tabBar,
-              {
-                backgroundColor: isDarkTheme ? theme.colors.primary : theme.colors.background,
-                ...(isDarkTheme
-                  ? {
-                      shadowColor: "#FFFFFF",
-                      shadowOffset: { width: 0, height: 0 },
-                      shadowOpacity: 0.1,
-                      shadowRadius: 13,
-                      elevation: 3,
-                    }
-                  : {
-                      shadowColor: "#1b1816",
-                      shadowOffset: { width: 0, height: 0 },
-                      shadowOpacity: 0.1,
-                      shadowRadius: 13,
-                      elevation: 3,
-                    }),
-                bottom: Platform.OS === "ios" ? 10 : 0,
-              },
-            ],
           }}
         >
           {TabArr.map((item, index) => {
+            if (item.route === "Perfil") {
+              return (
+                <Tab.Screen
+                  key={index}
+                  name={item.route}
+                  component={item.component}
+                  options={({ route }) => ({
+                    tabBarShowLabel: false,
+                    tabBarStyle: [
+                      styles.tabBar,
+                      {
+                        backgroundColor: isDarkTheme ? theme.colors.primary : theme.colors.background,
+                        ...(isDarkTheme
+                          ? {
+                              shadowColor: "#FFFFFF",
+                              shadowOffset: { width: 0, height: 0 },
+                              shadowOpacity: 0.1,
+                              shadowRadius: 13,
+                              elevation: 3,
+                            }
+                          : {
+                              shadowColor: "#1b1816",
+                              shadowOffset: { width: 0, height: 0 },
+                              shadowOpacity: 0.1,
+                              shadowRadius: 13,
+                              elevation: 3,
+                            }),
+                        bottom: Platform.OS === "ios" ? 10 : 0,
+                        ...getTabBarVisibility(route), // 👈 magia aquí
+                      },
+                    ],
+                    tabBarButton: (props) => (
+                      <TabButton
+                        item={item}
+                        onPress={props.onPress}
+                        accessibilityState={(props as any)?.children?._owner?.pendingProps?.focused || false}
+                      />
+                    ),
+                  })}
+                />
+              );
+            }
+
             return (
               <Tab.Screen
                 key={index}
@@ -193,6 +220,28 @@ export default function AnimTab1() {
                       accessibilityState={(props as any)?.children?._owner?.pendingProps?.focused || false}
                     />
                   ),
+                  tabBarStyle: [
+                    styles.tabBar,
+                    {
+                      backgroundColor: isDarkTheme ? theme.colors.primary : theme.colors.background,
+                      ...(isDarkTheme
+                        ? {
+                            shadowColor: "#FFFFFF",
+                            shadowOffset: { width: 0, height: 0 },
+                            shadowOpacity: 0.1,
+                            shadowRadius: 13,
+                            elevation: 3,
+                          }
+                        : {
+                            shadowColor: "#1b1816",
+                            shadowOffset: { width: 0, height: 0 },
+                            shadowOpacity: 0.1,
+                            shadowRadius: 13,
+                            elevation: 3,
+                          }),
+                      bottom: Platform.OS === "ios" ? 10 : 0,
+                    },
+                  ],
                 }}
               />
             );
